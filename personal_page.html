@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Personal page</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <img src="assets/favicon.ico" style="height: 50px; padding-right: 15px;"/>
+                <a class="navbar-brand" href="landing_page.html">Shoester</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="landing_page.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacts page.html">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="login page.html">login</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <a href="cart.html" class="btn btn-outline-dark" role="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </a>                        
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5"  style="height: 8vh;">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Personal page</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Your own space</p>
+                </div>
+            </div>
+        </header>
+   <!-- Main Content -->
+    <div class="container mt-5">
+        <!-- Profile Section -->
+        <section id="profile" class="mb-5">
+            <h2>Your Profile</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Name:</strong> John Doe</p>
+                    <p><strong>Address:</strong> 123 Main St, Anytown, USA</p>
+                    <p><strong>Phone Number:</strong> (123) 456-7890</p>
+                    <p><strong>Email:</strong> johndoe@example.com</p>
+                    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#updateModal">Update Information</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="mb-5">
+            <h2>Your Order History</h2>
+            <ul class="list-group">
+                <li class="list-group-item">Order #1 - Status: Shipped</li>
+                <li class="list-group-item">Order #2 - Status: Delivered</li>
+                <li class="list-group-item">Order #3 - Status: Pending</li>
+            </ul>
+        </section>
+
+        <!-- Update Information Modal -->
+        <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalLabel">Update Your Information</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="updateName" class="form-label">Full Name</label>
+                                <input type="text" id="updateName" class="form-control" value="John Doe" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateAddress" class="form-label">Address</label>
+                                <input type="text" id="updateAddress" class="form-control" value="123 Main St, Anytown, USA" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="updatePhone" class="form-label">Phone Number</label>
+                                <input type="tel" id="updatePhone" class="form-control" value="(123) 456-7890" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateEmail" class="form-label">Email</label>
+                                <input type="email" id="updateEmail" class="form-control" value="johndoe@example.com" required />
+                            </div>
+                            <button type="submit" class="btn btn-dark">Update Information</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Guy, Aviv, Koren, and Gal's Shoe Store</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
