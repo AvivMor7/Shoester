@@ -1,0 +1,11 @@
+#page-body {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    text-align: center; /* Center text in paragraphs */
+    margin-top: 20px; /* Optional: add some spacing from the top */
+}
+
+.phone.number, .opening.hours, .email.adress {
+    margin: 10px 0; /* Optional: add spacing between paragraphs */
+}
