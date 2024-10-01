@@ -5,7 +5,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5555;
 
 // Middleware
-app.use(express.static('public')); // Serve static files
+app.use(express.static('css')); // Serve static files i need to find the css file and put it here
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Basic route for home page
