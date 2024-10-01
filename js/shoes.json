@@ -399,6 +399,214 @@
         "size" : [42, 44, 46, 48],
         "exist in inventory": true,
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/jpeg-optimizer_IF0307_b2b010_plp.jpeg"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "green", 
+        "size" : [38, 40, 42, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F253890007--3-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "pink", 
+        "size" : [38, 40, 42, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F264900012--4-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "green", 
+        "size" : [38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F265370007--4-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "blue", 
+        "size" : [38, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F265480028--3-.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "gray", 
+        "size" : [38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/IG6176_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "adidas",
+        "color": "blue", 
+        "size" : [36, 38, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/adidas/jpeg-optimizer_BD7632_b2b010_plp.jpeg"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "white", 
+        "size" : [36, 38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/162053C_A_107X1.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "black", 
+        "size" : [36, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/A08137C_A_107X1.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "pink", 
+        "size" : [36, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/A08184C_A_107X1.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "black", 
+        "size" : [38, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/F130560002_1.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "white", 
+        "size" : [38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/F130570016_1.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "converse",
+        "color": "blue", 
+        "size" : [ 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/converse/F259730003--1-.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "new balance",
+        "color": "black", 
+        "size" : [38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/new balance /jpeg-optimizer_bb480lba_2.jpeg"
+    },
+    {
+        "kind": "women",
+        "brand" : "new balance",
+        "color": "pink", 
+        "size" : [36, 38, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/new balance /ms327asl_2.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "new balance",
+        "color": "black", 
+        "size" : [36, 38, 40, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/new balance /ms327cbw_nb_02_i.webp"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "green", 
+        "size" : [38, 40, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/F247150007--2-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "purple", 
+        "size" : [38, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/F247360013--1-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "blue", 
+        "size" : [36, 40],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/F248660003--1-.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "white", 
+        "size" : [36,38, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/Nike_551.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "white", 
+        "size" : [ 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/nike_cole.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "nike",
+        "color": "pink", 
+        "size" : [ 42, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/nike/nike_EX.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "puma",
+        "color": "pink", 
+        "size" : [40, 42, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/puma/393055_01_sv03.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "puma",
+        "color": "black", 
+        "size" : [40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/puma/393098_02_sv03.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "puma",
+        "color": "gray", 
+        "size" : [36, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/puma/396813_02_sv01.png"
+    },
+    {
+        "kind": "women",
+        "brand" : "puma",
+        "color": "brown", 
+        "size" : [38, 40, 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/puma/F265750005--6-.jpg"
+    },
+    {
+        "kind": "women",
+        "brand" : "puma",
+        "color": "greem", 
+        "size" : [38, 40, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/Shoester/assets/shoes/women/puma/F265820007_11zon.png"
     }
     ]
 }
