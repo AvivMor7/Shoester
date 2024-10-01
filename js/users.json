@@ -1,0 +1,30 @@
+[
+    {
+        "full_name": "John Doe",
+        "username": "johndoe123",
+        "password": "password123",
+        "email": "johndoe@example.com",
+        "phone_number": "+1234567890"
+    },
+    {
+        "full_name": "Jane Smith",
+        "username": "janesmith456",
+        "password": "password456",
+        "email": "janesmith@example.com",
+        "phone_number": "+0987654321"
+    },
+    {
+        "full_name": "David Brown",
+        "username": "davidb789",
+        "password": "password789",
+        "email": "davidbrown@example.com",
+        "phone_number": "+1122334455"
+    },
+    {
+        "full_name": "Emily White",
+        "username": "emilyw321",
+        "password": "password321",
+        "email": "emilywhite@example.com",
+        "phone_number": "+6677889900"
+    }
+]
