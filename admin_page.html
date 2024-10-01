@@ -12,6 +12,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- Chart.js CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <body>
         <!-- Navigation-->
@@ -45,84 +47,146 @@
                 </div>
             </div>
         </nav>
+
         <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-100 mb-0">With this shop hompeage template</p>
+                    <p class="lead fw-normal text-white-100 mb-0">With this shop homepage template</p>
                 </div>
             </div>
         </header>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Shoe Store Admin Dashboard</title>
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-            <style>
-                body {
-                    background-color: #f8f9fa;
-                }
-                .dashboard {
-                    margin: 20px;
-                }
-            </style>
-            <div class="dashboard">
-                <h1 class="text-center">Admin Dashboard</h1>
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Shoes Edit Section</h5>
-                                </div>
-                                <div class="card-body">
-                                    <p>Edit your shoe catalog here.</p>
-                                    <a href="edit-shoes.html" class="btn btn-primary">Add/Delete Shoes</a>
-                                </div>
+
+        <div class="dashboard">
+            <h1 class="text-center">Admin Dashboard</h1>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Shoes Edit Section</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Edit your shoe catalog here.</p>
+                                <a href="edit-shoes.html" class="btn btn-primary">Add/Delete Shoes</a>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Users Edit Section</h5>
-                                </div>
-                                <div class="card-body">
-                                    <p>Manage your users here.</p>
-                                    <a href="manage-users.html" class="btn btn-warning">User List</a>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Users Edit Section</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Manage your users here.</p>
+                                <a href="manage-users.html" class="btn btn-warning">User List</a>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Past Orders Section</h5>
-                                </div>
-                                <div class="card-body">
-                                    <p>View all past orders here.</p>
-                                    <a href="past-orders.html" class="btn btn-success">View Past Orders</a>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Past Orders Section</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>View all past orders here.</p>
+                                <a href="past-orders.html" class="btn btn-success">View Past Orders</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        
-        
-        
-        
 
+            <!-- Graphs Section -->
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Sales by Category</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="categorySalesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Monthly Revenue</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="monthlyRevenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart.js example script -->
+        <script>
+            // Sales by Category Bar Chart
+            var ctx1 = document.getElementById('categorySalesChart').getContext('2d');
+            var categorySalesChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Sneakers', 'Boots', 'Sandals', 'Formal Shoes'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [12, 19, 3, 5],  // Dummy data for now
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Monthly Revenue Pie Chart
+            var ctx2 = document.getElementById('monthlyRevenueChart').getContext('2d');
+            var monthlyRevenueChart = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['January', 'February', 'March', 'April'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [12000, 15000, 8000, 17000],  // Dummy data for now
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        </script>
 
         <!-- Footer-->
         <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Guy, aviv, koren and Gal's shoe store</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+            <div class="container"><p class="m-0
