@@ -47,17 +47,70 @@
             </div>
         </nav>
         <!-- Header-->
+<<<<<<< HEAD
         <header class="bg-dark py-5"  style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.703);background-image: url(/assets/banner4.jpg);background-size: cover;background-repeat: no-repeat;background-position: right;height: 100%;width: 100%;">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white" style="text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.674);">
                     <h1 class="display-4 fw-bolder">Contact Us</h1>
                     <p class="lead fw-normal text-white-100 mb-0">Were here for you</p>
+=======
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5" style="height: 8vh;">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Contacts </h1>
+                    <p class="lead fw-normal text-white-50 mb-0">here for you</p>
+>>>>>>> 4e38696 (contact page update)
                 </div>
             </div>
         </header>
         <!-- page's body-->
-         <div class="page's body">
-            <p class="phone number"></p>
+         <div class="page-body" id="page-body">
+            <form style="width: 26rem;">
+                <!-- Name input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form4Example1">Name</label>
+                  <input type="text" id="form4Example1" class="form-control" />
+                  
+                </div>
+              
+                <!-- Email input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form4Example2">Email address</label>
+                  <input type="email" id="form4Example2" class="form-control" />
+                  
+                </div>
+              
+                <!-- Message input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="form4Example3">Message</label>
+                  <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+                  
+                </div>
+              
+                <!-- Checkbox -->
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="form4Example4"
+                    checked
+                  />
+                  <label class="form-check-label" for="form4Example4">
+                    Send me a copy of this message
+                  </label>
+                </div>
+              
+                <!-- Submit button -->
+                <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Send</button>
+              </form>
+            
+            <div id="output"></div>
+            <p class="phone number">Phone for calling: 050-123456</p>
+            <p class="opening hours"> calls receiving hours: 10:00-18:00 </p>
+            <p calss="email adress">Email: Shoester@gmail.com</p>
+            
+
          </div>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
@@ -67,5 +120,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
+        
     </body>
 </html>

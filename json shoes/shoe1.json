@@ -1,0 +1,8 @@
+{
+    "kind": "kids",
+    "brand" : "adidas",
+    "color": "black", 
+    "size" : [32, 34, 36, 30],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/BB2502_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
+}

@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "converse",
+    "color": "blue", 
+    "size" : [42, 44, 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/converse/A05589C_A_107X1.png"
+}

@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "new balance",
+    "color": "white", 
+    "size" : [ 40, 44, 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F266600016.jpg"
+}

@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "nike",
+    "color": "blue", 
+    "size" : [ 42, 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/nike/F250180003--4-.png"
+}

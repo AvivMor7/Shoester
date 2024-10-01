@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "new balance",
+    "color": "blue", 
+    "size" : [ 42],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255170009--2-.jpg"
+}

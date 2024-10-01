@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "nike",
+    "color": "brown", 
+    "size" : [ 42, 44,46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248820005--5-.png"
+}

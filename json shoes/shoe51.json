@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "adidas",
+    "color": "gray", 
+    "size" : [ 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/adidas/IE7221_b2b010_plp.jpg"
+}

@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "new balance",
+    "color": "white", 
+    "size" : [ 44, 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/new balance /bb650rww_2.png"
+}
