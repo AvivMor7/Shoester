@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "puma",
-    "color": "brown", 
-    "size" : [40, 44, 46, 48],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265760016--7--12356.png"
-}

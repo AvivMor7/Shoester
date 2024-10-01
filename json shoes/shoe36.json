@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "new balance",
-    "color": "brown", 
-    "size" : [ 42, 44],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255150031--4-.jpg"
-}

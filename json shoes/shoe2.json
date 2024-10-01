@@ -1,8 +1,0 @@
-{
-    "kind": "kids",
-    "brand" : "adidas",
-    "color": "black", 
-    "size" : [32, 34, 36],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/F264700002--1-.png"
-}

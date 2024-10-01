@@ -1,8 +1,0 @@
-{
-    "kind": "kids",
-    "brand" : "nike",
-    "color": "black", 
-    "size" : [30, 34],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/kids/nike/jpeg-optimizer_AURORA_DZ4486-004_PHSRH000-1000--1-.jpeg"
-}

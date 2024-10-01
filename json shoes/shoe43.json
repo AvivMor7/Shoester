@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "converse",
-    "color": "white", 
-    "size" : [42, 46],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/converse/F259790016--6-.png"
-}

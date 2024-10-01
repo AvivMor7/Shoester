@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "adidas",
-    "color": "blue", 
-    "size" : [ 44],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/adidas/ID4596_b2b010_plp.jpg"
-}

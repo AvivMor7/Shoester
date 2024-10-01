@@ -1,8 +1,0 @@
-{
-    "kind": "kids",
-    "brand" : "puma",
-    "color": "brown", 
-    "size" : [ 30, 36],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/kids/puma/F265780016--7-.jpg"
-}

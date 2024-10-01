@@ -1,0 +1,405 @@
+{
+    "shoes": [
+      {
+        "kind": "kids",
+        "brand": "adidas",
+        "color": "black",
+        "size": [32, 34, 36, 30],
+        "exist_in_inventory": true,
+        "url": "/workspaces/shoestore/assets/shoes/kids/adidas/BB2502_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
+      },
+      {
+        "kind": "kids",
+        "brand" : "adidas",
+        "color": "black", 
+        "size" : [32, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/F264700002--1-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "adidas",
+        "color": "gray", 
+        "size" : [28, 30, 32, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/FW0716_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "adidas",
+        "color": "pink", 
+        "size" : [28, 30, 32],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/ID9175_b2b010_plp.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "adidas",
+        "color": "pink", 
+        "size" : [28, 30, 32],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/IG1699_1_FOOTWEAR_Photography_Side-Lateral-Center-View_transparent.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "converse",
+        "color": "black", 
+        "size" : [28, 32, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/converse/368983C_A_107X1_White.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "converse",
+        "color": "white", 
+        "size" : [32, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/converse/368984C_A_107X1_White.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "converse",
+        "color": "black", 
+        "size" : [32, 34, 30],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/converse/372861c_a_107x1_1.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "converse",
+        "color": "white", 
+        "size" : [28, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/converse/372862C_A_107X1.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "red", 
+        "size" : [32, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F247510014--4-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "purple", 
+        "size" : [26, 28, 30, 32, 34],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F247970013--3-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "blue", 
+        "size" : [ 30, 32, 34],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F248300100--3-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "brown", 
+        "size" : [ 30, 32],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F248310005--1-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "pink", 
+        "size" : [28, 30, 32],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F249320012--4-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "blue", 
+        "size" : [28, 30, 32, 34],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F250080003--3-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "blue", 
+        "size" : [30, 32, 34],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F24752010000--3-.png"
+    },
+    {
+        "kind": "kids",
+        "brand" : "nike",
+        "color": "black", 
+        "size" : [30, 34],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/nike/jpeg-optimizer_AURORA_DZ4486-004_PHSRH000-1000--1-.jpeg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "puma",
+        "color": "white", 
+        "size" : [26, 28, 30],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/puma/384528_01_sv03.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "puma",
+        "color": "pink", 
+        "size" : [26, 28, 30],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/puma/395548_01_sv03.jpg"
+    },
+    {
+        "kind": "kids",
+        "brand" : "puma",
+        "color": "white", 
+        "size" : [ 30, 34, 36],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/kids/puma/F265730016--7-.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "pink", 
+        "size" : [40, 43, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/309755_01_sv03_KOR.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "blue", 
+        "size" : [40, 42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/396463_07_sv03.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "black", 
+        "size" : [42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/F235490002-123.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "green", 
+        "size" : [42, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/F251520100--2-.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "brown", 
+        "size" : [40, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265760016--7--12356.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "puma",
+        "color": "blue", 
+        "size" : [40, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265820007_11zon.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "white", 
+        "size" : [42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F241740016--2-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "black", 
+        "size" : [40, 42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248220002--2-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "white", 
+        "size" : [40, 42, 44, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248450016--1-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "green", 
+        "size" : [ 42, 44, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248600100--3-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "brown", 
+        "size" : [ 42, 44,46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248820005--5-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "nike",
+        "color": "blue", 
+        "size" : [ 42, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/nike/F250180003--4-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "white", 
+        "size" : [ 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /bb650rww_2.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "gray", 
+        "size" : [ 42, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255040008--5-.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "brown", 
+        "size" : [ 42, 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255150031--4-.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "blue", 
+        "size" : [ 42],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255170009--2-.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "white", 
+        "size" : [ 40, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F266600016.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "new balance",
+        "color": "gray", 
+        "size" : [44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/new balance /U574GGE_2.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "black", 
+        "size" : [44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/162058C_A_107X1--Custom--1627825597841.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "blue", 
+        "size" : [42, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/A05589C_A_107X1.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "pink", 
+        "size" : [42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/A06778C.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "white", 
+        "size" : [42, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/F259790016--6-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "brown", 
+        "size" : [40, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/F259820006--2-_11zon.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "converse",
+        "color": "blue", 
+        "size" : [40, 42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/converse/jpeg-optimizer_A08617C_A_08X1.jpeg"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "white", 
+        "size" : [ 42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F134160016_1.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "brown", 
+        "size" : [ 42, 44, 46],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F264820031--3-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "black", 
+        "size" : [ 44, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F265590010--3-.png"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "blue", 
+        "size" : [ 44],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/ID4596_b2b010_plp.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "gray", 
+        "size" : [ 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/IE7221_b2b010_plp.jpg"
+    },
+    {
+        "kind": "men",
+        "brand" : "adidas",
+        "color": "white", 
+        "size" : [42, 44, 46, 48],
+        "exist in inventory": true,
+        "url" :"/workspaces/shoestore/assets/shoes/men/adidas/jpeg-optimizer_IF0307_b2b010_plp.jpeg"
+    }
+    ]
+  }
+  

@@ -1,8 +1,0 @@
-{
-    "kind": "kids",
-    "brand" : "adidas",
-    "color": "gray", 
-    "size" : [28, 30, 32, 34, 36],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/FW0716_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
-}

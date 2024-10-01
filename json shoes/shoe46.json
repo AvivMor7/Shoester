@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "adidas",
-    "color": "white", 
-    "size" : [ 42, 44, 46],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F134160016_1.jpg"
-}

@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "puma",
-    "color": "pink", 
-    "size" : [40, 43, 44, 46],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/puma/309755_01_sv03_KOR.jpg"
-}

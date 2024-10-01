@@ -1,8 +1,0 @@
-{
-    "kind": "kids",
-    "brand" : "nike",
-    "color": "brown", 
-    "size" : [ 30, 32],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F248310005--1-.png"
-}

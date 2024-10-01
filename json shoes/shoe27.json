@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "puma",
-    "color": "blue", 
-    "size" : [40, 44, 46],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265820007_11zon.png"
-}

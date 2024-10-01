@@ -1,8 +1,0 @@
-{
-    "kind": "men",
-    "brand" : "converse",
-    "color": "pink", 
-    "size" : [42, 44, 46],
-    "exist in inventory": true,
-    "url" :"/workspaces/shoestore/assets/shoes/men/converse/A06778C.jpg"
-}
