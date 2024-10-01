@@ -1,6 +1,6 @@
-
+require('dotenv').config({ path: '.env.local' });
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://lohemaham:password@shoester.rwg7h.mongodb.net/?retryWrites=true&w=majority&appName=shoester";
+const uri = process.env.MONGODB_URI;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -13,7 +13,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect the client to the server (optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
@@ -23,4 +23,5 @@ async function run() {
     await client.close();
   }
 }
+
 run().catch(console.dir);
