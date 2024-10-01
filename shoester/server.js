@@ -1,4 +1,4 @@
-const express = require('express'); // Correct import
+const express = require('express'); 
 const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 5555;
@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Basic route for home page
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html'); // Serve your HTML file
+    res.sendFile(__dirname + '/contacts page.html'); // Serve your HTML file
 });
 
 // Example route for handling form submissions
