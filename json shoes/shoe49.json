@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "adidas",
+    "color": "black", 
+    "size" : [ 44, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F265590010--3-.png"
+}

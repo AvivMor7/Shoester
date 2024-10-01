@@ -1,0 +1,8 @@
+{
+    "kind": "kids",
+    "brand" : "puma",
+    "color": "pink", 
+    "size" : [26, 28, 30],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/kids/puma/395548_01_sv03.jpg"
+}

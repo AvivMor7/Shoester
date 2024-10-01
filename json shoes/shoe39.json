@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "new balance",
+    "color": "gray", 
+    "size" : [44, 46, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/new balance /U574GGE_2.jpg"
+}

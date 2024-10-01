@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "adidas",
+    "color": "brown", 
+    "size" : [ 42, 44, 48],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F264850016--2-_11zon.png"
+}

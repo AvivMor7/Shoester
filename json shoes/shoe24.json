@@ -1,0 +1,8 @@
+{
+    "kind": "men",
+    "brand" : "puma",
+    "color": "black", 
+    "size" : [42, 44, 46],
+    "exist in inventory": true,
+    "url" :"/workspaces/shoestore/assets/shoes/men/puma/F235490002-123.png"
+}
