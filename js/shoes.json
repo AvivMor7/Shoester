@@ -1,6 +1,7 @@
 {
     "shoes": [
       {
+        "id": 1,
         "kind": "kids",
         "brand": "adidas",
         "color": "black",
@@ -9,6 +10,7 @@
         "url": "/workspaces/shoestore/assets/shoes/kids/adidas/BB2502_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
       },
       {
+        "id": 2,
         "kind": "kids",
         "brand" : "adidas",
         "color": "black", 
@@ -17,6 +19,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/F264700002--1-.png"
     },
     {
+        "id": 3,
         "kind": "kids",
         "brand" : "adidas",
         "color": "gray", 
@@ -25,6 +28,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/FW0716_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
     },
     {
+        "id": 4,
         "kind": "kids",
         "brand" : "adidas",
         "color": "pink", 
@@ -33,6 +37,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/ID9175_b2b010_plp.jpg"
     },
     {
+        "id": 5,
         "kind": "kids",
         "brand" : "adidas",
         "color": "pink", 
@@ -41,6 +46,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/adidas/IG1699_1_FOOTWEAR_Photography_Side-Lateral-Center-View_transparent.png"
     },
     {
+        "id": 6,
         "kind": "kids",
         "brand" : "converse",
         "color": "black", 
@@ -49,6 +55,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/converse/368983C_A_107X1_White.png"
     },
     {
+        "id": 7,
         "kind": "kids",
         "brand" : "converse",
         "color": "white", 
@@ -57,6 +64,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/converse/368984C_A_107X1_White.png"
     },
     {
+        "id": 8,
         "kind": "kids",
         "brand" : "converse",
         "color": "black", 
@@ -65,6 +73,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/converse/372861c_a_107x1_1.jpg"
     },
     {
+        "id": 9,
         "kind": "kids",
         "brand" : "converse",
         "color": "white", 
@@ -73,6 +82,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/converse/372862C_A_107X1.jpg"
     },
     {
+        "id": 10,
         "kind": "kids",
         "brand" : "nike",
         "color": "red", 
@@ -81,6 +91,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F247510014--4-.png"
     },
     {
+        "id": 11,
         "kind": "kids",
         "brand" : "nike",
         "color": "purple", 
@@ -89,6 +100,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F247970013--3-.png"
     },
     {
+        "id": 12,
         "kind": "kids",
         "brand" : "nike",
         "color": "blue", 
@@ -97,6 +109,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F248300100--3-.png"
     },
     {
+        "id": 13,
         "kind": "kids",
         "brand" : "nike",
         "color": "brown", 
@@ -105,6 +118,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F248310005--1-.png"
     },
     {
+        "id": 14,
         "kind": "kids",
         "brand" : "nike",
         "color": "pink", 
@@ -113,6 +127,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F249320012--4-.png"
     },
     {
+        "id": 15,
         "kind": "kids",
         "brand" : "nike",
         "color": "blue", 
@@ -121,6 +136,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F250080003--3-.png"
     },
     {
+        "id": 16,
         "kind": "kids",
         "brand" : "nike",
         "color": "blue", 
@@ -129,6 +145,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/F24752010000--3-.png"
     },
     {
+        "id": 17,
         "kind": "kids",
         "brand" : "nike",
         "color": "black", 
@@ -137,6 +154,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/nike/jpeg-optimizer_AURORA_DZ4486-004_PHSRH000-1000--1-.jpeg"
     },
     {
+        "id": 18,
         "kind": "kids",
         "brand" : "puma",
         "color": "white", 
@@ -145,6 +163,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/puma/384528_01_sv03.jpg"
     },
     {
+        "id": 19,
         "kind": "kids",
         "brand" : "puma",
         "color": "pink", 
@@ -153,6 +172,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/puma/395548_01_sv03.jpg"
     },
     {
+        "id": 20,
         "kind": "kids",
         "brand" : "puma",
         "color": "white", 
@@ -161,6 +181,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/kids/puma/F265730016--7-.jpg"
     },
     {
+        "id": 21,
         "kind": "men",
         "brand" : "puma",
         "color": "pink", 
@@ -169,6 +190,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/309755_01_sv03_KOR.jpg"
     },
     {
+        "id": 22,
         "kind": "men",
         "brand" : "puma",
         "color": "blue", 
@@ -177,6 +199,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/396463_07_sv03.jpg"
     },
     {
+        "id": 23,
         "kind": "men",
         "brand" : "puma",
         "color": "black", 
@@ -185,6 +208,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/F235490002-123.png"
     },
     {
+        "id": 24,
         "kind": "men",
         "brand" : "puma",
         "color": "green", 
@@ -193,6 +217,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/F251520100--2-.jpg"
     },
     {
+        "id": 25,
         "kind": "men",
         "brand" : "puma",
         "color": "brown", 
@@ -201,6 +226,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265760016--7--12356.png"
     },
     {
+        "id": 26,
         "kind": "men",
         "brand" : "puma",
         "color": "blue", 
@@ -209,6 +235,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/puma/F265820007_11zon.png"
     },
     {
+        "id": 27,
         "kind": "men",
         "brand" : "nike",
         "color": "white", 
@@ -217,6 +244,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F241740016--2-.png"
     },
     {
+        "id": 28,
         "kind": "men",
         "brand" : "nike",
         "color": "black", 
@@ -225,6 +253,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248220002--2-.png"
     },
     {
+        "id": 29,
         "kind": "men",
         "brand" : "nike",
         "color": "white", 
@@ -233,6 +262,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248450016--1-.png"
     },
     {
+        "id": 30,
         "kind": "men",
         "brand" : "nike",
         "color": "green", 
@@ -241,6 +271,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248600100--3-.png"
     },
     {
+        "id": 31,
         "kind": "men",
         "brand" : "nike",
         "color": "brown", 
@@ -249,6 +280,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F248820005--5-.png"
     },
     {
+        "id": 32,
         "kind": "men",
         "brand" : "nike",
         "color": "blue", 
@@ -257,6 +289,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/nike/F250180003--4-.png"
     },
     {
+        "id": 33,
         "kind": "men",
         "brand" : "new balance",
         "color": "white", 
@@ -265,6 +298,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /bb650rww_2.png"
     },
     {
+        "id": 34,
         "kind": "men",
         "brand" : "new balance",
         "color": "gray", 
@@ -273,6 +307,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255040008--5-.jpg"
     },
     {
+        "id": 35,
         "kind": "men",
         "brand" : "new balance",
         "color": "brown", 
@@ -281,6 +316,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255150031--4-.jpg"
     },
     {
+        "id": 36,
         "kind": "men",
         "brand" : "new balance",
         "color": "blue", 
@@ -289,6 +325,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F255170009--2-.jpg"
     },
     {
+        "id": 37,
         "kind": "men",
         "brand" : "new balance",
         "color": "white", 
@@ -297,6 +334,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /F266600016.jpg"
     },
     {
+        "id": 38,
         "kind": "men",
         "brand" : "new balance",
         "color": "gray", 
@@ -305,6 +343,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/new balance /U574GGE_2.jpg"
     },
     {
+        "id": 39,
         "kind": "men",
         "brand" : "converse",
         "color": "black", 
@@ -313,6 +352,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/162058C_A_107X1--Custom--1627825597841.jpg"
     },
     {
+        "id": 40,
         "kind": "men",
         "brand" : "converse",
         "color": "blue", 
@@ -321,6 +361,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/A05589C_A_107X1.png"
     },
     {
+        "id": 41,
         "kind": "men",
         "brand" : "converse",
         "color": "pink", 
@@ -329,6 +370,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/A06778C.jpg"
     },
     {
+        "id": 42,
         "kind": "men",
         "brand" : "converse",
         "color": "white", 
@@ -337,6 +379,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/F259790016--6-.png"
     },
     {
+        "id": 43,
         "kind": "men",
         "brand" : "converse",
         "color": "brown", 
@@ -345,6 +388,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/F259820006--2-_11zon.png"
     },
     {
+        "id": 44,
         "kind": "men",
         "brand" : "converse",
         "color": "blue", 
@@ -353,6 +397,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/converse/jpeg-optimizer_A08617C_A_08X1.jpeg"
     },
     {
+        "id": 45,
         "kind": "men",
         "brand" : "adidas",
         "color": "white", 
@@ -361,6 +406,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F134160016_1.jpg"
     },
     {
+        "id": 46,
         "kind": "men",
         "brand" : "adidas",
         "color": "brown", 
@@ -369,6 +415,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F264820031--3-.png"
     },
     {
+        "id": 47,
         "kind": "men",
         "brand" : "adidas",
         "color": "black", 
@@ -377,6 +424,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/F265590010--3-.png"
     },
     {
+        "id": 48,
         "kind": "men",
         "brand" : "adidas",
         "color": "blue", 
@@ -385,6 +433,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/ID4596_b2b010_plp.jpg"
     },
     {
+        "id": 49,
         "kind": "men",
         "brand" : "adidas",
         "color": "gray", 
@@ -393,6 +442,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/IE7221_b2b010_plp.jpg"
     },
     {
+        "id": 50,
         "kind": "men",
         "brand" : "adidas",
         "color": "white", 
@@ -401,6 +451,7 @@
         "url" :"/workspaces/shoestore/assets/shoes/men/adidas/jpeg-optimizer_IF0307_b2b010_plp.jpeg"
     },
     {
+        "id": 51,
         "kind": "women",
         "brand" : "adidas",
         "color": "green", 
@@ -409,6 +460,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F253890007--3-.png"
     },
     {
+        "id": 52,
         "kind": "women",
         "brand" : "adidas",
         "color": "pink", 
@@ -417,6 +469,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F264900012--4-.png"
     },
     {
+        "id": 53,
         "kind": "women",
         "brand" : "adidas",
         "color": "green", 
@@ -425,6 +478,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F265370007--4-.png"
     },
     {
+        "id": 54,
         "kind": "women",
         "brand" : "adidas",
         "color": "blue", 
@@ -433,6 +487,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/F265480028--3-.jpg"
     },
     {
+        "id": 55,
         "kind": "women",
         "brand" : "adidas",
         "color": "gray", 
@@ -441,6 +496,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/IG6176_1_FOOTWEAR_Photography_Side-Lateral-Center-View_white.jpg"
     },
     {
+        "id": 56,
         "kind": "women",
         "brand" : "adidas",
         "color": "blue", 
@@ -449,6 +505,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/adidas/jpeg-optimizer_BD7632_b2b010_plp.jpeg"
     },
     {
+        "id": 57,
         "kind": "women",
         "brand" : "converse",
         "color": "white", 
@@ -457,6 +514,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/162053C_A_107X1.jpg"
     },
     {
+        "id": 58,
         "kind": "women",
         "brand" : "converse",
         "color": "black", 
@@ -465,6 +523,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/A08137C_A_107X1.png"
     },
     {
+        "id": 59,
         "kind": "women",
         "brand" : "converse",
         "color": "pink", 
@@ -473,6 +532,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/A08184C_A_107X1.png"
     },
     {
+        "id": 60,
         "kind": "women",
         "brand" : "converse",
         "color": "black", 
@@ -481,6 +541,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/F130560002_1.jpg"
     },
     {
+        "id": 61,
         "kind": "women",
         "brand" : "converse",
         "color": "white", 
@@ -489,6 +550,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/F130570016_1.jpg"
     },
     {
+        "id": 62,
         "kind": "women",
         "brand" : "converse",
         "color": "blue", 
@@ -497,6 +559,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/converse/F259730003--1-.jpg"
     },
     {
+        "id": 63,
         "kind": "women",
         "brand" : "new balance",
         "color": "black", 
@@ -505,6 +568,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/new balance /jpeg-optimizer_bb480lba_2.jpeg"
     },
     {
+        "id": 64,
         "kind": "women",
         "brand" : "new balance",
         "color": "pink", 
@@ -513,6 +577,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/new balance /ms327asl_2.jpg"
     },
     {
+        "id": 65,
         "kind": "women",
         "brand" : "new balance",
         "color": "black", 
@@ -521,6 +586,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/new balance /ms327cbw_nb_02_i.webp"
     },
     {
+        "id": 66,
         "kind": "women",
         "brand" : "nike",
         "color": "green", 
@@ -529,6 +595,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/F247150007--2-.png"
     },
     {
+        "id": 67,
         "kind": "women",
         "brand" : "nike",
         "color": "purple", 
@@ -537,6 +604,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/F247360013--1-.png"
     },
     {
+        "id": 68,
         "kind": "women",
         "brand" : "nike",
         "color": "blue", 
@@ -545,6 +613,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/F248660003--1-.png"
     },
     {
+        "id": 69,
         "kind": "women",
         "brand" : "nike",
         "color": "white", 
@@ -553,6 +622,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/Nike_551.png"
     },
     {
+        "id": 70,
         "kind": "women",
         "brand" : "nike",
         "color": "white", 
@@ -561,6 +631,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/nike_cole.png"
     },
     {
+        "id": 71,
         "kind": "women",
         "brand" : "nike",
         "color": "pink", 
@@ -569,6 +640,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/nike/nike_EX.png"
     },
     {
+        "id": 72,
         "kind": "women",
         "brand" : "puma",
         "color": "pink", 
@@ -577,6 +649,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/puma/393055_01_sv03.jpg"
     },
     {
+        "id": 73,
         "kind": "women",
         "brand" : "puma",
         "color": "black", 
@@ -585,6 +658,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/puma/393098_02_sv03.png"
     },
     {
+        "id": 74,
         "kind": "women",
         "brand" : "puma",
         "color": "gray", 
@@ -593,6 +667,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/puma/396813_02_sv01.png"
     },
     {
+        "id": 75,
         "kind": "women",
         "brand" : "puma",
         "color": "brown", 
@@ -601,6 +676,7 @@
         "url" :"/workspaces/Shoester/assets/shoes/women/puma/F265750005--6-.jpg"
     },
     {
+        "id": 76,
         "kind": "women",
         "brand" : "puma",
         "color": "greem", 
