@@ -1,0 +1,17 @@
+[
+    {
+        "order_id": "1",
+        "username": "john_doe",
+        "shoes_ids": ["101", "102"]
+    },
+    {
+        "order_id": "2",
+        "username": "jane_smith",
+        "shoes_ids": ["103"]
+    },
+    {
+        "order_id": "3",
+        "username": "alice_johnson",
+        "shoes_ids": ["104", "105", "106"]
+    }
+]

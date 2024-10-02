@@ -5,6 +5,7 @@
         "password": "password123",
         "email": "guy@example.com",
         "phone_number": "1234567890",
+        "address": "123 Main St, City, Country",
         "is_admin": false
     },
     {
@@ -13,30 +14,34 @@
         "password": "password123",
         "email": "koren@example.com",
         "phone_number": "0987654321",
+        "address": "456 Park Ave, City, Country",
         "is_admin": false
     },
     {
         "full_name": "Gal",
         "username": "galr",
         "password": "password123",
-        "email": "davidbrown@example.com",
-        "phone_number": "+1122334455",
-        "is_admin": true
+        "email": "gal@example.com",
+        "phone_number": "1122334455",
+        "address": "789 Broadway, City, Country",
+        "is_admin": false
     },
     {
         "full_name": "Aviv",
         "username": "avivm",
         "password": "password123",
-        "email": "emilywhite@example.com",
-        "phone_number": "+6677889900",
+        "email": "aviv@example.com",
+        "phone_number": "6677889900",
+        "address": "321 Elm St, City, Country",
         "is_admin": false
     },
     {
         "full_name": "Admin",
         "username": "Admin",
         "password": "password",
-        "email": "emilywhite@example.com",
-        "phone_number": "+6677889900",
+        "email": "admin@example.com",
+        "phone_number": "66677889900",
+        "address": "100 Admin Rd, City, Country",
         "is_admin": true
     }
 ]

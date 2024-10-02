@@ -2,7 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
+const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 5555;
+
+const { addShoe, deleteShoe } = require('./shoeFunctions'); // Import shoe functions
+const { addUser } = require('./userFunctions'); // Import user functions
+const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
+require('dotenv').config({ path: '.env.local' }); // Load environment variables
+
+// Connect to MongoDB
+const uri = process.env.MONGODB_URI;
+mongoose.connect(uri)
+    .then(() => console.log("Connected to MongoDB successfully"))
+    .catch(err => console.log("Error connecting to MongoDB"));
 
 // Middleware
 app.use('/css', express.static(path.join(__dirname, '../css'))); // Serve static files 
@@ -11,42 +23,16 @@ app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 // Serve the entire 'assets' folder as static
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
+// Serve all HTML files in the 'html' folder
+app.use(express.static(path.join(__dirname, '../html')));
+
 // Basic route for home page
 app.get('/landing_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../landing_page.html')); // Correctly serve your HTML file
+    res.sendFile(path.join(__dirname, '../html/landing_page.html')); // Serve your homepage
 });
 
-app.get('/cart.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../cart.html')); // Correctly serve your HTML file
-
-});
-app.get('/admin_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../admin_page.html')); // Correctly serve your HTML file
-});
-app.get('/login_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../login_page.html')); // Correctly serve your HTML file
-});
-app.get('/personal_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../personal_page.html')); // Correctly serve your HTML file
-});
-app.get('/registration.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../registration.html')); // Correctly serve your HTML file
-});
-app.get('/result_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../result_page.html')); // Correctly serve your HTML file
-});
-app.get('/contacts_page.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../contacts_page.html')); // Correctly serve your HTML file
-});
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../landing_page.html')); // Correctly serve your HTML file
-});
-
-
-// Example route for handling form submissions
-app.post('/submit', (req, res) => {
-    console.log(req.body); // Process form data
-    res.send('Form submitted!'); // Respond to the client
+    res.redirect('/landing_page.html'); // Redirect root to homepage
 });
 
 // Start the server
