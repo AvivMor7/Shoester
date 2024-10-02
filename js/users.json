@@ -24,12 +24,12 @@
         "is_admin": true
     },
     {
-    "full_name": "Aviv",
-    "username": "avivm",
-    "password": "password123",
-    "email": "emilywhite@example.com",
-    "phone_number": "+6677889900",
-    "is_admin": false
+        "full_name": "Aviv",
+        "username": "avivm",
+        "password": "password123",
+        "email": "emilywhite@example.com",
+        "phone_number": "+6677889900",
+        "is_admin": false
     },
     {
         "full_name": "Admin",
