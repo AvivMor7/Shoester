@@ -8,8 +8,10 @@ const PORT = process.env.PORT || 5555;
 app.use(express.static('css')); // Serve static files i need to find the css file and put it here
 app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-// Basic route for home page
+// Serve the entire 'assets' folder as static
+app.use('/assets', express.static(path.join(__dirname, '../assets')));
 
+// Basic route for home page
 app.get('/landing_page.html', (req, res) => {
     res.sendFile(path.join(__dirname, '../landing_page.html')); // Correctly serve your HTML file
 });
