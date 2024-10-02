@@ -16,15 +16,11 @@ mongoose.connect(uri)
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log("Error connecting to MongoDB"));
 
-// Middleware
-app.use('/css', express.static(path.join(__dirname, '../css'))); // Serve static files 
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
-// Serve the entire 'assets' folder as static
+// Serve the html, css and assets folders
+app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
-
-// Serve all HTML files in the 'html' folder
 app.use(express.static(path.join(__dirname, '../html')));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Basic route for home page
 app.get('/landing_page.html', (req, res) => {
