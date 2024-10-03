@@ -34,10 +34,50 @@ function populateUserTable() {
             <td>${user.email}</td>
             <td>${user.phone_number}</td>
             <td>${user.address}</td>
+            <td>
+                <button onclick="deleteUser('${user.username}')">Delete User</button>
+            </td>
         `;
         userTableBody.appendChild(row);
     });
 }
+
+// Function to delete a user
+async function deleteUser(username) {
+    // Ask for confirmation before deletion
+    if (!confirm('Are you sure you want to delete this user?')) {
+        return; // Exit if the user cancels
+    }
+
+    try {
+        // Send a DELETE request to the server with the username in the URL
+        console.log(`Sending DELETE request to: /delete-user/${username}`);
+        const response = await fetch(`/delete-user/${username}`, {
+            method: 'DELETE', // Use DELETE method
+            headers: {
+                'Content-Type': 'application/json' // Even though we don't send a body, it's good practice to specify the content type
+            }
+        });
+
+        // Check if the response is OK (status code 200)
+        if (!response.ok) {
+            throw new Error('Failed to delete user');
+        }
+
+        // Assuming `users` is an array of user objects, filter out the deleted user
+        users = users.filter(user => user.username !== username);  // Use `username` for filtering
+
+        // Re-render the user table after the deletion
+        populateUserTable();
+
+        // Show a success message
+        alert('User deleted successfully!');
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('An error occurred while deleting the user. Please check the console for details.');
+    }
+}
+
 
 // Function to toggle the visibility of the user list
 function toggleUserList() {

@@ -7,7 +7,7 @@ const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 5555;
 
 const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
-const {  addUser, checkUser, getUsers, getUser } = require('./userFunctions'); // Import user functions
+const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
@@ -74,11 +74,43 @@ app.post('/register', async (req, res) => {
     }
 });
 
+
+app.delete('/delete-user/:username', async (req, res) => {
+    const username = req.params.username;  // Get the username from the URL params
+    try {
+        const deletedUser = await deleteUser(username);  // Await the deletion result
+        if (deletedUser) {
+            res.status(200).json({ message: 'User deleted successfully', username: deletedUser });
+        } else {
+            res.status(404).json({ message: 'User not found' });  // Handle case when user is not found
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Error deleting user' });
+    }
+});
+
+
+app.delete('/delete-user/:username', async (req, res) => {
+    const username = req.params.username;  // Get the username from the URL params
+    try {
+        const deletedUser = await deleteUser(username);  // Await the deletion result
+        if (deletedUser) {
+            res.status(200).json({ message: 'User deleted successfully', username: deletedUser });
+        } else {
+            res.status(404).json({ message: 'User not found' });  // Handle case when user is not found
+        }
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ message: 'Error deleting user' });
+    }
+});
+
+
 // get for adminpage user table
 app.get("/fetch-data",async(req,res)=>{
     try {
         const data = await getUsers(); // Fetch data from your MongoDB collection
-        console.log(data)
         res.json(data); // Return the data as JSON
     } catch (error) {
         console.error('Error fetching data:', error);

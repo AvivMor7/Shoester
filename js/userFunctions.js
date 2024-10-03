@@ -17,6 +17,23 @@ async function checkUser(username, password) {
     }
 }
 
+
+
+async function deleteUser(username) {
+    try {
+        const result = await User.deleteOne({ username }); // Assuming 'id' is a unique identifier
+        if (result.deletedCount === 0) {
+            console.log('No user found with that username.');
+            return null; // Return null if no shoe was found
+        }
+        console.log('user deleted successfully:', username);
+        return username; // Return the deleted ID or a success message
+    } catch (error) {
+        console.error('Error deleting username:', error);
+        throw error; // Rethrow the error for further handling
+    }
+}
+
 // Function to add a new user
 async function addUser(full_name, username, password, phone_number, email, address) {
     try {
@@ -74,4 +91,4 @@ async function getUser(username) {
     }
 }
 
-module.exports = { addUser, checkUser, getUsers, getUser }; // Export
+module.exports = { addUser, checkUser, getUsers, getUser, deleteUser }; // Export
