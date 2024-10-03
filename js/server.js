@@ -90,23 +90,6 @@ app.delete('/delete-user/:username', async (req, res) => {
     }
 });
 
-
-app.delete('/delete-user/:username', async (req, res) => {
-    const username = req.params.username;  // Get the username from the URL params
-    try {
-        const deletedUser = await deleteUser(username);  // Await the deletion result
-        if (deletedUser) {
-            res.status(200).json({ message: 'User deleted successfully', username: deletedUser });
-        } else {
-            res.status(404).json({ message: 'User not found' });  // Handle case when user is not found
-        }
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).json({ message: 'Error deleting user' });
-    }
-});
-
-
 // get for adminpage user table
 app.get("/fetch-data",async(req,res)=>{
     try {
