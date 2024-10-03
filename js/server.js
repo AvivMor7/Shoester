@@ -6,9 +6,10 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 5555;
 
-const { checkUser, addUser } = require('./userFunctions'); // Correct path for userFunctions
-
-require('dotenv').config({ path: '/workspaces/Shoester/.env.local' }); // Load environment variables
+const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
+const {  addUser, checkUser, getUsers, getUser } = require('./userFunctions'); // Import user functions
+const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
+require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI;
@@ -21,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use('/css', express.static(path.join(__dirname, '../css')));
-app.use('/js', express.static(path.join(__dirname))); // Serve from current directory (where server.js is)
+app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 app.use(express.static(path.join(__dirname, '../html'))); // Serve HTML files
 
@@ -82,7 +83,16 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
-
+app.get("/fetch-data",async(req,res)=>{
+    try {
+        const data = await getUsers(); // Fetch data from your MongoDB collection
+        console.log(data)
+        res.json(data); // Return the data as JSON
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+})
 
 // Start the server
 app.listen(PORT, () => {
