@@ -43,7 +43,7 @@ app.post('/login', async (req, res) => {
         
         if (isValid) {
             // Send a success response if credentials are valid
-            res.json({ success: true, message: 'Login successful!' }); // Send success message
+            res.json({ success: true }); // Send success message
         } else {
             // Send an error response if credentials are invalid
             res.json({ success: false, message: 'Username or password is incorrect.' });
