@@ -6,9 +6,9 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 5555;
 
-const { checkUser } = require('./userFunctions'); // Correct path for userFunctions
+const { checkUser, addUser } = require('./userFunctions'); // Correct path for userFunctions
 
-require('dotenv').config({ path: '.env.local' }); // Load environment variables
+require('dotenv').config({ path: '/workspaces/Shoester/.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI;
@@ -52,6 +52,37 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+
+// POST route for registration
+app.post('/register', async (req, res) => {
+    const { fullName, username, password, email, phoneNumber, address } = req.body;
+    
+    // Log incoming registration data for debugging || removing these after done checking
+    console.log("Registration request received:", {
+        fullName,
+        username,
+        password,
+        email,
+        phoneNumber,
+        address
+    });
+    
+    try {
+        const isValid = await addUser(fullName, username, password, phoneNumber, email, address);
+        
+        if (isValid) {
+            // Send a success response if user is added successfully
+            res.json({ success: true, message: 'Registration successful!' });
+        } else {
+            // Send an error response if username or email is taken
+            res.json({ success: false, message: 'Username already taken.' });
+        }
+    } catch (error) {
+        console.error('Error during registration:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
 
 // Start the server
 app.listen(PORT, () => {

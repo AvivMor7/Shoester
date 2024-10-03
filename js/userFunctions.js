@@ -25,25 +25,27 @@ async function addUser(full_name, username, password, phone_number, email, addre
 
         if (existingUser) {
             console.log("Username or email already taken.");
-            return;
+            return false; // User already exists
         }
 
-        // Create a new user instance without hashing the password
+        // Create a new user instance
         const newUser = new User({
             full_name,
             username,
-            password, // Use plain text password here
+            password, // Consider hashing the password before storing
             phone_number,
             email,
-            address, // Include address in the user object
+            address,
             is_admin: false // Set is_admin to false for new users
         });
 
         // Save the user to the database
         await newUser.save();
         console.log("User added successfully:", newUser);
+        return true; // Indicate success
     } catch (error) {
         console.error("Error adding user:", error);
+        return false; // Indicate failure due to error
     }
 }
 
