@@ -1,46 +1,59 @@
-    document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");
-        const submitButton = document.querySelector("input[type='submit']");
+document.getElementById('registrationForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent form submission
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent the default form submission
+    // Get form fields
+    const fullName = document.getElementById('fullName').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value.trim();
+    const address = document.getElementById('address').value.trim();
 
-            // Get values from the form
-            const fullName = document.getElementById("Name").value.trim();
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("Password").value.trim();
-            const email = document.getElementById("emailAddress").value.trim();
-            const phoneNumber = document.getElementById("phoneNumber").value.trim();
+    // Validation flags
+    let isValid = true;
+    let alertMessage = '';
 
-            // Validation
-            if (!fullName || !username || !password || !email || !phoneNumber) {
-                alert("Please fill in all fields.");
-                return;
-            }
+    // Name validation: only English letters
+    const nameRegex = /^[A-Za-z\s]+$/;
+    if (!nameRegex.test(fullName)) {
+        alertMessage += 'Full Name must contain only English letters.\n';
+        isValid = false;
+    }
 
-            // Email validation using regex
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                alert("Please enter a valid email address.");
-                return;
-            }
+    // Email validation: standard email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alertMessage += 'Please enter a valid email address.\n';
+        isValid = false;
+    }
 
-            // Phone number validation (basic check)
-            const phonePattern = /^[0-9]{10,15}$/; // Adjust according to your needs
-            if (!phonePattern.test(phoneNumber)) {
-                alert("Please enter a valid phone number (10-15 digits).");
-                return;
-            }
+    // Phone number validation: only numbers, between 9-15 characters
+    const phoneRegex = /^[0-9]{9,15}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+        alertMessage += 'Phone number must be between 9 and 15 digits long and contain only numbers.\n';
+        isValid = false;
+    }
 
-            // All validations passed
-            alert("Registration successful!");
-            // Here you can send the data to the server or handle it as needed
-            // For example: sendDataToServer({ fullName, username, password, email, phoneNumber });
+    // Password validation: at least 5 characters
+    if (password.length < 5) {
+        alertMessage += 'Password must be at least 5 characters long.\n';
+        isValid = false;
+    }
 
-            // Optionally, reset the form
-            form.reset();
-        });
-    });
+    // Check if all fields are filled
+    if (!fullName || !username || !password || !email || !phoneNumber || !address) {
+        alertMessage += 'All fields must be filled.\n';
+        isValid = false;
+    }
+
+    // Show alert message for validation errors
+    if (!isValid) {
+        alert(alertMessage);
+    } else {
+        alert('Form submitted successfully!');
+        // Here you can proceed with the form submission or further actions
+    }
+});
 
 // end of registration code
 
