@@ -1,34 +1,31 @@
-const { checkUser, addUser } = require('./userFunctions');
+document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+    event.preventDefault(); // Prevent default form submission
 
-document.getElementById('signupForm').addEventListener('submit', async function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // Retrieve the parameters entered by the user
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const full_name = document.getElementById('fullName').value; 
-    const email = document.getElementById('email').value;
-    const phone_number = document.getElementById('phoneNumber').value;
-    const address = document.getElementById('address').value;
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData);
 
     try {
-        const response = await checkUser(username);
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
 
-        if (response.success === false) {
-            // Show an error message to the user
-            alert(response.message);
+        const result = await response.json();
+        if (result.success) {
+            // Redirect to login page if registration is successful
+            alert(result.message); // Show success message
+            window.location.href = '/login'; // Redirect to login page
         } else {
-            // Proceed with sign-up logic
-            const addResponse = await addUser(username, password, full_name, email, phone_number, address);
-            if (addResponse.success) {
-                alert("User added to the database successfully!");
-                document.getElementById('signupForm').reset(); // Reset the form
-            } else {
-                alert(addResponse.message || "Failed to add user.");
-            }
+            // Show alert for failed registration
+            alert(result.message); // Show error message
         }
     } catch (error) {
-        console.error('Error during sign-up:', error);
-        alert('An error occurred. Please try again.');
+        console.error('Error during registration:', error);
+        alert('An error occurred. Please check the console for more details.'); // Handle unexpected errors
     }
 });
+
+
