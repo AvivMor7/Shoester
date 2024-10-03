@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const { default: mongoose } = require('mongoose');
-const PORT = process.env.PORT || 5555;
+const PORT = process.env.PORT || 8080;
 
 const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
