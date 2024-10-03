@@ -63,7 +63,7 @@ app.post('/register', async (req, res) => {
         
         if (isValid) {
             // Send a success response if user is added successfully
-            res.redirect('/workspaces/Shoester/html/login_page.html');
+            res.json({ success: true, message: 'Registration successful! Redirecting...' });
         } else {
             // Send an error response if username or email is taken
             res.json({ success: false, message: 'Username already taken.' });
@@ -117,8 +117,6 @@ app.get("/fetch-data",async(req,res)=>{
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
-
-
 
 // Start the server
 app.listen(PORT, () => {
