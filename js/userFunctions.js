@@ -1,30 +1,21 @@
 const User = require('../models/user');
-const bcrypt = require('bcrypt');
 
 async function checkUser(username, password) {
     try {
         // Check if user exists by username
         const user = await User.findOne({ username });
-        
+
         if (!user) {
-            return { success: false, message: 'User not found' }; // User does not exist
+            return false; // User does not exist
         }
+        const isPasswordCorrect = (password === user.password); 
 
-        // Compare the provided password with the stored hashed password
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-        if (!isPasswordCorrect) {
-            return { success: false, message: 'Incorrect password' }; // Password is incorrect
-        }
-
-        return true; // User authenticated
+        return isPasswordCorrect; // Return true if password is correct, false otherwise
     } catch (error) {
         console.error('Error checking user:', error);
         throw error; // Rethrow the error for further handling
     }
 }
-
-const saltRounds = 10; // Define how many salt rounds to use for hashing
 
 // Function to add a new user
 async function addUser(full_name, username, password, phone_number, email, address) {
@@ -37,14 +28,11 @@ async function addUser(full_name, username, password, phone_number, email, addre
             return;
         }
 
-        // Hash the password before saving the user
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-        // Create a new user instance with the hashed password
+        // Create a new user instance without hashing the password
         const newUser = new User({
             full_name,
             username,
-            password: hashedPassword, // Use the hashed password here
+            password, // Use plain text password here
             phone_number,
             email,
             address, // Include address in the user object
@@ -61,7 +49,7 @@ async function addUser(full_name, username, password, phone_number, email, addre
 
 async function getUsers() {
     try {
-        const users = await User.find({}); // Add await here
+        const users = await User.find({}); // Fetch all users
         return users;
     } catch (error) {
         console.error("Error finding users:", error);
@@ -82,6 +70,5 @@ async function getUser(username) {
         throw error; // Optionally rethrow the error for further handling
     }
 }
-
 
 module.exports = { addUser, checkUser, getUsers, getUser }; // Export
