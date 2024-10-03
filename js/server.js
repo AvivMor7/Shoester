@@ -66,14 +66,14 @@ app.post('/register', async (req, res) => {
         email,
         phoneNumber,
         address
-    });
+   });
     
     try {
         const isValid = await addUser(fullName, username, password, phoneNumber, email, address);
         
         if (isValid) {
             // Send a success response if user is added successfully
-            res.json({ success: true, message: 'Registration successful!' });
+            res.redirect('/workspaces/Shoester/html/login_page.html');
         } else {
             // Send an error response if username or email is taken
             res.json({ success: false, message: 'Username already taken.' });
@@ -93,6 +93,8 @@ app.get("/fetch-data",async(req,res)=>{
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 })
+
+
 
 // Start the server
 app.listen(PORT, () => {

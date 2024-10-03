@@ -49,6 +49,7 @@ async function addUser(full_name, username, password, phone_number, email, addre
     }
 }
 
+
 async function getUsers() {
     try {
         const users = await User.find({}); // Fetch all users
