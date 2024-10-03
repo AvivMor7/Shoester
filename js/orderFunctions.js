@@ -9,6 +9,7 @@ async function getOrdersByUsername(username) {
         console.error("Error retrieving orders for user:", error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
 }
 
 // Function to get all orders (for admin)
@@ -20,6 +21,7 @@ async function getAllOrders() {
         console.error("Error retrieving all orders:", error);
         throw error; // Rethrow the error for handling in the calling function
     }
+
 }
 
 // Function to add a new order
@@ -42,5 +44,5 @@ async function addOrder(orderData) {
 module.exports = {
     getOrdersByUsername,
     getAllOrders,
-    addOrder,
+    addOrder
 };
