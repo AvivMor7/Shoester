@@ -5,7 +5,7 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 5555;
 
-const { addShoe, deleteShoe } = require('./shoeFunctions'); // Import shoe functions
+const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
 const { addUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
@@ -16,6 +16,9 @@ const uri = process.env.MONGODB_URI;
 mongoose.connect(uri)
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log("Error connecting to MongoDB"));
+   
+
+findShoeById('66fd41cc7dfa90fd6fe81bc7');
 
 // Serve the html, css and assets folders
 app.use('/css', express.static(path.join(__dirname, '../css')));
