@@ -12,6 +12,7 @@ require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const uri = process.env.MONGODB_URI;
+
 mongoose.connect(uri)
     .then(() => console.log("Connected to MongoDB successfully"))
     .catch(err => console.log("Error connecting to MongoDB"));
