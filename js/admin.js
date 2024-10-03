@@ -34,9 +34,7 @@ function populateUserTable() {
             <td>${user.email}</td>
             <td>${user.phone_number}</td>
             <td>${user.address}</td>
-            <td>
-                <button onclick="deleteUser('${user.username}')">Delete User</button>
-            </td>
+            <td><button class="btn btn-danger" onclick="deleteUser('${user.username}')">Delete User</button></td>
         `;
         userTableBody.appendChild(row);
     });
