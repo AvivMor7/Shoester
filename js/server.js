@@ -57,17 +57,6 @@ app.post('/login', async (req, res) => {
 // POST route for registration
 app.post('/register', async (req, res) => {
     const { fullName, username, password, email, phoneNumber, address } = req.body;
-    
-    // Log incoming registration data for debugging || removing these after done checking
-    console.log("Registration request received:", {
-        fullName,
-        username,
-        password,
-        email,
-        phoneNumber,
-        address
-   });
-    
     try {
         const isValid = await addUser(fullName, username, password, phoneNumber, email, address);
         
