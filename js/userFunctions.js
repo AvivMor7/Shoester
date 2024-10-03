@@ -17,7 +17,7 @@ async function checkUser(username, password) {
             return { success: false, message: 'Incorrect password' }; // Password is incorrect
         }
 
-        return { success: true, message: 'Login successful', user }; // User authenticated
+        return true; // User authenticated
     } catch (error) {
         console.error('Error checking user:', error);
         throw error; // Rethrow the error for further handling
@@ -59,6 +59,29 @@ async function addUser(full_name, username, password, phone_number, email, addre
     }
 }
 
+async function getUsers() {
+    try {
+        const users = await User.find({}); // Add await here
+        return users;
+    } catch (error) {
+        console.error("Error finding users:", error);
+        throw error; // Optionally rethrow the error for further handling
+    }
+}
+
+async function getUser(username) {
+    try {
+        // Select only the fields you want to return
+        const user = await User.findOne(
+            { username: username },
+            'full_name address phone_number email'
+        );
+        return user;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        throw error; // Optionally rethrow the error for further handling
+    }
+}
 
 
-module.exports = { addUser, checkUser }; // Export both functions
+module.exports = { addUser, checkUser, getUsers, getUser }; // Export
