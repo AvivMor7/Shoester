@@ -1,21 +1,24 @@
 let users = []; // Define users globally so it can be accessed later
+let usersFetched = false; // Track if users have already been fetched
 const userTableBody = document.getElementById('userTableBody');
-const showUsersBtn = document.getElementById('showUsersBtn');  // Add this to reference the button
-const userList = document.getElementById('userList');  // Add this to reference the user list section
+const showUsersBtn = document.getElementById('showUsersBtn');  // Reference the button
+const userList = document.getElementById('userList');  // Reference the user list section
 
-document.getElementById('showUsersBtn').addEventListener('click', async () => {
+// Fetch users from the server and store them
+async function fetchUsers() {
     try {
         const response = await fetch('/fetch-data'); // Adjust the endpoint as needed
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         users = await response.json(); // Get the array of users
+        usersFetched = true; // Mark that users have been fetched
         toggleUserList();  // Call toggleUserList() to display the user list after fetching
     } catch (error) {
         console.error('Error fetching users:', error);
         alert('An error occurred while fetching user data. Please check the console for details.');
     }
-});
+}
 
 // Function to populate the user list table
 function populateUserTable() {
@@ -27,9 +30,9 @@ function populateUserTable() {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${user.username}</td>
-            <td>${user.name}</td>
+            <td>${user.full_name}</td>
             <td>${user.email}</td>
-            <td>${user.phoneNumber}</td>
+            <td>${user.phone_number}</td>
             <td>${user.address}</td>
         `;
         userTableBody.appendChild(row);
@@ -42,11 +45,11 @@ function toggleUserList() {
         // Show the user list
         userList.style.display = 'block';
 
-        // Populate the table with user data every time the user list is shown
-        if (users.length > 0) {
-            populateUserTable();  // Only populate if there are users
+        // Populate the table with user data (only if we have already fetched users)
+        if (usersFetched) {
+            populateUserTable();
         } else {
-            alert('No users to display.');
+            alert('No users to display. Please fetch users first.');
         }
 
         // Change button text to "Hide Users"
@@ -64,4 +67,12 @@ function toggleUserList() {
 userList.style.display = 'none';
 
 // Add event listener to the button to toggle the user list on click
-showUsersBtn.addEventListener('click', toggleUserList);
+showUsersBtn.addEventListener('click', async () => {
+    if (!usersFetched) {
+        // If users haven't been fetched yet, fetch them and then toggle visibility
+        await fetchUsers();
+    } else {
+        // If users have been fetched, just toggle visibility without fetching again
+        toggleUserList();
+    }
+});

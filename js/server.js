@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use('/css', express.static(path.join(__dirname, '../css')));
-app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/js', express.static(path.join(__dirname,'../js')));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 app.use(express.static(path.join(__dirname, '../html'))); // Serve HTML files
 
@@ -83,6 +83,7 @@ app.post('/register', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+
 app.get("/fetch-data",async(req,res)=>{
     try {
         const data = await getUsers(); // Fetch data from your MongoDB collection
@@ -92,7 +93,7 @@ app.get("/fetch-data",async(req,res)=>{
         console.error('Error fetching data:', error);
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
-})
+});
 
 
 
