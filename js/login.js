@@ -12,15 +12,14 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
             },
             body: JSON.stringify(data),
         });
-
+    
         const result = await response.json();
-        
         if (result.success) {
             // Redirect to personal page if login is successful
-            window.location.href = '/html/personal_page.html';
+            window.location.href = '/personal_page.html';
         } else {
-            // Show a browser alert for failed login
-            alert(result.message); // Display error message in a popup alert
+            // Show alert for failed login
+            alert(result.message);
         }
     } catch (error) {
         console.error('Error during login:', error);
