@@ -58,7 +58,6 @@ async function addUser(full_name, username, password, phone_number, email, addre
 
         // Save the user to the database
         await newUser.save();
-        console.log("User added successfully:", newUser);
         return true; // Indicate success
     } catch (error) {
         console.error("Error adding user:", error);
