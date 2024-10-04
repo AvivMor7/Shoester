@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
-require('dotenv').config({ path: '.env.local' }); // Load environment variables
+require('dotenv').config({ path: '/workspaces/Shoester/.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI;
@@ -55,18 +55,6 @@ app.post('/login', async (req, res) => {
 });
 
 
-// Assuming you have set up a session and flash messaging middleware
-const session = require('express-session');
-const flash = require('connect-flash');
-
-app.use(session({
-    secret: 'your-secret', // Replace with your secret
-    resave: false,
-    saveUninitialized: true,
-}));
-
-app.use(flash());
-
 // POST route for registration
 app.post('/register', async (req, res) => {
     const { fullName, username, password, email, phoneNumber, address } = req.body;
@@ -74,16 +62,14 @@ app.post('/register', async (req, res) => {
         const isValid = await addUser(fullName, username, password, phoneNumber, email, address);
         
         if (isValid) {
-            req.flash('success_msg', 'Registration successful! Redirecting...');
-            return res.redirect('../login_page.html'); // Redirect to the login page
+            res.send('<script>alert("Sign up successful!"); window.location.href = "../login_page.html";</script>'); // Success alert and redirect
         } else {
-            req.flash('error_msg', 'Username or email already taken. Please try again.');
-            return res.redirect('../registration.html'); // Redirect back to the registration page
+            res.send('<script>alert("Username already in use"); window.location.href = "../registration.html";</script>'); // Error alert and redirect
+
         }
     } catch (error) {
         console.error('Error during registration:', error);
-        req.flash('error_msg', 'Internal server error. Please try again later.');
-        return res.redirect('/register'); // Redirect back to the registration page
+        res.send('<script>alert("Internal server error."); window.location.href = "/register";</script>'); // Error alert and redirect
     }
 });
 
