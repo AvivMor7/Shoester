@@ -89,7 +89,7 @@
                     </div>
                     <div class="card-body">
                         <p>View all past orders here.</p>
-                        <a href="past-orders.html" class="btn btn-success">View Past Orders</a>
+                        <button class="btn btn-dark" id="showOrdersBtn">Show orders</button>
                     </div>
                 </div>
             </div>
@@ -135,6 +135,24 @@
                 <button class="btn btn-primary" id="addShoeBtn">Add Shoe</button>
             </div>
         </div>
+            <!-- Past Orders Section (Initially Hidden) -->
+        <div id="orderList" class="mt-4" style="display:none;">
+            <h3 class="text-center">Past Orders</h3>
+            <table class="table table-striped table-bordered table-hover mx-auto" style="width: 75%;box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.341)">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Username</th>
+                        <th>Order Id</th>
+                        <th>Shoe Id</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTableBody">
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
     <!-- Graphs Section -->
     <div class="container mt-4" style="padding: 5vh;">
         <div class="row">

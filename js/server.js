@@ -115,6 +115,16 @@ app.get("/fetch-shoes",async(req,res)=>{
     }
 });
 
+app.get("/fetch-orders",async(req,res)=>{
+    try {
+        const orders = await getAllOrders(); // Fetch orders from your MongoDB collection
+        res.json(orders); // Return the orders as JSON
+    } catch (error) {
+        console.error('Error fetching orders:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
