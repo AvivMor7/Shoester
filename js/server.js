@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
-require('dotenv').config({ path: '.env.local' }); // Load environment variables
+require('dotenv').config({ path: '../.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI;
@@ -122,6 +122,30 @@ app.get("/fetch-orders",async(req,res)=>{
     } catch (error) {
         console.error('Error fetching orders:', error);
         res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
+// display the info in the db at the result page
+
+// Product Schema
+const productSchema = new mongoose.Schema({
+    brand: String,
+    kind: String,
+    price: Number,
+    size: [String],
+    url: String
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+// API Endpoint to get products
+app.get('/fetch-shoes', async (req, res) => {
+    try {
+        const products = await Product.find(); // Fetch all products from DB
+        res.json(products);
+    }   
+    catch (error) {
+        res.status(500).send(error);
     }
 });
 
