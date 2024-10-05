@@ -136,18 +136,21 @@ const productSchema = new mongoose.Schema({
     url: String
 });
 
-const Product = mongoose.model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema, 'shoes');
 
 // API Endpoint to get products
-app.get('/fetch-shoes', async (req, res) => {
+app.get('/fetch-products', async (req, res) => {
     try {
         const products = await Product.find(); // Fetch all products from DB
         res.json(products);
     }   
     catch (error) {
+        console.error('Error fetching products:', error);
         res.status(500).send(error);
     }
 });
+
+
 
 // Start the server
 app.listen(PORT, () => {
