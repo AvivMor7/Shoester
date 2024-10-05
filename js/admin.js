@@ -114,3 +114,127 @@ showUsersBtn.addEventListener('click', async () => {
         toggleUserList();
     }
 });
+
+
+
+
+
+let shoes = []; // Define shoes globally so it can be accessed later
+let shoesFetched = false; // Track if shoes have already been fetched
+const shoeTableBody = document.getElementById('shoeTableBody');
+const showShoesBtn = document.getElementById('showShoesBtn');  // Reference the button
+const shoeList = document.getElementById('shoeList');  // Reference the shoes list section
+
+// Fetch shoes from the server and store them
+async function fetchShoes() {
+    try {
+        const response = await fetch('/fetch-shoes'); // Adjust the endpoint as needed
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        shoes = await response.json(); // Get the array of shoes
+        shoesFetched = true; // Mark that shoes have been fetched
+        toggleShoeList();  // Call toggleShoeList() to display the shoe list after fetching
+    } catch (error) {
+        console.error('Error fetching shoes:', error);
+        alert('An error occurred while fetching shoe data. Please check the console for details.');
+    }
+}
+
+// Function to populate the shoe list table (with only the Delete button)
+function populateShoeTable() {
+    // Clear existing rows before repopulating
+    shoeTableBody.innerHTML = '';
+
+    // Populate the table with shoe data (no edit button)
+    shoes.forEach(shoe => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${shoe.id}</td>
+            <td>${shoe.kind}</td>
+            <td>${shoe.brand}</td>
+            <td>${shoe.color}</td>
+            <td>${shoe.size}</td>
+            <td><button class="btn btn-danger" onclick="deleteShoe('${shoe.id}')">Delete</button></td>
+        `;
+        shoeTableBody.appendChild(row);
+    });
+}
+
+// Function to delete a shoe
+async function deleteShoe(shoeId) {
+    // Ask for confirmation before deletion
+    if (!confirm('Are you sure you want to delete this shoe?')) {
+        return; // Exit if the user cancels
+    }
+
+    try {
+        // Send a DELETE request to the server with the shoe ID in the URL
+        const response = await fetch(`/delete-shoe/${shoeId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Check if the response is OK (status code 200)
+        if (!response.ok) {
+            throw new Error('Failed to delete shoe');
+        }
+
+        // Filter out the deleted shoe from the array
+        shoes = shoes.filter(shoe => shoe.id !== shoeId);
+
+        // Re-render the shoe table after deletion
+        populateShoeTable();
+
+        // Show a success message
+        alert('Shoe deleted successfully!');
+    } catch (error) {
+        console.error('Error deleting shoe:', error);
+        alert('An error occurred while deleting the shoe. Please check the console for details.');
+    }
+}
+
+// Function to toggle the visibility of the shoe list
+function toggleShoeList() {
+    if (shoeList.style.display === 'none' || shoeList.style.display === '') {
+        // Show the shoe list
+        shoeList.style.display = 'block';
+
+        // Populate the table with shoe data (only if we have already fetched shoes)
+        if (shoesFetched) {
+            populateShoeTable();
+        } else {
+            alert('No shoes to display. Please fetch shoes first.');
+        }
+
+        // Change button text to "Hide Shoes"
+        showShoesBtn.textContent = 'Hide Shoes';
+    } else {
+        // Hide the shoe list
+        shoeList.style.display = 'none';
+
+        // Change button text to "Show Shoes"
+        showShoesBtn.textContent = 'Show Shoes';
+    }
+}
+
+// Initially hide the shoe list
+shoeList.style.display = 'none';
+
+// Add event listener to the button to toggle the shoe list on click
+showShoesBtn.addEventListener('click', async () => {
+    if (!shoesFetched) {
+        // If shoes haven't been fetched yet, fetch them and then toggle visibility
+        await fetchShoes();
+    } else {
+        // If shoes have been fetched, just toggle visibility without fetching again
+        toggleShoeList();
+    }
+});
+
+
+
+
+

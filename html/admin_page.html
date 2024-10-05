@@ -67,7 +67,7 @@
                     </div>
                     <div class="card-body">
                         <p>Edit your shoe catalog here.</p>
-                        <a href="edit-shoes.html" class="btn btn-primary">Add/Delete Shoes</a>
+                        <button class="btn btn-primary" id="showShoesBtn">Edit Shoes</button>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,6 @@
                 </div>
             </div>
         </div>
-        <!-- User List Table (Initially Hidden) -->
         <div id="userList" class="mt-4" style="display:none;">
             <h3 class="text-center">User List</h3>
             <table class="table table-striped table-bordered table-hover mx-auto" style="width: 75%;box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.341)">
@@ -109,11 +108,33 @@
                     </tr>
                 </thead>
                 <tbody id="userTableBody">
-                    <!-- Data will be inserted here dynamically -->
+                <!-- Data will be inserted here dynamically -->
                 </tbody>
             </table>
         </div>
-    </div>
+        
+        <!-- Shoe List Table (Initially Hidden) -->
+        <div id="shoeList" class="mt-4" style="display:none;">
+            <h3 class="text-center">Shoe List</h3>
+            <table class="table table-striped table-bordered table-hover mx-auto" style="width: 75%;box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.341)">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>Size</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody id="shoeTableBody">
+                    <!-- Data will be inserted here dynamically -->
+                </tbody>
+            </table>
+            <div class="text-center">
+                <button class="btn btn-primary" id="addShoeBtn">Add Shoe</button>
+            </div>
+        </div>
     <!-- Graphs Section -->
     <div class="container mt-4" style="padding: 5vh;">
         <div class="row">

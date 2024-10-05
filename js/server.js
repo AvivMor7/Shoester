@@ -6,7 +6,7 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const PORT = process.env.PORT || 8080;
 
-const { addShoe, deleteShoe, findShoe, findShoeById} = require('./shoeFunctions'); // Import shoe functions
+const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
@@ -97,6 +97,18 @@ app.get("/fetch-data",async(req,res)=>{
     try {
         const data = await getUsers(); // Fetch data from your MongoDB collection
         res.json(data); // Return the data as JSON
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
+
+
+app.get("/fetch-shoes",async(req,res)=>{
+    try {
+        const shoes = await getShoes(); // Fetch data from your MongoDB collection
+        res.json(shoes); // Return the data as JSON
     } catch (error) {
         console.error('Error fetching data:', error);
         res.status(500).json({ success: false, message: 'Internal server error.' });

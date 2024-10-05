@@ -69,6 +69,16 @@ async function findShoe(searchTerm) {
     }
 }
 
+async function getShoes() {
+    try {
+        const shoes = await Shoe.find({}); // Fetch all shoes
+        return shoes;
+    } catch (error) {
+        console.error("Error finding shoes:", error);
+        throw error; // Optionally rethrow the error for further handling
+    }
+}
+
 async function findShoeById(id) {
     try {
         // Check if the ID is valid. If valid, cast it to ObjectId using `new`
@@ -93,4 +103,4 @@ async function findShoeById(id) {
 }
 
 
-module.exports = { addShoe, deleteShoe, findShoe, findShoeById }; // Export both functions
+module.exports = { addShoe, deleteShoe, findShoe, findShoeById, getShoes }; // Export both functions
