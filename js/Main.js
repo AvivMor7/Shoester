@@ -57,4 +57,16 @@ document.getElementById('registrationForm').addEventListener('submit', function 
 
 // end of registration code
 
+// search bar redirection
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        handleSearch(); // Call the search function
+    }
+}
 
+function handleSearch() {
+    const query = document.getElementById('searching_box').value;
+    // Redirect to the result page with the search query as a parameter
+    window.location.href = `../result_page.html?query=${encodeURIComponent(query)}`;
+}
+// the end of search box functions

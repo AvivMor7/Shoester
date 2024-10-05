@@ -26,6 +26,15 @@
                         <li class="nav-item"><a class="nav-link" href="contacts_page.html">Contact</a></li>
                         <li class="nav-item"><a class="nav-link" href="login_page.html">Login</a></li>
                     </ul>
+                    <div class="input-group rounded">
+                        <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)" />
+                        <style> 
+                            .input-group {
+                                max-width: 200px; 
+                                margin: left; 
+                            }
+                        </style>
+                    </div>
                     <form class="d-flex" style="margin-left: 50vh;">
                         <a href="cart.html" class="btn btn-outline-dark" role="button">
                             <i class="bi-cart-fill me-1"></i>
@@ -76,5 +85,6 @@
         <!-- Bootstrap core JS-->
         <script src="../js/personal.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../js/Main.js"></script>
     </body>
 </html>
