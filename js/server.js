@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 8080;
 
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
-const { getOrdersByUsername, getAllOrders, addOrder } = require('../js/orderFunctions'); // Import order functions
+const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -91,6 +91,39 @@ app.delete('/delete-user/:username', async (req, res) => {
         res.status(500).json({ message: 'Error deleting user' });
     }
 });
+
+
+app.delete('/delete-order/:order_id', async (req, res) => {
+    const order_id = req.params.order_id;  // Get the order from the URL params
+    try {
+        const deletedOrder = await deleteOrder(order_id);  // Await the deletion result
+        if (deletedOrder) {
+            res.status(200).json({ message: 'order deleted successfully', order_id: deletedOrder.order_id});
+        } else {
+            res.status(404).json({ message: 'order not found' });  // Handle case when user is not found
+        }
+    } catch (error) {
+        console.error('Error deleting order:', error);
+        res.status(500).json({ message: 'Error deleting order' });
+    }
+});
+
+
+app.delete('/delete-shoe/:id', async (req, res) => {
+    const id = req.params.id;  // Get the shoeid from the URL params
+    try {
+        const deletedShoe = await deleteShoe(id);  // Await the deletion result
+        if (deletedShoe) {
+            res.status(200).json({ message: 'Shoe deleted successfully', id: deletedShoe });
+        } else {
+            res.status(404).json({ message: 'Shoe not found' });  // Handle case when shoe is not found
+        }
+    } catch (error) {
+        console.error('Error deleting shoe:', error);
+        res.status(500).json({ message: 'Error deleting shoe' });
+    }
+});
+
 
 // get for adminpage user table
 app.get("/fetch-data",async(req,res)=>{

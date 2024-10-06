@@ -104,6 +104,7 @@ async function fetchShoes() {
 
 // Function to populate the shoe list table
 function populateShoeTable() {
+    console.log('Populating shoe table...');
     // Clear existing rows before repopulating
     shoeTableBody.innerHTML = '';
 
@@ -125,7 +126,6 @@ function populateShoeTable() {
         });
     }
 }
-
 // Fetch past orders from the server and store them
 async function fetchOrders() {
     try {
@@ -157,7 +157,7 @@ function populateOrderTable() {
                 <td>${order.username}</td>
                 <td>${order.order_id}</td>
                 <td>${order.shoes_ids}</td>
-                <td><button class="btn btn-danger" onclick="deleteOrder('${order.orderId}')">Delete Order</button></td>
+                <td><button class="btn btn-danger" onclick="deleteOrder('${order.order_id}')">Delete Order</button></td>
             `;
             orderTableBody.appendChild(row);
         });
@@ -184,7 +184,9 @@ async function deleteUser(username) {
 
         // Filter out the deleted user from the users array
         users = users.filter(user => user.username !== username);
-        populateUserTable();
+
+        // Immediately update the table
+        populateUserTable();  // Re-render the user table
         alert('User deleted successfully!');
     } catch (error) {
         console.error('Error deleting user:', error);
@@ -193,13 +195,13 @@ async function deleteUser(username) {
 }
 
 // Function to delete a shoe
-async function deleteShoe(shoeId) {
+async function deleteShoe(id) {
     if (!confirm('Are you sure you want to delete this shoe?')) {
         return; // Exit if the user cancels
     }
 
     try {
-        const response = await fetch(`/delete-shoe/${shoeId}`, {
+        const response = await fetch(`/delete-shoe/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -211,8 +213,11 @@ async function deleteShoe(shoeId) {
         }
 
         // Filter out the deleted shoe from the shoes array
-        shoes = shoes.filter(shoe => shoe.id !== shoeId);
-        populateShoeTable();
+        shoes = shoes.filter(shoe => shoe.id !== id);
+        console.log('Updated shoes after deletion:', shoes);  // Debugging log to ensure `shoes` is updated
+
+        // Re-render the shoe table immediately after deletion, without hiding or showing it
+        populateShoeTable();  // Re-render the shoe table with updated data
         alert('Shoe deleted successfully!');
     } catch (error) {
         console.error('Error deleting shoe:', error);
@@ -221,13 +226,13 @@ async function deleteShoe(shoeId) {
 }
 
 // Function to delete an order
-async function deleteOrder(orderId) {
+async function deleteOrder(order_id) {
     if (!confirm('Are you sure you want to delete this order?')) {
         return; // Exit if the user cancels
     }
 
     try {
-        const response = await fetch(`/delete-order/${orderId}`, {
+        const response = await fetch(`/delete-order/${order_id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -239,8 +244,10 @@ async function deleteOrder(orderId) {
         }
 
         // Filter out the deleted order from the orders array
-        orders = orders.filter(order => order.orderId !== orderId);
-        populateOrderTable();
+        orders = orders.filter(order => order.order_id !== order_id);
+
+        // Immediately update the table
+        populateOrderTable();  // Re-render the order table
         alert('Order deleted successfully!');
     } catch (error) {
         console.error('Error deleting order:', error);

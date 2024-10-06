@@ -41,8 +41,26 @@ async function addOrder(orderData) {
     }
 }
 
+
+
+async function deleteOrder(order_id) {
+    try {
+        const result = await Order.deleteOne({order_id: order_id}); // Assuming 'id' is a unique identifier
+        if (result.deletedCount === 0) {
+            console.log('No order found with that id.');
+            return null; // Return null if no order was found
+        }
+        console.log('order deleted successfully:', order_id);
+        return order_id; // Return the deleted ID or a success message
+    } catch (error) {
+        console.error('Error deleting order:', error);
+        throw error; // Rethrow the error for further handling
+    }
+}
+
 module.exports = {
     getOrdersByUsername,
     getAllOrders,
-    addOrder
+    addOrder,
+    deleteOrder
 };
