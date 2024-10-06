@@ -1,7 +1,4 @@
 const RAPIDAPI_KEY = '6a2a422068msh9a52666f613826bp1281cejsn0f9ccb9c5db1'; // Your RapidAPI key
-//const GOOGLE_MAPS_API_KEY = 'AIzaSyCQgGRI1UX2C-vD-jMXmHR2auVAAhbLZpk'; // Your Google Maps API key
-
-const RAPIDAPI_KEY = '6a2a422068msh9a52666f613826bp1281cejsn0f9ccb9c5db1'; // Your RapidAPI key
 
 // Initialize the map
 function initMap() {
