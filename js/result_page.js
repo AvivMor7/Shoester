@@ -38,6 +38,9 @@ async function fetchProducts(page) {
                             <p class="card-text">Price: $${product.price}</p>
                             <p class="card-text">Sizes: ${product.size.join(', ')}</p>
                             <p class="card-text">Color: ${product.color}</p>
+                           <input type="number" min="1" value="1" id="quantity-${product.id}" class="form-control mb-2" />
+                            <button class="btn btn-primary" onclick="addToCart('${product.id}', '${product.kind}', '${product.brand}', '${product.color}', ${product.price}, document.getElementById('quantity-${product.id}').value)">Add to Cart</button>
+                        </div>
                         </div>
                     </div>
                 `;

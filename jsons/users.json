@@ -6,7 +6,8 @@
         "email": "guy@example.com",
         "phone_number": "1234567890",
         "address": "123 Main St, City, Country",
-        "is_admin": false
+        "is_admin": false,
+        "shoes": []
     },
     {
         "full_name": "Koren",
@@ -15,7 +16,8 @@
         "email": "koren@example.com",
         "phone_number": "0987654321",
         "address": "456 Park Ave, City, Country",
-        "is_admin": false
+        "is_admin": false,
+        "shoes": []
     },
     {
         "full_name": "Gal",
@@ -24,7 +26,8 @@
         "email": "gal@example.com",
         "phone_number": "1122334455",
         "address": "789 Broadway, City, Country",
-        "is_admin": false
+        "is_admin": false,
+        "shoes": []
     },
     {
         "full_name": "Aviv",
@@ -33,7 +36,8 @@
         "email": "aviv@example.com",
         "phone_number": "6677889900",
         "address": "321 Elm St, City, Country",
-        "is_admin": false
+        "is_admin": false,
+        "shoes": []
     },
     {
         "full_name": "Admin",
@@ -42,6 +46,7 @@
         "email": "admin@example.com",
         "phone_number": "66677889900",
         "address": "100 Admin Rd, City, Country",
-        "is_admin": true
+        "is_admin": true,
+        "shoes": []
     }
 ]

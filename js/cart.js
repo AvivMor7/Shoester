@@ -2,27 +2,60 @@ let cart = [];
 
 // Function to update quantities and calculate the total price
 function updateCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    const itemsElement = document.querySelector('.items');
+    const totalPriceElement = document.querySelector('.total-price');
+    const badgeElement = document.querySelector('.btn-outline-dark .badge');
+
+    // Ensure these elements exist before trying to manipulate them
+    if (!cartItemsContainer || !itemsElement || !totalPriceElement || !badgeElement) {
+        console.error("Cart items container or required elements not found in the DOM.");
+        return;
+    }
+
     let totalItems = 0;
     let totalPrice = 0;
+    cartItemsContainer.innerHTML = ''; // Clear the previous content
 
     // Only calculate if there are items in the cart
     if (cart.length > 0) {
         cart.forEach(item => {
             totalItems += item.quantity;
             totalPrice += item.quantity * item.price;
+
+            // Dynamically inject cart items into HTML
+            const itemHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h5 class="text-uppercase">${item.name}</h5>
+                        <p>${item.kind} - ${item.color}</p>
+                        <p>Price: €${item.price.toFixed(2)}</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button onclick="decrementQuantity('${item.id}')" class="btn btn-sm btn-outline-secondary">-</button>
+                        <span class="mx-2">${item.quantity}</span>
+                        <button onclick="incrementQuantity('${item.id}')" class="btn btn-sm btn-outline-secondary">+</button>
+                    </div>
+                    <button onclick="removeItem('${item.id}')" class="btn btn-sm btn-danger">Remove</button>
+                </div>
+                <hr class="my-4">
+            `;
+            cartItemsContainer.innerHTML += itemHTML;
         });
 
         // Display items count and total price
-        document.querySelector(".items").textContent = `Items ${totalItems}`;
-        document.querySelector(".total-price").textContent = `€ ${totalPrice.toFixed(2)}`;
+        itemsElement.textContent = `Items ${totalItems}`;
+        totalPriceElement.textContent = `€ ${totalPrice.toFixed(2)}`;
     } else {
         // If cart is empty, show default values
-        document.querySelector(".items").textContent = "Items 0";
-        document.querySelector(".total-price").textContent = "€ 0.00";
+        itemsElement.textContent = "Items 0";
+        totalPriceElement.textContent = "€ 0.00";
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
     }
 
     // Update cart badge in the navigation
-    document.querySelector('.btn-outline-dark .badge').textContent = totalItems;
+    badgeElement.textContent = totalItems;
+    saveCart(); // Save the updated cart
 }
 
 // Increment quantity of an item
@@ -88,3 +121,7 @@ function addToCart(id, kind, brand, color, price, itemQuantity) {
     // Update the cart totals and item count in the UI
     updateCart();
 }
+document.addEventListener("DOMContentLoaded", function () {
+    updateCart();
+});
+
