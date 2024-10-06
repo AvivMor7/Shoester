@@ -11,7 +11,7 @@ const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoe
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
 const { strict } = require('assert');
-require('dotenv').config({ path: '.env.local' }); // Load environment variables
+require('dotenv').config({ path: '../.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB_URI;
@@ -194,6 +194,8 @@ app.get('/fetch-shoes', async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+
 
 
 // Start the server

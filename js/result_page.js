@@ -1,25 +1,34 @@
-async function fetchProducts() {
-    console.log('Fetching products...'); // Log fetching action
+let currentPage = 1;
+const itemsPerPage = 20;
+const totalProducts = 76; // Total number of products
+const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages
+
+async function fetchProducts(page) {
+    console.log('Fetching products for page:', page); // Log current page
     try {
-        const response = await fetch('/fetch-shoes'); // Ensure endpoint matches
-        console.log('Response status:', response.status); // Log response status
+        const response = await fetch('/fetch-shoes');
+        console.log('Response status:', response.status);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
         products = await response.json();
-        console.log('Product URLs:', products.map(product => product.url));
+        console.log('Fetched Products:', products);
 
-        // Get the product-list div
         const productList = document.getElementById('product_list');
-        productList.innerHTML = ''; // Clear existing content
+        productList.innerHTML = '';
 
-        if (products.length === 0) {
+        // Calculate start and end indices for slicing
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = page === totalPages ? totalProducts : startIndex + itemsPerPage;
+
+        const productsToDisplay = products.slice(startIndex, endIndex);
+
+        if (productsToDisplay.length === 0) {
             productList.innerHTML = '<p>No products found.</p>';
         } else {
-            // Create elements for each product and append to product-list
-            products.forEach(product => {
+            productsToDisplay.forEach(product => {
                 const productItem = document.createElement('div');
-                productItem.className = 'product-item'; // Add a class for styling
+                productItem.className = 'product-item';
                 productItem.innerHTML = `
                     <div class="card mb-3">
                         <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
@@ -28,12 +37,11 @@ async function fetchProducts() {
                             <p class="card-text">Kind: ${product.kind}</p>
                             <p class="card-text">Price: $${product.price}</p>
                             <p class="card-text">Sizes: ${product.size.join(', ')}</p>
-                            <p class="card-text">Color: ${product.color}</p> <!-- Add color -->
+                            <p class="card-text">Color: ${product.color}</p>
                         </div>
                     </div>
                 `;
                 productList.appendChild(productItem);
-
             });
         }
     } 
@@ -44,3 +52,31 @@ async function fetchProducts() {
 
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', fetchProducts);
+
+// divide to different pages
+function goToPage(page) {
+    currentPage = page;
+    fetchProducts(currentPage);
+    updatePaginationControls();
+}
+
+function updatePaginationControls() {
+    const paginationControls = document.getElementById('pagination_controls');
+    paginationControls.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.disabled = (i === currentPage); // Disable button for current page
+        button.onclick = () => goToPage(i);
+        paginationControls.appendChild(button);
+    }
+}
+
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchProducts(currentPage); // Fetch products for the first page
+    updatePaginationControls(); // Initialize pagination controls
+});
+
+
