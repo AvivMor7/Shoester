@@ -165,26 +165,32 @@ app.get("/fetch-orders",async(req,res)=>{
 });
 
 // display the info in the db at the result page
-
-// Product Schema
-const productSchema = new mongoose.Schema({
-    brand: String,
+// Define the shoe schema
+const Schema = mongoose.Schema;
+const shoeSchema = new Schema({
+    id: Number,
     kind: String,
-    price: Number,
-    size: [String],
+    brand: String,
+    color: String,
+    size: [Number],
+    inStock: Boolean,
     url: String
 });
 
-const Product = mongoose.model('Product', productSchema, 'shoes');
+
+
+const Shoe = mongoose.model('shoe', shoeSchema);
 
 // API Endpoint to get products
-app.get('/fetch-products', async (req, res) => {
+app.get('/fetch-shoes', async (req, res) => {
     try {
         const products = await Product.find(); // Fetch all products from DB
         res.json(products);
+
+
     }   
     catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching shoes:', error);
         res.status(500).send(error);
     }
 });
