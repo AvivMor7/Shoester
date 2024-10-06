@@ -14,7 +14,7 @@ const { strict } = require('assert');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
-const mongoURI = process.env.MONGODB_URI;
+const mongoURI = 'mongodb+srv://lohemaham:ahamloa310522@shoester.rwg7h.mongodb.net/store?retryWrites=true&w=majority&appName=shoester';
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
@@ -194,6 +194,23 @@ app.get('/fetch-shoes', async (req, res) => {
         res.status(500).send(error);
     }
 });
+// cart page
+// Fetch a shoe by ID
+app.get('/shoe/:id', async (req, res) => {
+    const shoeId = req.params.id;
+    try {
+        const shoe = await findShoeById(shoeId);
+        if (shoe) {
+            res.status(200).json(shoe); // Send the shoe details
+        } else {
+            res.status(404).json({ success: false, message: 'Shoe not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching shoe:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
 
 
 

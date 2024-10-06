@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -13,195 +13,107 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/cart.css" rel="stylesheet" />
     <style>
-      .img-fluid {
-        object-fit: cover;
-      }
-      .card {
-        margin-bottom: 20px;
-      }
+        .img-fluid {
+            object-fit: cover;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
     </style>
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
     />
-  </head>
-  <body>
+</head>
+<body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.679);">
-      <div class="container px-4 px-lg-5">
-        <img src="assets/favicon.ico" style="height: 50px; padding-right: 15px;" />
-        <a class="navbar-brand" href="landing_page.html">Shoester</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="landing_page.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="contacts_page.html">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="login_page.html">Login</a></li>
-          </ul>
-          <div class="input-group rounded">
-            <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)" />
-            <style> 
-                .input-group {
-                    max-width: 200px; 
-                    margin: left; 
-                }
-            </style>
-          </div>
-          <form class="d-flex" style="margin-left: 50vh;">
-            <a href="cart.html" class="btn btn-outline-dark" role="button">
-              <i class="bi-cart-fill me-1"></i>
-              Cart
-              <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-            </a>
-          </form>
+        <div class="container px-4 px-lg-5">
+            <img src="assets/favicon.ico" style="height: 50px; padding-right: 15px;" />
+            <a class="navbar-brand" href="landing_page.html">Shoester</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="landing_page.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacts_page.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login_page.html">Login</a></li>
+                </ul>
+                <div class="input-group rounded">
+                    <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)" />
+                    <style> 
+                        .input-group {
+                            max-width: 200px; 
+                            margin: left; 
+                        }
+                    </style>
+                </div>
+                <form class="d-flex" style="margin-left: 50vh;">
+                    <a href="cart.html" class="btn btn-outline-dark" role="button">
+                        <i class="bi-cart-fill me-1"></i>
+                        Cart
+                        <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                    </a>
+                </form>
+            </div>
         </div>
-      </div>
     </nav>
     <!-- Header-->
-         <!-- Header -->
     <header class="bg-dark py-5" style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.703); background-image: url(/assets/banner8.jpg); background-size: cover; background-repeat: no-repeat; background-position: right; height: 100%; width: 100%; position: relative;">
-      <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(50, 50, 50, 0.35); z-index: 1;"></div> 
-      <div class="container px-4 px-lg-5 my-5" style="position: relative; z-index: 2;">
-          <div class="text-center text-white" style="text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8); padding: 20px;">
-              <h1 class="display-4 fw-bolder">Your cart</h1>
-              <p class="lead fw-normal text-white-100 mb-0">Add, Change, and Buy new shoes!</p>
-          </div>
-      </div>
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(50, 50, 50, 0.35); z-index: 1;"></div> 
+        <div class="container px-4 px-lg-5 my-5" style="position: relative; z-index: 2;">
+            <div class="text-center text-white" style="text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8); padding: 20px;">
+                <h1 class="display-4 fw-bolder">Your cart</h1>
+                <p class="lead fw-normal text-white-100 mb-0">Add, Change, and Buy new shoes!</p>
+            </div>
+        </div>
     </header>
     <!--cart area-->
     <section class="h-100 h-custom" style="background-color: #ffffff;">
-      <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-12">
-            <div class="card card-registration card-registration-2" style="border-radius: 15px;box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.341)">
-              <div class="card-body p-0">
-                <div class="row g-0">
-                  <div class="col-lg-8">
-                    <div class="p-5">
-                      <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h1 class="fw-bold mb-0">Shopping Cart</h1>
-                        <h6 class="mb-0 text-muted">3 items</h6>
-                      </div>
-                      <hr class="my-4">
-                      <!-- Item 1 -->
-                      <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.341)">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0">Shopping Cart</h1>
+                                            <h6 class="mb-0 text-muted items">Items 0</h6>
+                                        </div>
+                                        <hr class="my-4">
+                                        <!-- Cart Items will be dynamically injected here -->
+                                        <div id="cart-items"></div>
+                                        <hr class="my-4">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 bg-grey">
+                                    <div class="p-5">
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                        <hr class="my-4">
+                                        <div class="d-flex justify-content-between mb-4">
+                                            <h5 class="text-uppercase">Total</h5>
+                                            <h5 class="total-price">€ 0.00</h5>
+                                        </div>
+                                        <button type="button" class="btn btn-warning btn-block btn-lg" style="border-radius: 15px;">
+                                            Proceed to Checkout
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Shirt</h6>
-                          <h6 class="mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button class="btn btn-link px-2" onclick="decrementQuantity(1)">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <input id="quantity1" min="0" name="quantity" value="1" type="number" class="form-control form-control-sm" readonly />
-                          <button class="btn btn-link px-2" onclick="incrementQuantity(1)">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>                        
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted" onclick="removeItem(1)"><i class="fas fa-times"></i></a>
-                        </div>
-                      </div>
-                      <hr class="my-4">
-                      <!-- Item 2 -->
-                      <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Shirt</h6>
-                          <h6 class="mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button class="btn btn-link px-2" onclick="decrementQuantity(2)">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <input min="0" name="quantity" value="1" type="number" class="form-control form-control-sm"
-                            readonly />
-                          <button class="btn btn-link px-2" onclick="incrementQuantity(2)">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted" onclick="removeItem(2)"><i class="fas fa-times"></i></a>
-                        </div>
-                      </div>
-                      <hr class="my-4">
-                      <!-- Item 3 -->
-                      <div class="row mb-4 d-flex justify-content-between align-items-center">
-                        <div class="col-md-2 col-lg-2 col-xl-2">
-                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                            class="img-fluid rounded-3" alt="Cotton T-shirt">
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-3">
-                          <h6 class="text-muted">Shirt</h6>
-                          <h6 class="mb-0">Cotton T-shirt</h6>
-                        </div>
-                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                          <button class="btn btn-link px-2" onclick="decrementQuantity(3)">
-                            <i class="fas fa-minus"></i>
-                          </button>
-                          <input min="0" name="quantity" value="1" type="number" class="form-control form-control-sm"
-                            readonly />
-                          <button class="btn btn-link px-2" onclick="incrementQuantity(3)">
-                            <i class="fas fa-plus"></i>
-                          </button>
-                        </div>
-                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                          <h6 class="mb-0">€ 44.00</h6>
-                        </div>
-                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                          <a href="#!" class="text-muted" onclick="removeItem(3)"><i class="fas fa-times"></i></a>
-                        </div>
-                      </div>
-                      <hr class="my-4">
                     </div>
-                  </div>
-                  <div class="col-lg-4 bg-grey">
-                    <div class="p-5">
-                      <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                      <hr class="my-4">
-                      <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase items">Items 3</h5>
-                        <h5 class="total-price">€ 132.00</h5>
-                      </div>
-                      <hr class="my-4">
-                      <div class="d-flex justify-content-between mb-4">
-                        <h5 class="text-uppercase">Total price</h5>
-                        <h5 class="total-price">€ 132.00</h5>
-                      </div>
-                      <button type="button" class="btn btn-dark btn-block btn-lg">Buy</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
-    <!-- Footer-->
-    <footer class="py-3 bg-dark" style="box-shadow: 0px -5px 10px rgba(86, 86, 86, 0.745);">
-      <div class="container px-4 px-lg-5">
-          <p class="m-0 text-center text-white">Copyright &copy; Shoester 2024</p>
-      </div>
-    </footer>
-    <script src="../js/Main.js"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8ib9W8+ZfYY7MdD1quFQx5tiS0VHZ7M5z6z7Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-8JwU7KT8vIBKZg/XmWZ7i0ZbrRz1AipU6w1Fq2OVfU28MvXymf9EEPhDBM/8V3jR" crossorigin="anonymous"></script>
+    <script src="cart.js"></script>
+</body>
 </html>
