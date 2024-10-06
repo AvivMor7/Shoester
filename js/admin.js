@@ -387,3 +387,87 @@ async function fetchSalesByBrandData() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchSalesByBrandData();
 });
+
+
+
+
+async function fetchSalesByKindData() {
+    try {
+        const ordersResponse = await fetch('/fetch-orders');
+        const shoesResponse = await fetch('/fetch-shoes');
+
+        if (!ordersResponse.ok || !shoesResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const orders = await ordersResponse.json();
+        const shoes = await shoesResponse.json();
+
+        // Create a map of shoe ids to brands and kinds
+        const shoeMap = shoes.reduce((acc, shoe) => {
+            acc[shoe.id] = {
+                brand: shoe.brand,
+                kind: shoe.kind  // Added 'kind' to the map
+            };
+            return acc;
+        }, {});
+
+        // Aggregate sales by kind
+        const kindSales = {};
+
+        // Iterate over orders and aggregate sales by kind
+        orders.forEach(order => {
+            let shoeIds;
+
+            if (Array.isArray(order.shoes_ids)) {
+                shoeIds = order.shoes_ids;
+            } else if (typeof order.shoes_ids === 'string') {
+                shoeIds = order.shoes_ids.split(',');  // Split if it's a string
+            } else {
+                console.warn('Unexpected type for shoes_ids:', typeof order.shoes_ids);
+                return; // Skip this order if shoes_ids is not an array or string
+            }
+
+            shoeIds.forEach(shoeId => {
+                const { kind } = shoeMap[shoeId] || {};  // Get the kind for the given shoe_id
+
+                if (kind) {
+                    kindSales[kind] = (kindSales[kind] || 0) + 1;
+                }
+            });
+        });
+
+        const kindNames = Object.keys(kindSales);
+        const kindSalesCounts = Object.values(kindSales);
+
+        // Create the chart for kind sales
+        const kindCtx = document.getElementById('kindSalesChart').getContext('2d');
+        new Chart(kindCtx, {
+            type: 'bar',
+            data: {
+                labels: kindNames,
+                datasets: [{
+                    label: 'Number of Shoes Sold by Kind',
+                    data: kindSalesCounts,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching order or shoe data:', error);
+    }
+}
+
+// Call the fetchSalesByKindData function when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchSalesByKindData();
+});
