@@ -75,4 +75,21 @@ function saveCart() {
     loadCart();
     updateCart();
   });
+  // Function to add an item to the cart
+function addToCart(id, kind, brand, color, price, itemQuantity) {
+    // Check if the item already exists in the cart
+    const existingItem = cart.find(item => item.id === itemId);
+  
+    if (existingItem) {
+      // If it exists, increment the quantity
+      existingItem.quantity += itemQuantity;
+    } else {
+      // If it doesn't exist, add a new item to the cart
+      cart.push({ id: id, kind: kind, name: brand, color: color, price: price, quantity: itemQuantity });
+    }
+  
+    // Update the cart totals and item count in the UI
+    updateCart();
+  }
+  
   
