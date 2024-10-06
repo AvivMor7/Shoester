@@ -284,3 +284,106 @@ showOrdersBtn.addEventListener('click', async () => {
 userList.style.display = 'none';
 shoeList.style.display = 'none';
 orderList.style.display = 'none';
+
+
+
+// Fetch and plot sales by brand chart
+async function fetchSalesByBrandData() {
+    try {
+        const ordersResponse = await fetch('/fetch-orders');
+        const shoesResponse = await fetch('/fetch-shoes');
+
+        if (!ordersResponse.ok || !shoesResponse.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const orders = await ordersResponse.json();
+        const shoes = await shoesResponse.json();
+
+        console.log('Orders:', orders);  // Log the orders to inspect the data
+        console.log('Shoes:', shoes);    // Log the shoes to inspect the data
+
+        // Create a map of shoe ids to brands
+        const shoeMap = shoes.reduce((acc, shoe) => {
+            acc[shoe.id] = shoe.brand;  // Use `shoe.id` to map the shoe's id to its brand
+            return acc;
+        }, {});
+
+        console.log('Shoe Map:', shoeMap);  // Log the map of shoe IDs to brands
+
+        // Aggregate sales by brand
+        const brandSales = {};
+
+        // Iterate over orders and aggregate sales
+        orders.forEach(order => {
+            let shoeIds;
+
+            // Check if order.shoes_ids is already an array or a comma-separated string
+            if (Array.isArray(order.shoes_ids)) {
+                shoeIds = order.shoes_ids;
+            } else if (typeof order.shoes_ids === 'string') {
+                shoeIds = order.shoes_ids.split(',');  // Split if it's a string
+            } else {
+                console.warn('Unexpected type for shoes_ids:', typeof order.shoes_ids);
+                return; // Skip this order if shoes_ids is not an array or string
+            }
+
+            console.log('Processing Order:', order);  // Log each order
+            console.log('Shoe IDs:', shoeIds);        // Log the shoe IDs in the order
+
+            // For each shoe_id in the order, get the brand and update the sales count
+            shoeIds.forEach(shoeId => {
+                const brand = shoeMap[shoeId];  // Get the brand for the given shoe_id
+
+                // If the shoe_id is found in the shoeMap (i.e. the brand exists), increment the count
+                if (brand) {
+                    brandSales[brand] = (brandSales[brand] || 0) + 1;
+                } else {
+                    console.warn(`Shoe with ID ${shoeId} not found in shoeMap.`);
+                }
+            });
+        });
+
+        console.log('Brand Sales:', brandSales);  // Log the aggregated sales by brand
+
+        const brandNames = Object.keys(brandSales);
+        const salesCounts = Object.values(brandSales);
+
+        console.log('Brand Names:', brandNames);  // Log brand names (X-axis labels)
+        console.log('Sales Counts:', salesCounts);  // Log sales counts (Y-axis values)
+
+        if (brandNames.length === 0 || salesCounts.length === 0) {
+            console.log('No sales data to display in the chart.');
+        }
+
+        // Create the chart
+        const ctx = document.getElementById('brandSalesChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: brandNames,
+                datasets: [{
+                    label: 'Number of Shoes Sold',
+                    data: salesCounts,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching order or shoe data:', error);
+    }
+}
+
+// Call fetchSalesByBrandData to populate the chart when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchSalesByBrandData();
+});
