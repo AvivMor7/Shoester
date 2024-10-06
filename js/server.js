@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const { default: mongoose } = require('mongoose');
+const session = require('express-session')
 const PORT = process.env.PORT || 8080;
 
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
+const { strict } = require('assert');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -25,6 +27,14 @@ app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/js', express.static(path.join(__dirname,'../js')));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 app.use(express.static(path.join(__dirname, '../html'))); // Serve HTML files
+
+//make sessions
+app.use(session({
+    secret: 'avivguygalkorenthebestatthisthingreally',
+    cookie: {
+        sameSite: 'strict'
+    }
+}));
 
 // Basic route for home page
 app.get('/landing_page.html', (req, res) => {
@@ -43,6 +53,8 @@ app.post('/login', async (req, res) => {
         
         if (isValid) {
             // Send a success response if credentials are valid
+            req.session.user = username;
+            req.session.authorized = true;
             res.json({ success: true, message: 'Login successful!' }); // Send success message
         } else {
             // Send an error response if credentials are invalid
@@ -53,7 +65,6 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
-
 
 // POST route for registration
 app.post('/register', async (req, res) => {
@@ -73,8 +84,7 @@ app.post('/register', async (req, res) => {
     }
 });
 
-
-
+//delete a user on admin panel
 app.delete('/delete-user/:username', async (req, res) => {
     const username = req.params.username;  // Get the username from the URL params
     try {
@@ -134,8 +144,6 @@ app.get("/fetch-data",async(req,res)=>{
     }
 });
 
-
-
 app.get("/fetch-shoes",async(req,res)=>{
     try {
         const shoes = await getShoes(); // Fetch data from your MongoDB collection
@@ -180,7 +188,6 @@ app.get('/fetch-products', async (req, res) => {
         res.status(500).send(error);
     }
 });
-
 
 
 // Start the server
