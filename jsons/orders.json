@@ -1,55 +1,55 @@
 [
     {
-        "order_id": "1",
+        "order_id": 1,
         "username": "john_doe",
         "shoes_ids": ["4"]
     },
 
     {
-        "order_id": "2",
+        "order_id": 2,
         "username": "jane_smith",
         "shoes_ids": ["75"]
     },
     
     {
-        "order_id": "3",
+        "order_id": 3,
         "username": "alice_johnson",
         "shoes_ids": ["8"]
     },
 
     {
-        "order_id": "4",
+        "order_id": 4,
         "username": "bob jin",
         "shoes_ids": ["8"]
     },
     {
-        "order_id": "5",
+        "order_id": 5,
         "username": "joe jhonson",
         "shoes_ids": ["8"]
     },
 
     {
-        "order_id": "6",
+        "order_id": 6,
         "username": "michele obama",
         "shoes_ids": ["58"]
     },
     {
-        "order_id": "7",
+        "order_id": 7,
         "username": "oprah winfrey ",
         "shoes_ids": ["69"]
     },
     {
-        "order_id": "8",
+        "order_id": 8,
         "username": "Queen Elizabeth II",
         "shoes_ids": ["66"]
     },
     {
-        "order_id": "9",
+        "order_id": 9,
         "username": "Rosa Parks",
         "shoes_ids": ["64"]
     },
     {
-        "order_id": "10",
+        "order_id": 10,
         "username": "Walt Disney",
         "shoes_ids": ["11"]
     },
