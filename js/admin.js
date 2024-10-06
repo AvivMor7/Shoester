@@ -104,8 +104,6 @@ async function fetchShoes() {
 
 // Function to populate the shoe list table
 function populateShoeTable() {
-    console.log('Populating shoe table...');
-    // Clear existing rows before repopulating
     shoeTableBody.innerHTML = '';
 
     // Populate the table with shoe data
@@ -114,6 +112,7 @@ function populateShoeTable() {
     } else {
         shoes.forEach(shoe => {
             const row = document.createElement('tr');
+            row.setAttribute('data-id', shoe.id);
             row.innerHTML = `
                 <td>${shoe.id}</td>
                 <td>${shoe.kind}</td>
@@ -144,7 +143,6 @@ async function fetchOrders() {
 
 // Function to populate the past orders table
 function populateOrderTable() {
-    // Clear existing rows before repopulating
     orderTableBody.innerHTML = '';
 
     // Populate the table with order data
@@ -153,6 +151,7 @@ function populateOrderTable() {
     } else {
         orders.forEach(order => {
             const row = document.createElement('tr');
+            row.setAttribute('data-id', order.order_id);
             row.innerHTML = `
                 <td>${order.username}</td>
                 <td>${order.order_id}</td>
@@ -214,10 +213,12 @@ async function deleteShoe(id) {
 
         // Filter out the deleted shoe from the shoes array
         shoes = shoes.filter(shoe => shoe.id !== id);
-        console.log('Updated shoes after deletion:', shoes);  // Debugging log to ensure `shoes` is updated
-
         // Re-render the shoe table immediately after deletion, without hiding or showing it
-        populateShoeTable();  // Re-render the shoe table with updated data
+        const rowToRemove = document.querySelector(`#shoeTableBody tr[data-id="${id}"]`);
+        if (rowToRemove) {
+            rowToRemove.remove();
+        }
+
         alert('Shoe deleted successfully!');
     } catch (error) {
         console.error('Error deleting shoe:', error);
@@ -246,8 +247,11 @@ async function deleteOrder(order_id) {
         // Filter out the deleted order from the orders array
         orders = orders.filter(order => order.order_id !== order_id);
 
-        // Immediately update the table
-        populateOrderTable();  // Re-render the order table
+        const rowToRemove = document.querySelector(`#orderTableBody tr[data-id="${order_id}"]`);
+        if (rowToRemove) {
+            rowToRemove.remove();
+        }
+
         alert('Order deleted successfully!');
     } catch (error) {
         console.error('Error deleting order:', error);
