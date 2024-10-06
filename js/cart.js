@@ -51,3 +51,28 @@ updateCart();
 document.addEventListener("DOMContentLoaded", function() {
 updateCart();
 });
+// Save cart to localStorage
+function saveCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+  
+  // Load cart from localStorage
+  function loadCart() {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      cart = JSON.parse(storedCart);
+    }
+  }
+  
+  // Update cart and save it to localStorage
+  function updateCart() {
+    // Same logic as above
+    saveCart();
+  }
+  
+  // On page load, load the cart from localStorage and initialize it
+  document.addEventListener("DOMContentLoaded", function() {
+    loadCart();
+    updateCart();
+  });
+  
