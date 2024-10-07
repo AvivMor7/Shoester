@@ -13,7 +13,7 @@ function createNavbar() {
                         <li class="nav-item" id="personalPageLink" style="display: none; margin-right: 20px;"><a class="nav-link" href="personal_page.html" class="auth-link">Profile</a></li>
                     </ul>
                     <div class="input-group rounded" id="search">
-                        <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)"  style="margin-right: 20px;border-radius:50px;" />
+                        <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)" style="margin-right: 20px;border-radius:50px;" />
                     </div>
                     <form class="d-flex" style="margin-left: auto;">
                         <a href="cart.html" id="cart_button" class="btn btn-outline-dark d-flex align-items-center justify-content-center" role="button" style="display: none;">
@@ -42,7 +42,6 @@ function createNavbar() {
         logout();
     });
 }
-
 
 
 function updateNavbar() {
