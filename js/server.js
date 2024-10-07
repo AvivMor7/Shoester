@@ -14,7 +14,7 @@ const { strict } = require('assert');
 const { getDefaultResultOrder } = require('dns/promises');
 const Shoe = require('../models/shoe');
 const User = require('../models/user');
-require('dotenv').config({ path: '../.env.local' }); // Load environment variables
+require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
 const mongoURI = 'mongodb+srv://lohemaham:ahamloa310522@shoester.rwg7h.mongodb.net/store?retryWrites=true&w=majority&appName=shoester';
