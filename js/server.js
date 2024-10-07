@@ -23,10 +23,6 @@ mongoose.connect(mongoURI)
 app.use(express.json());  // Enable parsing JSON bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//set the template view engine
-app.set('view engine', 'pug');
-app.set('views',path.join(__dirname, 'views'));
-
 // Serve static files
 app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/js', express.static(path.join(__dirname,'../js')));
@@ -77,10 +73,28 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// Route to handle personal cart requests
+app.get('/get-cart', async (req, res) => {
+    if (req.session.username) {
+        try {
+            const cart = await getCart(req.session.username);
+            if (cart) {
+                return res.json(cart);
+            } else {
+                return res.status(404).send('Cart not found!');
+            }
+        } catch (error) {
+            console.error('Error fetching cart:', error);
+            return res.status(500).send('Internal server error');
+        }
+    } else {
+        return res.status(401).send('No user logged in found!');
+    }
+});
+
+
 // Route to handle personal page requests
 app.get('/user-data', async (req, res) => {
-    console.log('Session data:', req.session); // Log session data
-
     if (req.session.username) {
         try {
             const user = await getUser(req.session.username);

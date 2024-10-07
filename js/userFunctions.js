@@ -17,6 +17,20 @@ async function checkUser(username, password) {
     }
 }
 
+async function getCart(username) {
+    try {
+        // Select only the fields you want to return
+        const cart = await User.findOne(
+            { username: username },
+            'cart'
+        );
+        return cart;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        throw error; // Optionally rethrow the error for further handling
+    }
+}
+
 async function isAdmin(username) {
     try {
         // Check if user exists by username
@@ -66,7 +80,8 @@ async function addUser(full_name, username, password, phone_number, email, addre
             phone_number,
             email,
             address,
-            is_admin: false // Set is_admin to false for new users
+            is_admin: false, // Set is_admin to false for new users
+            cart: []
         });
 
         // Save the user to the database

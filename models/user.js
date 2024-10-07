@@ -10,7 +10,11 @@ const userSchema = new Schema({
     email: String,
     phone_number: String,
     address: String, // Add the address field
-    is_admin: Boolean
+    is_admin: Boolean,
+    cart: [{
+        shoeId: Number,
+        amount: Number
+    }]
 });
 
 const User = mongoose.model('User', userSchema);
