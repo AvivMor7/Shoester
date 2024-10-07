@@ -1,0 +1,73 @@
+/* Style for the navbar */
+#navbar {
+    position: relative;
+    height: 75px;
+    max-height: 75px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.679);
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space out items */
+    max-width: calc(100% - 20px); /* Adjust max width dynamically */
+    padding: 0 10px; /* Add some padding to the sides */
+    box-sizing: border-box; /* Ensure padding is included in max width */
+}
+
+/* Center align the navbar items */
+.navbar-nav {
+    display: flex; /* Make nav items a flex container */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    flex-grow: 1; /* Allow navbar items to take available space */
+}
+
+/* Style for authentication links */
+.auth-link {
+    padding: 10px 15px; /* Adjust padding for better click area */
+    font-weight: 500; /* Slightly bolder text */
+    margin-left: 10px; /* Add margin for spacing */
+}
+
+.btn-outline-primary {
+    background-color: #007bff; /* Primary color */
+    color: white; /* Text color */
+}
+
+.btn-outline-danger {
+    background-color: #dc3545; /* Danger color */
+    color: white; /* Text color */
+}
+
+#loginButton, #logoutButton {
+    height: 35px;
+    width: 100px; /* Set width of buttons */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+#adminPageLink {
+    margin-left: 10px;
+    height: 35px;
+    width: 125px; /* Set width of admin button */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn.btn-outline-dark {
+    height: 35px !important; /* Force the height */
+    line-height: 35px; /* Center the text vertically */
+    display: flex; /* Use flexbox for the button */
+    align-items: center; /* Center icon and text vertically */
+    margin-right: 10px;
+}
+
+/* Responsive styling */
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start; /* Align items to start in mobile view */
+    }
+    
+    .auth-link {
+        margin-bottom: 10px; /* Space out links in mobile view */
+    }
+}

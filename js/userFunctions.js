@@ -17,7 +17,20 @@ async function checkUser(username, password) {
     }
 }
 
+async function isAdmin(username) {
+    try {
+        // Check if user exists by username
+        const user = await User.findOne({ username });
 
+        if (user.is_admin) {
+            return true;
+        }
+        return false; // Return true if password is correct, false otherwise
+    } catch (error) {
+        console.error('Error checking user:', error);
+        throw error; // Rethrow the error for further handling
+    }
+}
 
 async function deleteUser(username) {
     try {
@@ -90,4 +103,4 @@ async function getUser(username) {
     }
 }
 
-module.exports = { addUser, checkUser, getUsers, getUser, deleteUser }; // Export
+module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin}; // Export

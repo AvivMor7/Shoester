@@ -15,8 +15,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     
         const result = await response.json();
         if (result.success) {
-            // Redirect to personal page if login is successful
-            window.location.href = '/personal_page.html';
+            // Redirect to the personal page using the URL from the response
+            window.location.href = result.redirectUrl;
         } else {
             // Show alert for failed login
             alert(result.message);

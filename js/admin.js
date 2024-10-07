@@ -22,6 +22,29 @@ const orderTableBody = document.getElementById('orderTableBody');
 const showOrdersBtn = document.getElementById('showOrdersBtn');
 const orderList = document.getElementById('orderList');
 
+//extra insurance gaurding the admin page on client side
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('/session-check') // Create an endpoint to check session
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Session not found');
+        }
+    })
+    .then(data => {
+        if (!data.loggedIn || !data.user.is_admin) {
+            // If the user is not logged in or not an admin, redirect
+            window.location.href = '/landing_page.html';
+        }
+    })
+    .catch(error => {
+        console.error('Error checking session:', error);
+        window.location.href = '/landing_page.html'; // Redirect on error
+    });
+});
+
+
 // Reusable function to toggle visibility of a section
 function toggleListSection(listElement, button, fetched, populateFunction) {
     if (listElement.style.display === 'none' || listElement.style.display === '') {
@@ -49,7 +72,7 @@ function toggleListSection(listElement, button, fetched, populateFunction) {
 // Fetch users from the server and store them
 async function fetchUsers() {
     try {
-        const response = await fetch('/fetch-data');
+        const response = await fetch('/fetch-users');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }

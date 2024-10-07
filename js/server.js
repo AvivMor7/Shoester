@@ -8,13 +8,14 @@ const session = require('express-session')
 const PORT = process.env.PORT || 8080;
 
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
-const {  addUser, checkUser, getUsers, getUser, deleteUser } = require('./userFunctions'); // Import user functions
+const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin} = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
 const { strict } = require('assert');
+const { getDefaultResultOrder } = require('dns/promises');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
-const mongoURI = 'mongodb+srv://lohemaham:ahamloa310522@shoester.rwg7h.mongodb.net/store?retryWrites=true&w=majority&appName=shoester';
+const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
@@ -22,17 +23,26 @@ mongoose.connect(mongoURI)
 app.use(express.json());  // Enable parsing JSON bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//set the template view engine
+app.set('view engine', 'pug');
+app.set('views',path.join(__dirname, 'views'));
+
 // Serve static files
 app.use('/css', express.static(path.join(__dirname, '../css')));
 app.use('/js', express.static(path.join(__dirname,'../js')));
 app.use('/assets', express.static(path.join(__dirname, '../assets')));
 app.use(express.static(path.join(__dirname, '../html'))); // Serve HTML files
 
-//make sessions
+//make session
 app.use(session({
     secret: 'avivguygalkorenthebestatthisthingreally',
+    resave: false, // avoid resaving session if nothing is changed
+    saveUninitialized: false, // don't create session until something is stored
     cookie: {
-        sameSite: 'strict'
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        secure: false,
+        httpOnly: true,
+        sameSite: 'lax' 
     }
 }));
 
@@ -45,19 +55,20 @@ app.get('/', (req, res) => {
     res.redirect('/landing_page.html');
 });
 
-// Add a POST route to handle login
+// POST route to handle login
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
     try {
         const isValid = await checkUser(username, password);
         
         if (isValid) {
-            // Send a success response if credentials are valid
-            req.session.user = username;
+            // Set session variables
+            req.session.username = username;
             req.session.authorized = true;
-            res.json({ success: true, message: 'Login successful!' }); // Send success message
+
+            // Send a JSON response indicating the redirect
+            res.json({ success: true, redirectUrl: '/personal_page.html' });
         } else {
-            // Send an error response if credentials are invalid
             res.json({ success: false, message: 'Username or password is incorrect.' });
         }
     } catch (error) {
@@ -65,6 +76,33 @@ app.post('/login', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+
+// Route to handle personal page requests
+app.get('/user-data', async (req, res) => {
+    console.log('Session data:', req.session); // Log session data
+
+    if (req.session.username) {
+        try {
+            const user = await getUser(req.session.username);
+            const orders = await getOrdersByUsername(req.session.username);
+            if (user) {
+                // Log user and orders before sending
+                console.log('User:', user);
+                console.log('Orders:', orders);
+                
+                return res.json({ user, orders });
+            } else {
+                return res.status(404).send('User not found!');
+            }
+        } catch (error) {
+            console.error('Error fetching user:', error);
+            return res.status(500).send('Internal server error');
+        }
+    } else {
+        return res.status(401).send('No user logged in found!');
+    }
+});
+
 
 // POST route for registration
 app.post('/register', async (req, res) => {
@@ -134,7 +172,7 @@ app.delete('/delete-shoe/:id', async (req, res) => {
 
 
 // get for adminpage user table
-app.get("/fetch-data",async(req,res)=>{
+app.get("/fetch-users",async(req,res)=>{
     try {
         const data = await getUsers(); // Fetch data from your MongoDB collection
         res.json(data); // Return the data as JSON
@@ -165,55 +203,82 @@ app.get("/fetch-orders",async(req,res)=>{
 });
 
 // display the info in the db at the result page
-// Define the shoe schema
-const Schema = mongoose.Schema;
-const shoeSchema = new Schema({
-    id: Number,
-    kind: String,
+
+// Product Schema
+const productSchema = new mongoose.Schema({
     brand: String,
-    color: String,
-    size: [Number],
-    inStock: Boolean,
+    kind: String,
+    price: Number,
+    size: [String],
     url: String
 });
 
-
-
-const Shoe = mongoose.model('shoe', shoeSchema);
+const Product = mongoose.model('Product', productSchema, 'shoes');
 
 // API Endpoint to get products
-app.get('/fetch-shoes', async (req, res) => {
+app.get('/fetch-products', async (req, res) => {
     try {
         const products = await Product.find(); // Fetch all products from DB
         res.json(products);
-
-
     }   
     catch (error) {
-        console.error('Error fetching shoes:', error);
+        console.error('Error fetching products:', error);
         res.status(500).send(error);
     }
 });
-// cart page
-// Fetch a shoe by ID
-app.get('/shoe/:id', async (req, res) => {
-    const shoeId = req.params.id;
-    try {
-        const shoe = await findShoeById(shoeId);
-        if (shoe) {
-            res.status(200).json(shoe); // Send the shoe details
-        } else {
-            res.status(404).json({ success: false, message: 'Shoe not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching shoe:', error);
-        res.status(500).json({ success: false, message: 'Internal server error.' });
+
+app.get('/session-check', async (req, res) => {
+    if (req.session.username) {
+        const user = await getUser(req.session.username);
+        const admin = await isAdmin(req.session.username)
+
+        return res.json({ 
+            loggedIn: true, 
+            user: {
+                username: req.session.username,
+                is_admin: admin
+            }
+        });
+    } else {
+        return res.json({ loggedIn: false });
     }
 });
 
+// Middleware to check if the user is an admin
+async function checkAdmin(req, res, next) {
+    // Check if the user is logged in
+    if (!req.session.username) {
+        console.log('User not logged in. Redirecting...');
+        return res.redirect('/landing_page.html'); // Redirect if not logged in
+    }
+
+    // Check if the user is an admin using your existing isAdmin function
+    const isAdminUser = await isAdmin(req.session.username);
+    if (!isAdminUser) {
+        console.log('User is not an admin. Redirecting...');
+        return res.redirect('/landing_page.html'); // Redirect if not an admin
+    }
+
+    console.log('User is logged in and is an admin. Continuing...');
+    next(); // Proceed to the requested route
+}
+
+app.get('/admin_page.html', checkAdmin, (req, res) => {
+    // Render the admin page if user is authenticated and is admin
+    res.sendFile(path.join(__dirname, 'path_to_your_admin_page/admin_page.html'));
+});
 
 
-
+// Logout route
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            return res.status(500).send('Error logging out');
+        }
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.sendStatus(200); // Send success response
+    });
+});
 
 // Start the server
 app.listen(PORT, () => {
