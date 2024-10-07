@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Shoe = require('../models/shoe'); // Adjust the path if necessary
 
 // Function to add a shoe
-async function addShoe(id, kind, brand, color, size, inStock, url) {
+async function addShoe(id, kind, brand, color, size, inStock,price, url) {
     const newShoe = new Shoe({
         id,
         kind,
@@ -10,6 +10,7 @@ async function addShoe(id, kind, brand, color, size, inStock, url) {
         color,
         size,
         inStock,
+        price,
         url
     });
 

@@ -519,6 +519,7 @@ addShoeForm.addEventListener('submit', async (event) => {
         color: document.getElementById('shoeColor').value,
         size: document.getElementById('shoeSize').value.split(',').map(Number),
         inStock: document.getElementById('shoeinstock').value,
+        price: parseInt(document.getElementById('shoeprice').value),
         url: document.getElementById('shoeImageUrl').value
     };
 

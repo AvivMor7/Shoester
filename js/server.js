@@ -332,11 +332,11 @@ app.post('/logout', (req, res) => {
 
 
 app.post('/add-shoe', async (req, res) => {
-    const { id, kind, brand, color, size, inStock, url } = req.body;
+    const { id, kind, brand, color, size, inStock, price, url } = req.body;
     
     try {
         // Call the addShoe function from shoeFunctions
-        const newShoe = await addShoe(id, kind, brand, color, size, inStock, url);
+        const newShoe = await addShoe(id, kind, brand, color, size, inStock, price, url);
         
         // Check if the shoe was added successfully
         if (newShoe) {
