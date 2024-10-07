@@ -16,8 +16,8 @@ function createNavbar() {
                         <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)"  style="margin-right: 20px;border-radius:50px;" />
                     </div>
                     <form class="d-flex" style="margin-left: auto;">
-                        <a href="cart.html" id="cart_button" class="btn btn-outline-dark" role="button" style="display: none;">
-                            <i class="bi-cart-fill me-1" style="margin-center:5px ;"></i>
+                        <a href="cart.html" id="cart_button" class="btn btn-outline-dark d-flex align-items-center justify-content-center" role="button" style="display: none;">
+                            <i class="bi-cart-fill" style="font-size: 1.2rem; margin-right: 5px;"></i>
                             Cart
                         </a>
                         <a href="login_page.html" id="loginButton" class="btn btn-outline-primary ms-2" style="display: inline;">
