@@ -1,5 +1,10 @@
 // Call the function when the page loads
-document.addEventListener('DOMContentLoaded', fetchProducts);
+document.addEventListener('DOMContentLoaded', () => {
+    createNavbar(); // Create the navbar on page load
+    updateNavbar(); // Update navbar to reflect login status
+    fetchProducts(currentPage); // Fetch products on page load
+    document.getElementById('searching_box').addEventListener('input', searchProducts); // Add search event listener
+});
 
 let currentPage = 1;
 const itemsPerPage = 20;
@@ -7,7 +12,7 @@ let products = []; // To store all fetched products
 let totalProducts = 0; // To keep track of total products after filtering
 
 async function fetchProducts(page) {
-    console.log('Fetching products for page:', page); // Log current page
+    console.log('Fetching products for page:', page);
     try {
         const response = await fetch('/fetch-products');
         console.log('Response status:', response.status);
@@ -25,42 +30,6 @@ async function fetchProducts(page) {
     }
 }
 
-// Function to display products based on the current page or filters
-function displayProducts(page, filteredProductsList = null) {
-    const productList = document.getElementById('product_list');
-    productList.innerHTML = '';
-
-    // Determine which products to display
-    const productsToDisplay = filteredProductsList || products;
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, productsToDisplay.length);
-
-    const productsSlice = productsToDisplay.slice(startIndex, endIndex);
-
-    if (productsSlice.length === 0) {
-        productList.innerHTML = '<p>No products found.</p>';
-    } else {
-        productsSlice.forEach(product => {
-            const productItem = document.createElement('div');
-            productItem.className = 'product-item';
-            productItem.innerHTML = `
-                <div class="card mb-3">
-                    <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
-                    <div class="card-body">
-                        <h5 class="card-title">${product.brand}</h5>
-                        <p class="card-text">Kind: ${product.kind}</p>
-                        <p class="card-text">Price: $${product.price}</p>
-                        <p class="card-text">Sizes: ${product.size.join(', ')}</p>
-                        <p class="card-text">Color: ${product.color}</p>
-                        <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-                    </div>
-                </div>
-            `;
-            productList.appendChild(productItem);
-        });
-    }
-}
-// Function to display products based on the current page or filters
 function displayProducts(page, filteredProductsList = null) {
     const productList = document.getElementById('product_list');
     productList.innerHTML = '';
@@ -96,7 +65,26 @@ function displayProducts(page, filteredProductsList = null) {
     }
 }
 
-// Function to get selected filters
+function searchProducts() {
+    const query = document.getElementById('searching_box').value.toLowerCase();
+    const filteredProducts = products.filter(product => {
+        return (
+            product.brand.toLowerCase().includes(query) ||
+            product.kind.toLowerCase().includes(query) ||
+            product.color.toLowerCase().includes(query) ||
+            product.price.toString().includes(query)
+        );
+    });
+
+    displayProducts(currentPage, filteredProducts); // Display the filtered products
+}
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the form from submitting
+        searchProducts(); // Call the search function
+    }
+}
+
 function getSelectedFilters() {
     const selectedFilters = {
         gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(el => el.value),
@@ -106,25 +94,32 @@ function getSelectedFilters() {
     return selectedFilters;
 }
 
-// Function to filter products based on selected filters
 function filterProducts() {
     const selectedFilters = getSelectedFilters();
 
-    console.log('Selected Filters:', selectedFilters); // Debugging
     const filtered = products.filter(product => {
-        const matcheskind = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.kind);
+        const matchesKind = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.kind);
         const matchesBrand = selectedFilters.brand.length === 0 || selectedFilters.brand.includes(product.brand);
         const matchesColor = selectedFilters.color.length === 0 || selectedFilters.color.includes(product.color);
-        return matcheskind && matchesBrand && matchesColor;
+        return matchesKind && matchesBrand && matchesColor;
     });
-
-    console.log('Filtered Products Count:', filtered.length); // Debugging
 
     currentPage = 1; // Reset to first page on filtering
     totalProducts = filtered.length; // Update total products based on filtered results
     updatePaginationControls(); // Update pagination controls
     displayProducts(currentPage, filtered); // Display the filtered products
 }
+
+// Add event listener for the filter button
+document.querySelector('.btn.btn-dark').addEventListener('click', filterProducts);
+
+function updatePaginationControls() {
+    // Your pagination logic here (ensure totalProducts is defined)
+    console.log('Total products:', totalProducts);
+    // Logic to update pagination controls goes here...
+}
+
+
 
 // Update pagination controls based on current page
 function addToCart(shoeId) {
