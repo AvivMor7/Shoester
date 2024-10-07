@@ -17,9 +17,9 @@ function createNavbar() {
                     </div>
                     <form class="d-flex" style="margin-left: auto;">
                         <a href="cart.html" class="btn btn-outline-dark" role="button">
-                            <i class="bi-cart-fill me-1"></i>
+                            <i class="bi-cart-fill me-1" style="margin-right:5px;"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span class="badge bg-dark text-white ms-1 rounded-pill" style="margin-left:5px;">0</span>
                         </a>
                         <a href="login_page.html" id="loginButton" class="btn btn-outline-primary ms-2" style="display: inline;">Login</a>
                         <a href="#" id="logoutButton" class="btn btn-outline-danger ms-2" style="display: none;">Logout</a>
