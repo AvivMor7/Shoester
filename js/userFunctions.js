@@ -31,7 +31,6 @@ async function updateCart(username, updatedCart) {
             throw new Error(`User with username ${username} not found.`);
         }
 
-        console.log(`Cart updated successfully for user: ${username}`);
         return result; // Return the updated user document
     } catch (error) {
         console.error('Error updating cart:', error);

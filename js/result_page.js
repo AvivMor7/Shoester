@@ -60,6 +60,41 @@ function displayProducts(page, filteredProductsList = null) {
         });
     }
 }
+// Function to display products based on the current page or filters
+function displayProducts(page, filteredProductsList = null) {
+    const productList = document.getElementById('product_list');
+    productList.innerHTML = '';
+
+    // Determine which products to display
+    const productsToDisplay = filteredProductsList || products;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, productsToDisplay.length);
+
+    const productsSlice = productsToDisplay.slice(startIndex, endIndex);
+
+    if (productsSlice.length === 0) {
+        productList.innerHTML = '<p>No products found.</p>';
+    } else {
+        productsSlice.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.className = 'product-item';
+            productItem.innerHTML = `
+                <div class="card mb-3">
+                    <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.brand}</h5>
+                        <p class="card-text">Kind: ${product.kind}</p>
+                        <p class="card-text">Price: $${product.price}</p>
+                        <p class="card-text">Sizes: ${product.size.join(', ')}</p>
+                        <p class="card-text">Color: ${product.color}</p>
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            productList.appendChild(productItem);
+        });
+    }
+}
 
 // Function to get selected filters
 function getSelectedFilters() {
@@ -69,32 +104,6 @@ function getSelectedFilters() {
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
     return selectedFilters;
-        if (productsToDisplay.length === 0) {
-            productList.innerHTML = '<p>No products found.</p>';
-        } else {
-            productsToDisplay.forEach(product => {
-                const productItem = document.createElement('div');
-                productItem.className = 'product-item';
-                productItem.innerHTML = `
-                    <div class="card mb-3">
-                        <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.brand}</h5>
-                            <p class="card-text">Kind: ${product.kind}</p>
-                            <p class="card-text">Price: $${product.price}</p>
-                            <p class="card-text">Sizes: ${product.size.join(', ')}</p>
-                            <p class="card-text">Color: ${product.color}</p>
-                            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
-                        </div>
-                    </div>
-                `;            
-                productList.appendChild(productItem);
-            });
-        }
-    } 
-    catch (error) {
-        console.error('Error fetching products:', error);
-    }
 }
 
 // Function to filter products based on selected filters
@@ -120,7 +129,6 @@ function filterProducts() {
 // Update pagination controls based on current page
 function addToCart(shoeId) {
     // Prepare the data to be sent in the request body
-    console.log(typeof shoeId)
     const data = {
         shoeId: shoeId,
     };
