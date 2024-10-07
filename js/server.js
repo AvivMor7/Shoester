@@ -330,6 +330,27 @@ app.post('/logout', (req, res) => {
     });
 });
 
+
+app.post('/add-shoe', async (req, res) => {
+    const { id, kind, brand, color, size, inStock, url } = req.body;
+    
+    try {
+        // Call the addShoe function from shoeFunctions
+        const newShoe = await addShoe(id, kind, brand, color, size, inStock, url);
+        
+        // Check if the shoe was added successfully
+        if (newShoe) {
+            res.json({ success: true, message: 'Shoe added successfully!', shoe: newShoe });
+        } else {
+            res.status(400).json({ success: false, message: 'Failed to add shoe' });
+        }
+    } catch (err) {
+        console.error('Error adding shoe:', err);
+        res.status(500).json({ success: false, message: 'Failed to add shoe' });
+    }
+});
+
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

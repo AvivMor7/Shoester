@@ -22,6 +22,14 @@ const orderTableBody = document.getElementById('orderTableBody');
 const showOrdersBtn = document.getElementById('showOrdersBtn');
 const orderList = document.getElementById('orderList');
 
+
+const addShoeBtn = document.getElementById('addShoeBtn');
+const addShoeModal = new bootstrap.Modal(document.getElementById('addShoeModal'));
+const addShoeForm = document.getElementById('addShoeForm');
+
+
+
+
 //extra insurance gaurding the admin page on client side
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/session-check') // Create an endpoint to check session
@@ -497,4 +505,58 @@ async function fetchSalesByKindData() {
 // Call the fetchSalesByKindData function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchSalesByKindData();
+});
+
+
+// add shoe
+addShoeForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const newShoe = {
+        id: parseInt(document.getElementById('shoeId').value),
+        kind: document.getElementById('shoeKind').value,
+        brand: document.getElementById('shoeBrand').value,
+        color: document.getElementById('shoeColor').value,
+        size: document.getElementById('shoeSize').value.split(',').map(Number),
+        inStock: document.getElementById('shoeinstock').value,
+        url: document.getElementById('shoeImageUrl').value
+    };
+
+    try {
+        const response = await fetch('/add-shoe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newShoe),
+        });
+
+        // Log the raw response text to see what's returned
+        const responseText = await response.text(); // Get raw response as text
+
+        console.log('Response Text:', responseText); // Inspect the response
+
+        if (response.ok) {
+            // Only parse as JSON if the response is valid
+            const result = JSON.parse(responseText);
+            if (result.success) {
+                alert('Shoe added successfully!');
+                fetchShoes();  // Refresh shoe list
+                addShoeForm.reset();  // Reset form fields
+                addShoeModal.hide();  // Close modal
+            } else {
+                alert('Error adding shoe: ' + result.message);
+            }
+        } else {
+            throw new Error('Failed to add shoe: ' + responseText);
+        }
+    } catch (error) {
+        console.error('Error adding shoe:', error);
+        alert('An error occurred while adding the shoe.');
+    }
+});
+
+
+addShoeBtn.addEventListener('click', () => {
+    addShoeModal.show();
 });
