@@ -160,17 +160,47 @@ function goToPage(page) {
 
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
-    paginationControls.innerHTML = '';
+    paginationControls.innerHTML = ''; // Clear previous pagination buttons
 
-    const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages for current filter
+    const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages based on filtered results
+
+    // Create previous button
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Previous';
+    prevButton.className = 'btn btn-outline-primary me-2'; // Bootstrap margin-right
+    prevButton.disabled = currentPage === 1;
+    prevButton.onclick = () => goToPage(currentPage - 1);
+    paginationControls.appendChild(prevButton);
+
+    // Create page number buttons
     for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
         button.textContent = i;
-        button.disabled = (i === currentPage); // Disable button for current page
+        button.className = 'btn btn-outline-dark mx-1'; // Bootstrap margin-x (horizontal spacing)
+        button.style.borderRadius = '50px'; // Rounded corners
+
+        // Highlight the active page
+        if (i === currentPage) {
+            button.classList.remove('btn-outline-dark');
+            button.classList.add('btn-primary');
+            button.disabled = true; // Disable the button to prevent clicking the current page
+        }
+
         button.onclick = () => goToPage(i);
+
         paginationControls.appendChild(button);
     }
+
+    // Create next button
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Next';
+    nextButton.className = 'btn btn-outline-primary ms-2'; // Bootstrap margin-left
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.onclick = () => goToPage(currentPage + 1);
+    paginationControls.appendChild(nextButton);
 }
+
+
 
 // Go to a specific page
 function goToPage(page) {

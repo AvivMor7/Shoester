@@ -19,3 +19,15 @@
     border-radius: 5px; /* Slightly rounded corners */
     overflow: hidden; /* Ensure image doesn't overflow */
 }
+
+#pagination_controls button {
+    padding: 8px 16px; /* Add padding to make the buttons look better */
+    font-size: 16px;  /* Larger font size for better readability */
+    min-width: 40px; /* Ensure buttons have a minimum width for consistent appearance */
+}
+
+#pagination_controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Adds some space between products and pagination */
+}
