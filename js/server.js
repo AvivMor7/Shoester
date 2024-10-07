@@ -14,6 +14,7 @@ const { strict } = require('assert');
 const { getDefaultResultOrder } = require('dns/promises');
 const Shoe = require('../models/shoe');
 const User = require('../models/user');
+const Order = require('../models/user');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -331,6 +332,68 @@ app.get('/admin_page.html', checkAdmin, (req, res) => {
     // Render the admin page if user is authenticated and is admin
     res.sendFile(path.join(__dirname, 'path_to_your_admin_page/admin_page.html'));
 });
+
+
+// Route to clear cart and save it as an order before clearing
+app.post('/checkout', async (req, res) => {
+    if (req.session.username) {
+        try {
+            const username = req.session.username;
+            const user = await User.findOne({ username: username });
+
+            if (!user || !user.cart || user.cart.length === 0) {
+                return res.status(404).json({ message: 'Cart not found or already empty!' });
+            }
+
+            // Function to generate a random 32-bit integer
+            function generateRandomOrderId() {
+                return Math.floor(Math.random() * Math.pow(2, 31)); // Generate random number between 0 and 2^31 - 1
+            }
+
+            let orderId = generateRandomOrderId();
+            let existingOrder = await Order.findOne({ order_id: orderId });
+
+            // Check if the generated order ID already exists and regenerate if necessary
+            while (existingOrder) {
+                orderId = generateRandomOrderId(); // Generate a new order ID
+                existingOrder = await Order.findOne({ order_id: orderId }); // Check again if it's unique
+            }
+
+            // Extract shoe IDs from the cart, respecting the quantity (amount) of each item
+            let shoes_ids = [];
+            user.cart.forEach(item => {
+                // Push the shoeId to the array as many times as its amount
+                for (let i = 0; i < item.amount; i++) {
+                    shoes_ids.push(item.shoeId);
+                }
+            });
+
+            // Create a new order
+            const newOrder = {
+                order_id: orderId,
+                username: username,
+                shoes_ids: shoes_ids
+            };
+
+            // Save the new order
+            await addOrder(newOrder);
+
+            // Clear the user's cart
+            user.cart = [];
+            await user.save();
+
+            // Send a success message
+            res.json({ message: 'Cart cleared and order placed!', order_id: orderId });
+
+        } catch (error) {
+            console.error('Error clearing cart and saving order:', error);
+            res.status(500).json({ message: 'Internal server error', error: error.message });
+        }
+    } else {
+        return res.status(401).json({ message: 'No user logged in!' });
+    }
+});
+
 
 
 // Logout route

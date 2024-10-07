@@ -94,6 +94,25 @@ async function populateCartItems(shoes, cart) {
     document.querySelector('.total-price').textContent = `$ ${totalPrice.toFixed(2)}`;
 }
 
-async function checkout(){
-    
+async function checkout() {
+    try {
+        const response = await fetch('/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert(`Cart cleared and order placed! Your Order ID is: ${data.order_id}`);
+            window.location.reload(); // Refresh the page after the alert
+        } else {
+            alert(data.message || 'Error clearing the cart.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An unexpected error occurred. Please try again.');
+    }
 }

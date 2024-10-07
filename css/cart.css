@@ -1,0 +1,6 @@
+.img-fluid {
+    object-fit: cover;
+}
+.card {
+    margin-bottom: 20px;
+}

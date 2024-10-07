@@ -90,9 +90,6 @@ async function findShoeById(id) {
             console.log('No shoe found with that ID:', id);
             return null; // Return null if no shoe is found
         }
-
-        // Log the shoe details for debugging
-        console.log('Shoe found:', shoe);
         return shoe; // Return the found shoe
     } catch (error) {
         console.error('Error finding shoe by ID:', error.message);
