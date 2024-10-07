@@ -82,11 +82,8 @@ async function getShoes() {
 
 async function findShoeById(id) {
     try {
-        // Check if the ID is valid. If valid, cast it to ObjectId using `new`
-        const objectId = mongoose.Types.ObjectId.isValid(id) ? new mongoose.Types.ObjectId(id) : id;
-
-        // Search for the shoe by its unique _id
-        const shoe = await Shoe.findById(objectId); // Use _id if it's ObjectId
+        // Search for the shoe by its unique 'id'
+        const shoe = await Shoe.findOne({ id: id }); // Use findOne to match by 'id' field
 
         // Check if a shoe is found
         if (!shoe) {
@@ -102,6 +99,7 @@ async function findShoeById(id) {
         throw new Error('Failed to find shoe by ID'); // Throw a custom error for further handling
     }
 }
+
 
 
 module.exports = { addShoe, deleteShoe, findShoe, findShoeById, getShoes }; // Export both functions

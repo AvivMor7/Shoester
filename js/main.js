@@ -19,10 +19,15 @@ function createNavbar() {
                         <a href="cart.html" class="btn btn-outline-dark" role="button">
                             <i class="bi-cart-fill me-1" style="margin-right:5px;"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill" style="margin-left:5px;">0</span>
                         </a>
-                        <a href="login_page.html" id="loginButton" class="btn btn-outline-primary ms-2" style="display: inline;">Login</a>
-                        <a href="#" id="logoutButton" class="btn btn-outline-danger ms-2" style="display: none;">Logout</a>
+                        <a href="login_page.html" id="loginButton" class="btn btn-outline-primary ms-2" style="display: inline;">
+                            <i class="bi bi-person"></i>
+                            Login
+                        </a>
+                        <a href="#" id="logoutButton" class="btn btn-outline-danger ms-2" style="display: none;">
+                            <i class="bi bi-person"></i>
+                            Logout
+                        </a>
                         <a href="admin_page.html" id="adminPageLink" class="btn btn-outline-success ms-2" style="display: none;">Admin Page</a>
                     </form>
                 </div>

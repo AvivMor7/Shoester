@@ -55,7 +55,7 @@
 .btn.btn-outline-dark {
     height: 35px !important; /* Force the height */
     line-height: 35px; /* Center the text vertically */
-    width: 100px;
+    width: 80px;
     display: flex; /* Use flexbox for the button */
     align-items: center; /* Center icon and text vertically */
     margin-right: 10px;

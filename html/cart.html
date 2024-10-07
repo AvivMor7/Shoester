@@ -36,12 +36,12 @@
         <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(50, 50, 50, 0.35); z-index: 1;"></div> 
         <div class="container px-4 px-lg-5 my-5" style="position: relative; z-index: 2;">
             <div class="text-center text-white" style="text-shadow: 2px 5px 10px rgba(0, 0, 0, 0.8); padding: 20px;">
-                <h1 class="display-4 fw-bolder">Your cart</h1>
+                <h1 class="display-4 fw-bolder">Your Cart</h1>
                 <p class="lead fw-normal text-white-100 mb-0">Add, Change, and Buy new shoes!</p>
             </div>
         </div>
     </header>
-    <!--cart area-->
+    <!-- Cart area-->
     <section class="h-100 h-custom" style="background-color: #ffffff;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -53,25 +53,25 @@
                                     <div class="p-5">
                                         <div class="d-flex justify-content-between align-items-center mb-5">
                                             <h1 class="fw-bold mb-0">Shopping Cart</h1>
-                                            <h6 class="mb-0 text-muted items">Items 0</h6>
+                                            <h6 class="mb-0 text-muted items">Items:</h6>
                                         </div>
                                         <hr class="my-4">
                                         <!-- Cart Items will be dynamically injected here -->
                                         <div id="cart-items"></div>
-                                        <hr class="my-4">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 bg-grey">
-                                    <div class="p-5">
+                                    <div class="p-5"   style="background-color: rgba(217, 217, 217, 0.25);border-radius: 15px;height:100%">
                                         <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                         <hr class="my-4">
                                         <div class="d-flex justify-content-between mb-4">
                                             <h5 class="text-uppercase">Total</h5>
-                                            <h5 class="total-price">€ 0.00</h5>
+                                            <h5 class="total-price">$ 0.00</h5>
                                         </div>
-                                        <button type="button" class="btn btn-warning btn-block btn-lg" style="border-radius: 15px;">
-                                            Proceed to Checkout
+                                        <button type="button" onclick="checkout()" class="btn btn-warning btn-block btn-lg" style="border-radius: 15px;">
+                                            Checkout
                                         </button>
+                                        <hr class="my-4">
                                     </div>
                                 </div>
                             </div>
@@ -81,8 +81,15 @@
             </div>
         </div>
     </section>
+    <!-- Footer -->
+    <footer class="py-3 bg-dark" style="box-shadow: 0px -5px 10px rgba(86, 86, 86, 0.745);">
+        <div class="container px-4 px-lg-5">
+            <p class="m-0 text-center text-white">Copyright &copy; Shoester 2024</p>
+        </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+z8ib9W8+ZfYY7MdD1quFQx5tiS0VHZ7M5z6z7Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-8JwU7KT8vIBKZg/XmWZ7i0ZbrRz1AipU6w1Fq2OVfU28MvXymf9EEPhDBM/8V3jR" crossorigin="anonymous"></script>
-    <script src="cart.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

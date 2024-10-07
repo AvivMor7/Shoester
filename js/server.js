@@ -277,6 +277,20 @@ app.get('/fetch-products', async (req, res) => {
     }
 });
 
+
+// display the info in the db at the result page
+// API Endpoint to get products
+app.get('/fetch-products/', async (req, res) => {
+    try {
+        const products = await Shoe.find(); // Fetch all products from DB
+        res.json(products);
+    }   
+    catch (error) {
+        console.error('Error fetching products:', error);
+        res.status(500).send(error);
+    }
+});
+
 app.get('/session-check', async (req, res) => {
     if (req.session.username) {
         const user = await getUser(req.session.username);
@@ -349,6 +363,35 @@ app.post('/add-shoe', async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to add shoe' });
     }
 });
+
+
+// GET route to retrieve shoes based on cart
+app.post('/getShoesFromCart', async (req, res) => {
+    const cart = req.body; // Expecting [{ shoeId, amount }]
+
+    if (!Array.isArray(cart) || cart.length === 0) {
+        return res.status(400).json({ error: 'Invalid cart format' });
+    }
+
+    try {
+        const foundShoes = []; // Initialize an array to hold the found shoes
+
+        // Loop through each item in the cart
+        for (const item of cart) {
+            const shoe = await findShoeById(item.shoeId); // Find the shoe by its ID
+            if (shoe) {
+                foundShoes.push(shoe); // Push the found shoe to the array
+            } else {
+                console.log('No shoe found with ID:', item.shoeId); // Log if no shoe is found
+            }
+        }
+        return res.json(foundShoes); // Return the array of found shoes
+    } catch (error) {
+        console.error('Error fetching shoes:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 
 // Start the server
