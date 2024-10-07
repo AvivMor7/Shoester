@@ -9,6 +9,7 @@ const shoeSchema = new Schema({
     color: String,
     size: [Number],
     inStock: Boolean,
+    price: Number, 
     url: String
 });
 
