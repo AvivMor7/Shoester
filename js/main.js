@@ -16,7 +16,7 @@ function createNavbar() {
                         <input type="search" id="searching_box" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" onkeypress="checkEnter(event)"  style="margin-right: 20px;border-radius:50px;" />
                     </div>
                     <form class="d-flex" style="margin-left: auto;">
-                        <a href="cart.html" class="btn btn-outline-dark" role="button">
+                        <a href="cart.html" id="cart_button" class="btn btn-outline-dark" role="button" style="display: none;">
                             <i class="bi-cart-fill me-1" style="margin-right:5px;"></i>
                             Cart
                         </a>
@@ -60,6 +60,7 @@ function updateNavbar() {
                 document.getElementById('loginButton').style.display = 'none';
                 document.getElementById('personalPageLink').style.display = 'block';
                 document.getElementById('logoutButton').style.display = 'inline'; // Show the logout button
+                document.getElementById('cart_button').style.display = 'inline';
                 
                 // Check if the user is an admin
                 if (data.user && data.user.is_admin) {
