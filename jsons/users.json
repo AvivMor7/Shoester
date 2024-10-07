@@ -7,7 +7,7 @@
         "phone_number": "1234567890",
         "address": "123 Main St, City, Country",
         "is_admin": false,
-        "shoes": []
+        "cart": []
     },
     {
         "full_name": "Koren",
@@ -17,7 +17,7 @@
         "phone_number": "0987654321",
         "address": "456 Park Ave, City, Country",
         "is_admin": false,
-        "shoes": []
+        "cart": []
     },
     {
         "full_name": "Gal",
@@ -27,7 +27,7 @@
         "phone_number": "1122334455",
         "address": "789 Broadway, City, Country",
         "is_admin": false,
-        "shoes": []
+        "cart": []
     },
     {
         "full_name": "Aviv",
@@ -37,7 +37,7 @@
         "phone_number": "6677889900",
         "address": "321 Elm St, City, Country",
         "is_admin": false,
-        "shoes": []
+        "cart": []
     },
     {
         "full_name": "Admin",
@@ -47,6 +47,6 @@
         "phone_number": "66677889900",
         "address": "100 Admin Rd, City, Country",
         "is_admin": true,
-        "shoes": []
+        "cart": []
     }
 ]
