@@ -8,10 +8,12 @@ const session = require('express-session')
 const PORT = process.env.PORT || 8080;
 
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
-const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin} = require('./userFunctions'); // Import user functions
+const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart} = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
 const { strict } = require('assert');
 const { getDefaultResultOrder } = require('dns/promises');
+const Shoe = require('../models/shoe');
+const User = require('../models/user');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -77,7 +79,9 @@ app.post('/login', async (req, res) => {
 app.get('/get-cart', async (req, res) => {
     if (req.session.username) {
         try {
-            const cart = await getCart(req.session.username);
+            const username = req.session.username;
+            const user = await User.findOne({username: username});
+            const cart = await user.cart;
             if (cart) {
                 return res.json(cart);
             } else {
@@ -89,6 +93,50 @@ app.get('/get-cart', async (req, res) => {
         }
     } else {
         return res.status(401).send('No user logged in found!');
+    }
+});
+
+
+app.post('/add-to-cart', async (req, res) => {
+    const { shoeId } = req.body; // shoeId comes from the request body
+    const username = req.session.username; // username comes from the session
+
+    if (!username) {
+        return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    try {
+        // Fetch the shoe details using the provided shoeId
+        const shoe = await Shoe.findOne({id: shoeId});
+        if (!shoe) {
+            return res.status(400).json({ error: 'Shoe not found' });
+        }
+
+        // Find the user in the database
+        const user = await User.findOne({username: username});
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Check if the shoe is already in the user's cart
+        let cartItem = user.cart.find(item => item.shoeId === shoeId);
+
+        if (cartItem) {
+            // Increment the amount if the shoe is already in the cart
+            cartItem.amount += 1;
+        } else {
+            // Add a new shoe to the cart if it doesn't exist
+            user.cart.push({ shoeId: shoeId, amount: 1 }); // Change shoeID to shoeId
+        }
+
+        // Save the updated cart in the database
+        await updateCart(username, user.cart);
+
+        // Respond with the updated cart
+        return res.status(200).json({ message: 'Item added to cart', cart: user.cart });
+    } catch (error) {
+        console.error('Error adding to cart:', error);
+        return res.status(500).json({ error: 'Internal server error' });
     }
 });
 
@@ -217,22 +265,10 @@ app.get("/fetch-orders",async(req,res)=>{
 });
 
 // display the info in the db at the result page
-
-// Product Schema
-const productSchema = new mongoose.Schema({
-    brand: String,
-    kind: String,
-    price: Number,
-    size: [String],
-    url: String
-});
-
-const Product = mongoose.model('Product', productSchema, 'shoes');
-
 // API Endpoint to get products
 app.get('/fetch-products', async (req, res) => {
     try {
-        const products = await Product.find(); // Fetch all products from DB
+        const products = await Shoe.find(); // Fetch all products from DB
         res.json(products);
     }   
     catch (error) {

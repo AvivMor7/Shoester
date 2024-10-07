@@ -1,3 +1,6 @@
+// Call the function when the page loads
+document.addEventListener('DOMContentLoaded', fetchProducts);
+
 let currentPage = 1;
 const itemsPerPage = 20;
 let products = []; // To store all fetched products
@@ -6,7 +9,7 @@ let totalProducts = 0; // To keep track of total products after filtering
 async function fetchProducts(page) {
     console.log('Fetching products for page:', page); // Log current page
     try {
-        const response = await fetch('/fetch-shoes');
+        const response = await fetch('/fetch-products');
         console.log('Response status:', response.status);
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -49,8 +52,7 @@ function displayProducts(page, filteredProductsList = null) {
                         <p class="card-text">Price: $${product.price}</p>
                         <p class="card-text">Sizes: ${product.size.join(', ')}</p>
                         <p class="card-text">Color: ${product.color}</p>
-                        <input type="number" min="1" value="1" id="quantity-${product.id}" class="form-control mb-2" />
-                        <button class="btn btn-primary" onclick="addToCart('${product.id}', '${product.kind}', '${product.brand}', '${product.color}', ${product.price}, document.getElementById('quantity-${product.id}').value)">Add to Cart</button>
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 </div>
             `;
@@ -67,6 +69,32 @@ function getSelectedFilters() {
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
     return selectedFilters;
+        if (productsToDisplay.length === 0) {
+            productList.innerHTML = '<p>No products found.</p>';
+        } else {
+            productsToDisplay.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `
+                    <div class="card mb-3">
+                        <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.brand}</h5>
+                            <p class="card-text">Kind: ${product.kind}</p>
+                            <p class="card-text">Price: $${product.price}</p>
+                            <p class="card-text">Sizes: ${product.size.join(', ')}</p>
+                            <p class="card-text">Color: ${product.color}</p>
+                            <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                `;            
+                productList.appendChild(productItem);
+            });
+        }
+    } 
+    catch (error) {
+        console.error('Error fetching products:', error);
+    }
 }
 
 // Function to filter products based on selected filters
@@ -90,6 +118,43 @@ function filterProducts() {
 }
 
 // Update pagination controls based on current page
+function addToCart(shoeId) {
+    // Prepare the data to be sent in the request body
+    console.log(typeof shoeId)
+    const data = {
+        shoeId: shoeId,
+    };
+    console.log(shoeId);
+    // Make a POST request to /add-to-cart
+    fetch('/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        alert('Item added to cart!');
+    })
+    .catch(error => {
+        console.error('Error adding to cart:', error);
+        alert('Error adding item to cart. Please try again.');
+    });
+}
+
+// divide to different pages
+function goToPage(page) {
+    currentPage = page;
+    fetchProducts(currentPage);
+    updatePaginationControls();
+}
+
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = '';

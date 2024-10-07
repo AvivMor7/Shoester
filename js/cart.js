@@ -178,7 +178,7 @@ function loadCart() {
 }
 
 // Function to add an item to the cart
-function addToCart(id, kind, brand, color, price, itemQuantity) {
+function addToCart(shoeId) {
     // Check if the item already exists in the cart
     const existingItem = cart.find(item => item.id === id);
 

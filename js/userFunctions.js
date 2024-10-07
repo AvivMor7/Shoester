@@ -17,17 +17,25 @@ async function checkUser(username, password) {
     }
 }
 
-async function getCart(username) {
+async function updateCart(username, updatedCart) {
     try {
-        // Select only the fields you want to return
-        const cart = await User.findOne(
+        // Find the user by username and update their cart
+        const result = await User.findOneAndUpdate(
             { username: username },
-            'cart'
+            { cart: updatedCart }, // Set the new cart data with shoeId and amount
+            { new: true, useFindAndModify: false } // Return the updated document and avoid deprecated options
         );
-        return cart;
+
+        // If user is not found, throw an error
+        if (!result) {
+            throw new Error(`User with username ${username} not found.`);
+        }
+
+        console.log(`Cart updated successfully for user: ${username}`);
+        return result; // Return the updated user document
     } catch (error) {
-        console.error("Error finding user:", error);
-        throw error; // Optionally rethrow the error for further handling
+        console.error('Error updating cart:', error);
+        throw error; // Re-throw the error so that it can be handled in the calling function
     }
 }
 
@@ -118,4 +126,4 @@ async function getUser(username) {
     }
 }
 
-module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin}; // Export
+module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart}; // Export
