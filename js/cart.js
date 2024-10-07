@@ -10,8 +10,6 @@ window.onload = function() {
             return response.json();
         })
         .then(cart => {
-            console.log('Fetched cart data:', cart); // Log the entire cart object
-
             // Check if cart is defined and has items
             if (Array.isArray(cart) && cart.length > 0) {
                 getShoesFromCart(cart); // Fetch shoes based on cart data
@@ -96,3 +94,6 @@ async function populateCartItems(shoes, cart) {
     document.querySelector('.total-price').textContent = `$ ${totalPrice.toFixed(2)}`;
 }
 
+async function checkout(){
+    
+}
