@@ -16,7 +16,7 @@ function initMap() {
         .bindPopup('Default Location')
         .openPopup();
 
-    // Fetch location data (if you still want to do this)
+    // Fetch location data 
     fetch('https://google-map-places.p.rapidapi.com/maps/api/geocode/json?address=1600%20Amphitheatre%2BParkway%2C%20Mountain%20View%2C%20CA&language=en&region=en&result_type=administrative_area_level_1&location_type=APPROXIMATE', {
         method: 'GET',
         headers: {
@@ -46,4 +46,4 @@ function initMap() {
 document.addEventListener('DOMContentLoaded', initMap);
 
  // 31.969892, 34.772147
- // AIzaSyCQgGRI1UX2C-vD-jMXmHR2auVAAhbLZpk
+ 

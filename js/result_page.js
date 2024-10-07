@@ -1,7 +1,7 @@
 let currentPage = 1;
 const itemsPerPage = 20;
-const totalProducts = 76; // Total number of products
-const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages
+let products = []; // To store all fetched products
+let totalProducts = 0; // To keep track of total products after filtering
 
 async function fetchProducts(page) {
     console.log('Fetching products for page:', page); // Log current page
@@ -12,61 +12,89 @@ async function fetchProducts(page) {
             throw new Error('Network response was not ok');
         }
         products = await response.json();
+        totalProducts = products.length; // Update total products
         console.log('Fetched Products:', products);
-
-        const productList = document.getElementById('product_list');
-        productList.innerHTML = '';
-
-        // Calculate start and end indices for slicing
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = page === totalPages ? totalProducts : startIndex + itemsPerPage;
-
-        const productsToDisplay = products.slice(startIndex, endIndex);
-
-        if (productsToDisplay.length === 0) {
-            productList.innerHTML = '<p>No products found.</p>';
-        } else {
-            productsToDisplay.forEach(product => {
-                const productItem = document.createElement('div');
-                productItem.className = 'product-item';
-                productItem.innerHTML = `
-                    <div class="card mb-3">
-                        <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
-                        <div class="card-body">
-                            <h5 class="card-title">${product.brand}</h5>
-                            <p class="card-text">Kind: ${product.kind}</p>
-                            <p class="card-text">Price: $${product.price}</p>
-                            <p class="card-text">Sizes: ${product.size.join(', ')}</p>
-                            <p class="card-text">Color: ${product.color}</p>
-                           <input type="number" min="1" value="1" id="quantity-${product.id}" class="form-control mb-2" />
-                            <button class="btn btn-primary" onclick="addToCart('${product.id}', '${product.kind}', '${product.brand}', '${product.color}', ${product.price}, document.getElementById('quantity-${product.id}').value)">Add to Cart</button>
-                        </div>
-                        </div>
-                    </div>
-                `;
-                productList.appendChild(productItem);
-            });
-        }
+        displayProducts(page); // Display products for the current page
+        updatePaginationControls(); // Update pagination
     } 
     catch (error) {
         console.error('Error fetching products:', error);
     }
 }
 
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', fetchProducts);
+// Function to display products based on the current page or filters
+function displayProducts(page, filteredProductsList = null) {
+    const productList = document.getElementById('product_list');
+    productList.innerHTML = '';
 
-// divide to different pages
-function goToPage(page) {
-    currentPage = page;
-    fetchProducts(currentPage);
-    updatePaginationControls();
+    // Determine which products to display
+    const productsToDisplay = filteredProductsList || products;
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, productsToDisplay.length);
+
+    const productsSlice = productsToDisplay.slice(startIndex, endIndex);
+
+    if (productsSlice.length === 0) {
+        productList.innerHTML = '<p>No products found.</p>';
+    } else {
+        productsSlice.forEach(product => {
+            const productItem = document.createElement('div');
+            productItem.className = 'product-item';
+            productItem.innerHTML = `
+                <div class="card mb-3">
+                    <img src="${product.url}" alt="${product.kind}" class="card-img-top product-image" onerror="this.onerror=null; this.src='assets/placeholder.jpg';">
+                    <div class="card-body">
+                        <h5 class="card-title">${product.brand}</h5>
+                        <p class="card-text">Kind: ${product.kind}</p>
+                        <p class="card-text">Price: $${product.price}</p>
+                        <p class="card-text">Sizes: ${product.size.join(', ')}</p>
+                        <p class="card-text">Color: ${product.color}</p>
+                        <input type="number" min="1" value="1" id="quantity-${product.id}" class="form-control mb-2" />
+                        <button class="btn btn-primary" onclick="addToCart('${product.id}', '${product.kind}', '${product.brand}', '${product.color}', ${product.price}, document.getElementById('quantity-${product.id}').value)">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+            productList.appendChild(productItem);
+        });
+    }
 }
 
+// Function to get selected filters
+function getSelectedFilters() {
+    const selectedFilters = {
+        gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(el => el.value),
+        brand: Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(el => el.value),
+        color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
+    };
+    return selectedFilters;
+}
+
+// Function to filter products based on selected filters
+function filterProducts() {
+    const selectedFilters = getSelectedFilters();
+
+    console.log('Selected Filters:', selectedFilters); // Debugging
+    const filtered = products.filter(product => {
+        const matcheskind = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.kind);
+        const matchesBrand = selectedFilters.brand.length === 0 || selectedFilters.brand.includes(product.brand);
+        const matchesColor = selectedFilters.color.length === 0 || selectedFilters.color.includes(product.color);
+        return matcheskind && matchesBrand && matchesColor;
+    });
+
+    console.log('Filtered Products Count:', filtered.length); // Debugging
+
+    currentPage = 1; // Reset to first page on filtering
+    totalProducts = filtered.length; // Update total products based on filtered results
+    updatePaginationControls(); // Update pagination controls
+    displayProducts(currentPage, filtered); // Display the filtered products
+}
+
+// Update pagination controls based on current page
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = '';
 
+    const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages for current filter
     for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
         button.textContent = i;
@@ -76,10 +104,19 @@ function updatePaginationControls() {
     }
 }
 
+// Go to a specific page
+function goToPage(page) {
+    currentPage = page;
+    displayProducts(currentPage);
+}
+
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchProducts(currentPage); // Fetch products for the first page
-    updatePaginationControls(); // Initialize pagination controls
+    const filterButton = document.querySelector('.btn-dark');
+    if (filterButton) {
+        filterButton.addEventListener('click', filterProducts);
+    } else {
+        console.error('Filter button not found in the DOM');
+    }
 });
-
-
