@@ -103,7 +103,7 @@ async function addUser(full_name, username, password, phone_number, email, addre
 
 async function getUsers() {
     try {
-        const users = await User.find({}); // Fetch all users
+        const users = await User.find({ is_admin: false }); // Fetch all users
         return users;
     } catch (error) {
         console.error("Error finding users:", error);

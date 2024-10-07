@@ -5,7 +5,7 @@ const app = express();
 const path = require('path');
 const { default: mongoose } = require('mongoose');
 const session = require('express-session')
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3030;
 
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart} = require('./userFunctions'); // Import user functions
