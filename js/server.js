@@ -392,6 +392,53 @@ app.post('/getShoesFromCart', async (req, res) => {
     }
 });
 
+// POST route to update the user profile
+app.post('/update-profile', async (req, res) => {
+    const { full_name, address, phone_number, email } = req.body;
+
+    if (!req.session.username) {
+        return res.status(401).json({ success: false, message: 'User not logged in' });
+    }
+
+    try {
+        const username = req.session.username;
+        // Find the user by their username
+        const user = await User.findOne({ username: username });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'User not found' });
+        }
+
+        // Update the user's profile information
+        user.full_name = full_name || user.full_name;
+        user.address = address || user.address;
+        user.phone_number = phone_number || user.phone_number;
+        user.email = email || user.email;
+
+        // Save the updated user information to the database
+        await user.save();
+
+        // Update the session data if necessary
+        req.session.username = username; // Ensure session has the username if it's altered
+
+        // Send a response back indicating success
+        res.json({
+            success: true,
+            message: 'Profile updated successfully',
+            updatedUser: {
+                full_name: user.full_name,
+                address: user.address,
+                phone_number: user.phone_number,
+                email: user.email,
+            },
+        });
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
+
+
 
 
 // Start the server
