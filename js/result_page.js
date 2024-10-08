@@ -1,21 +1,21 @@
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(currentPage); // Fetch products on page load
-    // Check for query parameters and perform search if necessary
+    fetchProducts(currentPage); 
+    // Check the url for parameters
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('query')) {
-        searchProducts(); // Search using the query parameter from the URL
+        searchProducts(); // Search using the parameters from the URL
     }
     document.getElementById('searching_box').addEventListener('input', searchProducts);
 
 });
 
-// Constants and variables
+
 let currentPage = 1;
 const itemsPerPage = 20;
-let products = []; // To store all fetched products
-let filteredProducts = []; // To store filtered products
-let totalProducts = 0; // To keep track of total products after filtering
+let products = []; // storing all fetched products
+let filteredProducts = []; // storing the filtered products
+let totalProducts = 0; 
 
 const menFilters = {
     gender: ['men'],
@@ -47,10 +47,10 @@ async function fetchProducts(page) {
         products = await response.json();
         totalProducts = products.length; // Update total products
         console.log('Fetched Products:', products);
-        displayProducts(page); // Display products for the current page
-        updatePaginationControls(); // Update pagination
+        displayProducts(page); 
+        updatePaginationControls(); // Update the pagination parameters
 
-        // Apply filters based on URL AFTER fetching the products
+        
         applyFiltersBasedOnUrl();
 
     } catch (error) {
@@ -58,7 +58,7 @@ async function fetchProducts(page) {
     }
 }
 
-// Display products based on the current page
+// Display the products based on the current page
 function displayProducts(page, productsToDisplay = products) {
     const productList = document.getElementById('product_list');
     productList.innerHTML = '';
@@ -70,7 +70,7 @@ function displayProducts(page, productsToDisplay = products) {
 
     if (productsSlice.length === 0) {
         productList.innerHTML = '<p>No products found.</p>';
-    } else {
+    } else {                                                      // creating the objects for the display
         productsSlice.forEach(product => {
             const productItem = document.createElement('div');
             productItem.className = 'product-item';
@@ -92,7 +92,7 @@ function displayProducts(page, productsToDisplay = products) {
     }
 }
 
-
+// the filter at the search box
 function searchProducts() {
     const query = document.getElementById('searching_box').value.toLowerCase();
     const keywords = query.split(' ');
@@ -110,10 +110,10 @@ function searchProducts() {
 
     currentPage = 1; // Reset to first page after search
     updatePaginationControls(); // Update pagination controls based on filtered products
-    displayProducts(currentPage, filteredProducts); // Display the filtered products
+    displayProducts(currentPage, filteredProducts); 
 }
 
-
+// hundle with the enter pressing
 function checkEnter(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the form from submitting
@@ -121,17 +121,17 @@ function checkEnter(event) {
     }
 }
 
-// Apply filters based on URL query parameters
+// Apply filters based on URL parameters
 function applyFiltersBasedOnUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    const genderParam = urlParams.get('gender'); // Get the 'gender' parameter from the URL
+    const genderParam = urlParams.get('gender'); // Get the gender parameter from the URL
 
     if (!genderParam) {
         console.log('No gender parameter in the URL. Not applying filters.');
         return; // Exit if there's no gender parameter
     }
 
-    // Existing filtering logic
+    // filter logic
     if (genderParam === 'men') {
         filterProducts(menFilters);
     } else if (genderParam === 'women') {
@@ -141,7 +141,7 @@ function applyFiltersBasedOnUrl() {
     }
 }
 
-// Filter products based on selected filters
+// Filter the products based on selected filters
 function filterProducts(filters) {
     const selectedFilters = filters || getSelectedFilters();
 
@@ -153,9 +153,9 @@ function filterProducts(filters) {
     });
 
     currentPage = 1; // Reset to first page on filtering
-    totalProducts = filteredProducts.length; // Update total products based on filtered results
-    updatePaginationControls(); // Update pagination controls
-    displayProducts(currentPage, filteredProducts); // Display the filtered products
+    totalProducts = filteredProducts.length; // Update total products based on the result
+    updatePaginationControls(); 
+    displayProducts(currentPage, filteredProducts); 
 }
 
 
@@ -167,19 +167,18 @@ document.querySelector('.btn.btn-dark').addEventListener('click', function() {
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
 
-    // Update the URL to remove query parameters after pressing the filter button
-    history.replaceState({}, document.title, "result_page.html"); // Change to your default URL
+    history.replaceState({}, document.title, "result_page.html"); // Change to the default URL
 
     filterProducts(selectedFilters);
 });
-
+// controling the moving between the pages
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = ''; // Clear previous pagination buttons
 
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // Use filteredProducts for total pages
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // calculating how much pages needed
 
-    // Create previous button
+    // previous button
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
     prevButton.className = 'btn btn-outline-primary me-2';
@@ -196,14 +195,14 @@ function updatePaginationControls() {
         if (i === currentPage) {
             button.classList.remove('btn-outline-dark');
             button.classList.add('btn-primary');
-            button.disabled = true; // Disable the button to prevent clicking the current page
+            button.disabled = true; // Disable pressing a pressed button
         }
 
         button.onclick = () => goToPage(i);
         paginationControls.appendChild(button);
     }
 
-    // Create next button
+    //the next button
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next';
     nextButton.className = 'btn btn-outline-primary ms-2';
@@ -217,8 +216,8 @@ function goToPage(page) {
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
     currentPage = page;
-    displayProducts(currentPage, filteredProducts); // Use filteredProducts for display
-    updatePaginationControls(); // Update pagination controls
+    displayProducts(currentPage, filteredProducts); 
+    updatePaginationControls(); 
 }
 
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Shoe = require('../models/shoe'); // Adjust the path if necessary
+const Shoe = require('../models/shoe'); 
 
 // Function to add a shoe
 async function addShoe(id, kind, brand, color, size, inStock,price, url) {
@@ -17,35 +17,35 @@ async function addShoe(id, kind, brand, color, size, inStock,price, url) {
     try {
         const result = await newShoe.save();
         console.log('Shoe added successfully:', result);
-        return result; // Return the result if needed
+        return result; // Return the result 
     } catch (error) {
         console.error('Error adding shoe:', error);
-        throw error; // Rethrow the error for further handling
+        throw error; // Rethrow the error 
     }
 }
 
 // Function to delete a shoe by ID
 async function deleteShoe(id) {
     try {
-        const result = await Shoe.deleteOne({ id }); // Assuming 'id' is a unique identifier
+        const result = await Shoe.deleteOne({ id }); 
         if (result.deletedCount === 0) {
             console.log('No shoe found with that ID.');
-            return null; // Return null if no shoe was found
+            return null; 
         }
         console.log('Shoe deleted successfully:', id);
-        return id; // Return the deleted ID or a success message
+        return id; // Return the deleted ID 
     } catch (error) {
         console.error('Error deleting shoe:', error);
-        throw error; // Rethrow the error for further handling
+        throw error; // Rethrow the error 
     }
 }
 async function findShoe(searchTerm) {
  
     try {
-        // Create a query object with $regex for partial matches across all fields
+        
         const query = {};
 
-        // Use $regex with 'i' for case-insensitive search across all fields
+        
         query['$or'] = [
             { kind: { $regex: new RegExp(searchTerm, 'i') } },
             { brand: { $regex: new RegExp(searchTerm, 'i') } },
@@ -54,19 +54,19 @@ async function findShoe(searchTerm) {
 
         console.log('MongoDB query:', query); // For debugging: see what the query looks like
 
-        // Perform the search using the constructed query object
+        // Perform the search 
         const shoes = await Shoe.find(query);
 
         if (shoes.length === 0) {
             console.log('No shoes found matching the search term:', searchTerm);
-            return []; // Return an empty array if no results are found
+            return []; 
         }
 
         console.log('Shoes found:', shoes); // Log the results
-        return shoes; // Return the found shoes
+        return shoes; 
     } catch (error) {
         console.error('Error finding shoes:', error.message);
-        throw new Error('Failed to find shoes'); // Throw a custom error for further handling
+        throw new Error('Failed to find shoes'); 
     }
 }
 
@@ -76,27 +76,27 @@ async function getShoes() {
         return shoes;
     } catch (error) {
         console.error("Error finding shoes:", error);
-        throw error; // Optionally rethrow the error for further handling
+        throw error; 
     }
 }
 
 async function findShoeById(id) {
     try {
-        // Search for the shoe by its unique 'id'
-        const shoe = await Shoe.findOne({ id: id }); // Use findOne to match by 'id' field
+        // Search for the shoe by its unique id
+        const shoe = await Shoe.findOne({ id: id }); // matching by id field
 
         // Check if a shoe is found
         if (!shoe) {
             console.log('No shoe found with that ID:', id);
-            return null; // Return null if no shoe is found
+            return null; 
         }
-        return shoe; // Return the found shoe
+        return shoe; 
     } catch (error) {
         console.error('Error finding shoe by ID:', error.message);
-        throw new Error('Failed to find shoe by ID'); // Throw a custom error for further handling
+        throw new Error('Failed to find shoe by ID'); 
     }
 }
 
 
 
-module.exports = { addShoe, deleteShoe, findShoe, findShoeById, getShoes }; // Export both functions
+module.exports = { addShoe, deleteShoe, findShoe, findShoeById, getShoes }; // Export the functions outside

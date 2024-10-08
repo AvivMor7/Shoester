@@ -1,33 +1,33 @@
 #product_list {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    justify-content: space-between; /* Space items evenly */
+    flex-wrap: wrap; 
+    justify-content: space-between; 
 }
 
 .product-item {
-    flex: 1 0 30%; /* Basis of 30% width, adjust as necessary */
-    margin: 15px; /* Space around items */
+    flex: 1 0 30%; 
+    margin: 15px; 
 }
 
 .product-image {
-    max-width: 100%; /* Ensure images fit within their container */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; 
+    height: auto; 
 }
 
 .card {
-    border: 1px solid #ddd; /* Light border for the card */
-    border-radius: 5px; /* Slightly rounded corners */
-    overflow: hidden; /* Ensure image doesn't overflow */
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    overflow: hidden; 
 }
 
 #pagination_controls button {
-    padding: 8px 16px; /* Add padding to make the buttons look better */
-    font-size: 16px;  /* Larger font size for better readability */
-    min-width: 40px; /* Ensure buttons have a minimum width for consistent appearance */
+    padding: 8px 16px; 
+    font-size: 16px;  
+    min-width: 40px; 
 }
 
 #pagination_controls {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Adds some space between products and pagination */
+    margin-top: 20px; 
 }

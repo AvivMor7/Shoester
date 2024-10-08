@@ -7,11 +7,11 @@ window.onload = function () {
             return response.json();
         })
         .then(data => {
-            console.log('Fetched data:', data); // Log the entire data object
+            console.log('Fetched data:', data); // Log the data of the object
             const { user, orders } = data;
             console.log('Orders:', orders); // Log the orders to check its structure
 
-            // Check if user data is defined and valid
+            // Check if user defined and valid
             if (user) {
                 // Populate the profile section
                 document.getElementById("full_name").textContent = user.full_name || 'N/A';
@@ -19,7 +19,7 @@ window.onload = function () {
                 document.getElementById("phone_number").textContent = user.phone_number || 'N/A';
                 document.getElementById("email").textContent = user.email || 'N/A';
 
-                // Prefill the edit form
+                // reset the edit form
                 document.getElementById("editName").value = user.full_name || '';
                 document.getElementById("editAddress").value = user.address || '';
                 document.getElementById("editPhoneNumber").value = user.phone_number || '';
@@ -37,11 +37,10 @@ window.onload = function () {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
 
-                    // Ensure `order.shoes_ids` exists and is an array
+                    
                     if (Array.isArray(order.shoes_ids) && order.shoes_ids.length > 0) {
-                        const shoeIds = order.shoes_ids.join(', '); // Create a string with the shoe IDs
+                        const shoeIds = order.shoes_ids.join(', '); // Creating a string with the shoe IDs
 
-                        // Fetch shoe details from the server for each shoe ID
                         // Fetch shoe details from the server for each shoe ID
                         fetch(`/fetch-shoes-by-ids?ids=${shoeIds}`)
                             .then(response => {
@@ -81,7 +80,7 @@ window.onload = function () {
                                 ordersList.appendChild(listItem);
                             });
                     } else {
-                        // Handle case where there are no shoes in this order or `shoes_ids` is invalid
+                        // Handle cases where there are no shoes in the order 
                         listItem.innerHTML = `
                             Order #${order.order_id}: <br>
                             No products available <br>
@@ -103,7 +102,7 @@ window.onload = function () {
         });
 };
 
-// Edit profile button logic (remains the same)
+// Edit profile button logic 
 const editProfileBtn = document.getElementById("editProfileBtn");
 const editProfileSection = document.getElementById("editProfileSection");
 const profileSection = document.getElementById("profile");
@@ -118,8 +117,8 @@ editProfileBtn.addEventListener('click', function () {
 
 // Hide the edit form when the "Cancel" button is clicked
 cancelEditBtn.addEventListener('click', function () {
-    editProfileSection.style.display = 'none';  // Hide the edit form
-    profileSection.style.display = 'block';  // Show profile view again
+    editProfileSection.style.display = 'none';  
+    profileSection.style.display = 'block';  
 });
 
 // Handle the form submission
