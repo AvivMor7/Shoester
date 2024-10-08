@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentPage = 1;
 const itemsPerPage = 20;
 let products = []; // To store all fetched products
+let filteredProducts = []; // To store filtered products
 let totalProducts = 0; // To keep track of total products after filtering
 
 async function fetchProducts(page) {
@@ -30,12 +31,10 @@ async function fetchProducts(page) {
     }
 }
 
-function displayProducts(page, filteredProductsList = null) {
+function displayProducts(page, productsToDisplay = products) {
     const productList = document.getElementById('product_list');
     productList.innerHTML = '';
 
-    // Determine which products to display
-    const productsToDisplay = filteredProductsList || products;
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, productsToDisplay.length);
 
@@ -65,39 +64,18 @@ function displayProducts(page, filteredProductsList = null) {
     }
 }
 
-function searchProducts() {
-    const query = document.getElementById('searching_box').value.toLowerCase();
-    const filteredProducts = products.filter(product => {
-        return (
-            product.brand.toLowerCase().includes(query) ||
-            product.kind.toLowerCase().includes(query) ||
-            product.color.toLowerCase().includes(query) ||
-            product.price.toString().includes(query)
-        );
-    });
-
-    displayProducts(currentPage, filteredProducts); // Display the filtered products
-}
-function checkEnter(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent the form from submitting
-        searchProducts(); // Call the search function
-    }
-}
-
 function getSelectedFilters() {
-    const selectedFilters = {
+    return {
         gender: Array.from(document.querySelectorAll('input[name="gender"]:checked')).map(el => el.value),
         brand: Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(el => el.value),
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
-    return selectedFilters;
 }
 
 function filterProducts() {
     const selectedFilters = getSelectedFilters();
 
-    const filtered = products.filter(product => {
+    filteredProducts = products.filter(product => {
         const matchesKind = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.kind);
         const matchesBrand = selectedFilters.brand.length === 0 || selectedFilters.brand.includes(product.brand);
         const matchesColor = selectedFilters.color.length === 0 || selectedFilters.color.includes(product.color);
@@ -105,58 +83,13 @@ function filterProducts() {
     });
 
     currentPage = 1; // Reset to first page on filtering
-    totalProducts = filtered.length; // Update total products based on filtered results
+    totalProducts = filteredProducts.length; // Update total products based on filtered results
     updatePaginationControls(); // Update pagination controls
-    displayProducts(currentPage, filtered); // Display the filtered products
+    displayProducts(currentPage, filteredProducts); // Display the filtered products
 }
 
 // Add event listener for the filter button
 document.querySelector('.btn.btn-dark').addEventListener('click', filterProducts);
-
-function updatePaginationControls() {
-    // Your pagination logic here (ensure totalProducts is defined)
-    console.log('Total products:', totalProducts);
-    // Logic to update pagination controls goes here...
-}
-
-
-
-// Update pagination controls based on current page
-function addToCart(shoeId) {
-    // Prepare the data to be sent in the request body
-    const data = {
-        shoeId: shoeId,
-    };
-    console.log(shoeId);
-    // Make a POST request to /add-to-cart
-    fetch('/add-to-cart', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(result => {
-        alert('Item added to cart!');
-    })
-    .catch(error => {
-        console.error('Error adding to cart:', error);
-        alert('Error adding item to cart. Please try again.');
-    });
-}
-
-// divide to different pages
-function goToPage(page) {
-    currentPage = page;
-    fetchProducts(currentPage);
-    updatePaginationControls();
-}
 
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
@@ -177,7 +110,6 @@ function updatePaginationControls() {
         const button = document.createElement('button');
         button.textContent = i;
         button.className = 'btn btn-outline-dark mx-1'; // Bootstrap margin-x (horizontal spacing)
-        button.style.borderRadius = '50px'; // Rounded corners
 
         // Highlight the active page
         if (i === currentPage) {
@@ -187,7 +119,6 @@ function updatePaginationControls() {
         }
 
         button.onclick = () => goToPage(i);
-
         paginationControls.appendChild(button);
     }
 
@@ -200,12 +131,13 @@ function updatePaginationControls() {
     paginationControls.appendChild(nextButton);
 }
 
-
-
 // Go to a specific page
 function goToPage(page) {
+    const totalPages = Math.ceil(totalProducts / itemsPerPage);
+    if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
     currentPage = page;
-    displayProducts(currentPage);
+    displayProducts(currentPage, filteredProducts.length > 0 ? filteredProducts : products); // Check if any filtered products exist
+    updatePaginationControls(); // Update pagination controls after going to the new page
 }
 
 // Call the function when the page loads
