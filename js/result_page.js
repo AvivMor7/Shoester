@@ -1,9 +1,12 @@
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
+    createNavbar(); // Create the navbar on page load
+    updateNavbar(); // Update navbar to reflect login status
     fetchProducts(currentPage); // Fetch products on page load
     document.getElementById('searching_box').addEventListener('input', searchProducts); // Add search event listener
 });
 
+// Constants and variables
 let currentPage = 1;
 const itemsPerPage = 20;
 let products = []; // To store all fetched products
@@ -12,8 +15,8 @@ let totalProducts = 0; // To keep track of total products after filtering
 
 const menFilters = {
     gender: ['men'],
-    brand: [], // Add default brands if needed
-    color: []  // Add default colors if needed
+    brand: [],
+    color: []
 };
 
 const womenFilters = {
@@ -28,26 +31,7 @@ const kidsFilters = {
     color: []
 };
 
-function applyFiltersBasedOnUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const genderParam = urlParams.get('gender'); // Get the 'gender' parameter from the URL
-
-    if (!genderParam) {
-        console.log('No gender parameter in the URL. Not applying filters.');
-        return; // Exit if there's no gender parameter
-    }
-
-    // Existing filtering logic
-    if (genderParam === 'men') {
-        filterProducts(menFilters);
-    } else if (genderParam === 'women') {
-        filterProducts(womenFilters);
-    } else if (genderParam === 'kids') {
-        filterProducts(kidsFilters);
-    }
-}
-
-
+// Fetch products from the server
 async function fetchProducts(page) {
     console.log('Fetching products for page:', page);
     try {
@@ -70,6 +54,7 @@ async function fetchProducts(page) {
     }
 }
 
+// Display products based on the current page
 function displayProducts(page, productsToDisplay = products) {
     const productList = document.getElementById('product_list');
     productList.innerHTML = ''; // Clear the current product list
@@ -103,6 +88,7 @@ function displayProducts(page, productsToDisplay = products) {
     }
 }
 
+// Search products based on the query
 function searchProducts() {
     const query = document.getElementById('searching_box').value.toLowerCase();
     const filteredProducts = products.filter(product => {
@@ -117,6 +103,7 @@ function searchProducts() {
     displayProducts(currentPage, filteredProducts); // Display the filtered products
 }
 
+// Check for Enter key press in the search box
 function checkEnter(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the form from submitting
@@ -124,11 +111,34 @@ function checkEnter(event) {
     }
 }
 
+// Apply filters based on URL query parameters
+function applyFiltersBasedOnUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const genderParam = urlParams.get('gender'); // Get the 'gender' parameter from the URL
+
+    if (!genderParam) {
+        console.log('No gender parameter in the URL. Not applying filters.');
+        return; // Exit if there's no gender parameter
+    }
+
+    // Existing filtering logic
+    if (genderParam === 'men') {
+        filterProducts(menFilters);
+    } else if (genderParam === 'women') {
+        filterProducts(womenFilters);
+    } else if (genderParam === 'kids') {
+        filterProducts(kidsFilters);
+    }
+}
+
+// Filter products based on selected filters
 function filterProducts(filters) {
-    const filtered = products.filter(product => {
-        const matchesKind = filters.gender.length === 0 || filters.gender.includes(product.kind);
-        const matchesBrand = filters.brand.length === 0 || filters.brand.includes(product.brand);
-        const matchesColor = filters.color.length === 0 || filters.color.includes(product.color);
+    const selectedFilters = filters || getSelectedFilters();
+
+    filteredProducts = products.filter(product => {
+        const matchesKind = selectedFilters.gender.length === 0 || selectedFilters.gender.includes(product.kind);
+        const matchesBrand = selectedFilters.brand.length === 0 || selectedFilters.brand.includes(product.brand);
+        const matchesColor = selectedFilters.color.length === 0 || selectedFilters.color.includes(product.color);
         return matchesKind && matchesBrand && matchesColor;
     });
 
@@ -146,13 +156,13 @@ document.querySelector('.btn.btn-dark').addEventListener('click', function() {
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
     
-    // Update the URL to remove query parameters after press of a button
+    // Update the URL to remove query parameters after press of filter button
     history.replaceState({}, document.title, "result_page.html"); // Change to your default URL
 
     filterProducts(selectedFilters);
 });
 
-
+// Update pagination controls
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = ''; // Clear previous pagination buttons
@@ -193,10 +203,20 @@ function updatePaginationControls() {
     paginationControls.appendChild(nextButton);
 }
 
+// Go to a specific page
+function goToPage(page) {
+    const totalPages = Math.ceil(totalProducts / itemsPerPage);
+    if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
+    currentPage = page;
+    displayProducts(currentPage, filteredProducts.length > 0 ? filteredProducts : products); // Check if any filtered products exist
+    updatePaginationControls(); // Update pagination controls after going to the new page
+}
+
+// Add an item to the cart
 function addToCart(shoeId) {
     const data = { shoeId: shoeId };
     console.log(shoeId);
-    
+
     fetch('/add-to-cart', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -216,21 +236,3 @@ function addToCart(shoeId) {
         alert('Error adding item to cart. Please try again.');
     });
 }
-
-function goToPage(page) {
-    const totalPages = Math.ceil(totalProducts / itemsPerPage);
-    if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
-    currentPage = page;
-    displayProducts(currentPage, filteredProducts.length > 0 ? filteredProducts : products); // Check if any filtered products exist
-    updatePaginationControls(); // Update pagination controls after going to the new page
-}
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(currentPage); // Fetch products for the first page
-    const filterButton = document.querySelector('.btn-dark');
-    if (filterButton) {
-        filterButton.addEventListener('click', filterProducts);
-    } else {
-        console.error('Filter button not found in the DOM');
-    }
-});
