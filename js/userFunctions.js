@@ -79,7 +79,7 @@ async function addUser(full_name, username, password, phone_number, email, addre
             return false; // User already exists
         }
 
-        // Create a new user instance
+        // Create a new user 
         const newUser = new User({
             full_name,
             username,

@@ -115,4 +115,3 @@ function handleSearch() {
     // Redirect to the result page with the search query as a parameter
     window.location.href = `../result_page.html?query=${encodeURIComponent(query)}`;
 }
-// the end of search box functions
