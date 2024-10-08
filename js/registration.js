@@ -13,9 +13,6 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
     let isValid = true;
     let alertMessage = '';
 
-    // Debugging: Log fullName to check what input is being processed
-    console.log('Full Name:', fullName); 
-
     // Name validation: only English letters and spaces
     const nameRegex = /^[A-Za-z\s]+$/;
 
@@ -84,7 +81,6 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
         // Check if the response is successful
         if (response.ok) {
             alert('Form submitted successfully!');
-            // Optionally, redirect after successful registration
             window.location.href = '/login_page.html';  // Redirect to a welcome page or login
         } else {
             throw new Error('Registration failed. Please try again.');

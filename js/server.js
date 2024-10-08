@@ -1,4 +1,4 @@
-// js/server.js
+
 const express = require('express'); 
 const bodyParser = require('body-parser');
 const app = express();
@@ -6,7 +6,6 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const session = require('express-session')
 const PORT = process.env.PORT || 3030;
-
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart} = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
@@ -265,7 +264,6 @@ app.get("/fetch-orders",async(req,res)=>{
     }
 });
 
-// display the info in the db at the result page
 // API Endpoint to get products
 app.get('/fetch-products/', async (req, res) => {
     try {
@@ -295,7 +293,7 @@ app.get('/session-check', async (req, res) => {
     }
 });
 
-// Middleware to check if the user is an admin
+//check if the user is an admin
 async function checkAdmin(req, res, next) {
     // Check if the user is logged in
     if (!req.session.username) {
@@ -489,7 +487,7 @@ app.post('/update-profile', async (req, res) => {
 
 // New route to fetch specific shoes by IDs
 app.get('/fetch-shoes-by-ids', async (req, res) => {
-    const { ids } = req.query;  // Expecting 'ids' to be passed in the query string
+    const { ids } = req.query;  
     
     if (!ids) {
         return res.status(400).json({ error: 'No shoe IDs provided' });
@@ -499,7 +497,7 @@ app.get('/fetch-shoes-by-ids', async (req, res) => {
     
     try {
         // Find shoes by their IDs
-        const shoes = await Shoe.find({ id: { $in: shoeIds } });  // Use MongoDB's $in operator
+        const shoes = await Shoe.find({ id: { $in: shoeIds } });  
         res.json(shoes);  // Send the found shoes as a JSON response
     } catch (error) {
         console.error('Error fetching shoes:', error);

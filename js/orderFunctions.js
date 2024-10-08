@@ -7,7 +7,7 @@ async function getOrdersByUsername(username) {
         return orders;
     } catch (error) {
         console.error("Error retrieving orders for user:", error);
-        throw error; // Rethrow the error for handling in the calling function
+        throw error; // the error for handling in the calling function
     }
 
 }
@@ -19,7 +19,7 @@ async function getAllOrders() {
         return orders;
     } catch (error) {
         console.error("Error retrieving all orders:", error);
-        throw error; // Rethrow the error for handling in the calling function
+        throw error; // the error for handling in the calling function
     }
 
 }
@@ -37,7 +37,7 @@ async function addOrder(orderData) {
         return newOrder;
     } catch (error) {
         console.error("Error adding order:", error);
-        throw error; // Rethrow the error for handling in the calling function
+        throw error; //the error for handling in the calling function
     }
 }
 
@@ -45,7 +45,7 @@ async function addOrder(orderData) {
 
 async function deleteOrder(order_id) {
     try {
-        const result = await Order.deleteOne({order_id: order_id}); // Assuming 'id' is a unique identifier
+        const result = await Order.deleteOne({order_id: order_id});
         if (result.deletedCount === 0) {
             console.log('No order found with that id.');
             return null; // Return null if no order was found
@@ -54,7 +54,7 @@ async function deleteOrder(order_id) {
         return order_id; // Return the deleted ID or a success message
     } catch (error) {
         console.error('Error deleting order:', error);
-        throw error; // Rethrow the error for further handling
+        throw error; // the error for further handling
     }
 }
 
