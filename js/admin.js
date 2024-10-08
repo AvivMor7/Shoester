@@ -1,28 +1,21 @@
-let users = []; // Define users globally so it can be accessed later
-let usersFetched = false; // Track if users have already been fetched
+// Define parameters so it can be accessed later and track if they have been fetched
+let users = []; 
+let usersFetched = false; 
+let shoes = []; 
+let shoesFetched = false; 
+let orders = []; 
+let ordersFetched = false; 
 
-let shoes = []; // Define shoes globally so it can be accessed later
-let shoesFetched = false; // Track if shoes have already been fetched
-
-let orders = []; // Define orders globally so it can be accessed later
-let ordersFetched = false; // Track if past orders have already been fetched
-
-// DOM elements for users
+//elements for users shoes and orders
 const userTableBody = document.getElementById('userTableBody');
 const showUsersBtn = document.getElementById('showUsersBtn');  
 const userList = document.getElementById('userList');  
-
-// DOM elements for shoes
 const shoeTableBody = document.getElementById('shoeTableBody');
 const showShoesBtn = document.getElementById('showShoesBtn');  
 const shoeList = document.getElementById('shoeList');  
-
-// DOM elements for past orders
 const orderTableBody = document.getElementById('orderTableBody');
 const showOrdersBtn = document.getElementById('showOrdersBtn');
 const orderList = document.getElementById('orderList');
-
-
 const addShoeBtn = document.getElementById('addShoeBtn');
 const addShoeModal = new bootstrap.Modal(document.getElementById('addShoeModal'));
 const addShoeForm = document.getElementById('addShoeForm');
@@ -30,7 +23,7 @@ const addShoeForm = document.getElementById('addShoeForm');
 
 
 
-//extra insurance gaurding the admin page on client side
+// gaurding the admin page on client side
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/session-check') // Create an endpoint to check session
     .then(response => {
@@ -334,10 +327,7 @@ async function fetchSalesByBrandData() {
 
         const orders = await ordersResponse.json();
         const shoes = await shoesResponse.json();
-
-        console.log('Orders:', orders);  // Log the orders to inspect the data
-        console.log('Shoes:', shoes);    // Log the shoes to inspect the data
-
+        
         // Create a map of shoe ids to brands
         const shoeMap = shoes.reduce((acc, shoe) => {
             acc[shoe.id] = shoe.brand;  // Use `shoe.id` to map the shoe's id to its brand
