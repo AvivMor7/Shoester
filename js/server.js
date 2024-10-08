@@ -501,6 +501,25 @@ app.post('/update-profile', async (req, res) => {
     }
 });
 
+// New route to fetch specific shoes by IDs
+app.get('/fetch-shoes-by-ids', async (req, res) => {
+    const { ids } = req.query;  // Expecting 'ids' to be passed in the query string
+    
+    if (!ids) {
+        return res.status(400).json({ error: 'No shoe IDs provided' });
+    }
+
+    const shoeIds = ids.split(',').map(id => id.trim());  // Convert comma-separated string into an array
+    
+    try {
+        // Find shoes by their IDs
+        const shoes = await Shoe.find({ id: { $in: shoeIds } });  // Use MongoDB's $in operator
+        res.json(shoes);  // Send the found shoes as a JSON response
+    } catch (error) {
+        console.error('Error fetching shoes:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 

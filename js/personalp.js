@@ -37,30 +37,58 @@ window.onload = function () {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
 
-                    // Ensure `order.shoes` exists and is an array
-                    if (Array.isArray(order.shoes)) {
-                        // Map over the `shoes` array to get the `url` of each shoe
-                        const shoeUrls = order.shoes.map(shoe => shoe.url);
-                        const shoeIds = order.shoes.map(shoe => shoe.id).join(', ');
+                    // Ensure `order.shoes_ids` exists and is an array
+                    if (Array.isArray(order.shoes_ids) && order.shoes_ids.length > 0) {
+                        const shoeIds = order.shoes_ids.join(', '); // Create a string with the shoe IDs
 
-                        // Create image elements for each shoe URL
-                        const shoeImagesHTML = shoeUrls.map(url => `<img src="${url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">`).join(' ');
+                        // Fetch shoe details from the server for each shoe ID
+                        // Fetch shoe details from the server for each shoe ID
+                        fetch(`/fetch-shoes-by-ids?ids=${shoeIds}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`Failed to fetch shoes, status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(shoes => {
+                                if (Array.isArray(shoes) && shoes.length > 0) {
+                                    const shoeImagesHTML = shoes.map(shoe => 
+                                        `<img src="${shoe.url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">`
+                                    ).join(' ');
 
-                        listItem.innerHTML = `
-                            Order #${order.orderId}: <br>
-                            Products: ${shoeIds} <br>
-                            Images: <br> ${shoeImagesHTML} <br>
-                            Status: Shipped
-                        `;
+                                    listItem.innerHTML = `
+                                        Order #${order.order_id}: <br>
+                                        Products: ${shoeIds} <br>
+                                        Images: <br> ${shoeImagesHTML} <br>
+                                        Status: Shipped
+                                    `;
+                                } else {
+                                    listItem.innerHTML = `
+                                        Order #${order.order_id}: <br>
+                                        Products: ${shoeIds} <br>
+                                        Status: Shipped, but no shoe details found
+                                    `;
+                                }
+                                ordersList.appendChild(listItem);
+                            })
+                            .catch(error => {
+                                console.error('Error fetching shoe details:', error);
+                                listItem.innerHTML = `
+                                    Order #${order.order_id}: <br>
+                                    Products: ${shoeIds} <br>
+                                    Status: Shipped, but failed to load shoe details
+                                `;
+                                ordersList.appendChild(listItem);
+                            });
                     } else {
-                        // If `order.shoes` is not an array, you can handle it gracefully
+                        // Handle case where there are no shoes in this order or `shoes_ids` is invalid
                         listItem.innerHTML = `
-                            Order #${order.orderId}: <br>
+                            Order #${order.order_id}: <br>
                             No products available <br>
                             Status: Shipped
                         `;
+                        ordersList.appendChild(listItem);
                     }
-                    ordersList.appendChild(listItem);
                 });
             } else {
                 const noOrdersMessage = document.createElement('li');
@@ -75,10 +103,7 @@ window.onload = function () {
         });
 };
 
-
-
-
-// Edit profile button logic
+// Edit profile button logic (remains the same)
 const editProfileBtn = document.getElementById("editProfileBtn");
 const editProfileSection = document.getElementById("editProfileSection");
 const profileSection = document.getElementById("profile");
