@@ -1,4 +1,3 @@
-// Fetch user data from the server and populate the profile
 window.onload = function () {
     fetch('/user-data')
         .then(response => {
@@ -10,6 +9,7 @@ window.onload = function () {
         .then(data => {
             console.log('Fetched data:', data); // Log the entire data object
             const { user, orders } = data;
+            console.log('Orders:', orders); // Log the orders to check its structure
 
             // Check if user data is defined and valid
             if (user) {
@@ -36,11 +36,30 @@ window.onload = function () {
                 orders.forEach(order => {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
-                    listItem.innerHTML = `
-                        Order #${order.order_id}: <br>
-                        Products: ${order.shoes_ids.join(', ')} <br>
-                        Status: Shipped
-                    `;
+
+                    // Ensure `order.shoes` exists and is an array
+                    if (Array.isArray(order.shoes)) {
+                        // Map over the `shoes` array to get the `url` of each shoe
+                        const shoeUrls = order.shoes.map(shoe => shoe.url);
+                        const shoeIds = order.shoes.map(shoe => shoe.id).join(', ');
+
+                        // Create image elements for each shoe URL
+                        const shoeImagesHTML = shoeUrls.map(url => `<img src="${url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">`).join(' ');
+
+                        listItem.innerHTML = `
+                            Order #${order.orderId}: <br>
+                            Products: ${shoeIds} <br>
+                            Images: <br> ${shoeImagesHTML} <br>
+                            Status: Shipped
+                        `;
+                    } else {
+                        // If `order.shoes` is not an array, you can handle it gracefully
+                        listItem.innerHTML = `
+                            Order #${order.orderId}: <br>
+                            No products available <br>
+                            Status: Shipped
+                        `;
+                    }
                     ordersList.appendChild(listItem);
                 });
             } else {
@@ -55,6 +74,9 @@ window.onload = function () {
             document.getElementById("profile").innerHTML = `<p>Error loading user data: ${error.message}</p>`;
         });
 };
+
+
+
 
 // Edit profile button logic
 const editProfileBtn = document.getElementById("editProfileBtn");
