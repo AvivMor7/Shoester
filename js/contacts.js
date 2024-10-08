@@ -2,7 +2,7 @@ const RAPIDAPI_KEY = '6a2a422068msh9a52666f613826bp1281cejsn0f9ccb9c5db1'; // Yo
 
 // Initialize the map
 function initMap() {
-    const defaultLocation = [31.969892, 34.772147]; // Latitude and Longitude
+    const defaultLocation = [31.969892, 34.772147]; // Latitude and Longitude of Colman
     const map = L.map('map').setView(defaultLocation, 10); // Set view to default location
 
     // Load and display tile layers
