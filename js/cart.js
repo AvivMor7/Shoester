@@ -3,27 +3,27 @@ let cart = [];
 // Fetch user cart from the server and populate the HTML
 window.onload = function() {
     fetch('/get-cart')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(cart => {
-            // Check if cart is defined and has items
-            if (Array.isArray(cart) && cart.length > 0) {
-                getShoesFromCart(cart); // Fetch shoes based on cart data
-            } else {
-                // Display empty cart message if no items
-                document.getElementById("cart-items").innerHTML = '<p>Your cart is empty</p>';
-                document.querySelector('.items').textContent = 'Items 0';
-                document.querySelector('.total-price').textContent = '€ 0.00';
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById("cart-items").innerHTML = `<p>Error loading cart data: ${error.message}</p>`;
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`You need to login inorder to view the cart - HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(cart => {
+        // Check if cart is defined and has items
+        if (Array.isArray(cart) && cart.length > 0) {
+            getShoesFromCart(cart); // Fetch shoes based on cart data
+        } else {
+            // Display empty cart message if no items
+            document.getElementById("cart-items").innerHTML = '<p>Your cart is empty</p>';
+            document.querySelector('.items').textContent = 'Items 0';
+            document.querySelector('.total-price').textContent = '€ 0.00';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById("cart-items").innerHTML = `<p>Error loading cart data: ${error.message}</p>`;
+    });
 };
 
 // Function to get shoes based on cart items

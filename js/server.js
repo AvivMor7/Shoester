@@ -267,20 +267,6 @@ app.get("/fetch-orders",async(req,res)=>{
 
 // display the info in the db at the result page
 // API Endpoint to get products
-app.get('/fetch-products', async (req, res) => {
-    try {
-        const products = await Shoe.find(); // Fetch all products from DB
-        res.json(products);
-    }   
-    catch (error) {
-        console.error('Error fetching products:', error);
-        res.status(500).send(error);
-    }
-});
-
-
-// display the info in the db at the result page
-// API Endpoint to get products
 app.get('/fetch-products/', async (req, res) => {
     try {
         const products = await Shoe.find(); // Fetch all products from DB
