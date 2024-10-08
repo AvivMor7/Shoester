@@ -1,9 +1,13 @@
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    createNavbar(); // Create the navbar on page load
-    updateNavbar(); // Update navbar to reflect login status
     fetchProducts(currentPage); // Fetch products on page load
-    document.getElementById('searching_box').addEventListener('input', searchProducts); // Add search event listener
+    // Check for query parameters and perform search if necessary
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('query')) {
+        searchProducts(); // Search using the query parameter from the URL
+    }
+    document.getElementById('searching_box').addEventListener('input', searchProducts);
+
 });
 
 // Constants and variables
@@ -57,7 +61,7 @@ async function fetchProducts(page) {
 // Display products based on the current page
 function displayProducts(page, productsToDisplay = products) {
     const productList = document.getElementById('product_list');
-    productList.innerHTML = ''; // Clear the current product list
+    productList.innerHTML = '';
 
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = Math.min(startIndex + itemsPerPage, productsToDisplay.length);
@@ -88,22 +92,25 @@ function displayProducts(page, productsToDisplay = products) {
     }
 }
 
-// Search products based on the query
+
 function searchProducts() {
     const query = document.getElementById('searching_box').value.toLowerCase();
+    const keywords = query.split(' '); // Split the query into individual keywords
+
     const filteredProducts = products.filter(product => {
-        return (
-            product.brand.toLowerCase().includes(query) ||
-            product.kind.toLowerCase().includes(query) ||
-            product.color.toLowerCase().includes(query) ||
-            product.price.toString().includes(query)
-        );
+        return keywords.every(keyword => {
+            return (
+                product.brand.toLowerCase().includes(keyword) ||
+                product.kind.toLowerCase().includes(keyword) ||
+                product.color.toLowerCase().includes(keyword) ||
+                product.price.toString().includes(keyword)
+            );
+        });
     });
 
     displayProducts(currentPage, filteredProducts); // Display the filtered products
 }
 
-// Check for Enter key press in the search box
 function checkEnter(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the form from submitting
@@ -155,14 +162,13 @@ document.querySelector('.btn.btn-dark').addEventListener('click', function() {
         brand: Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(el => el.value),
         color: Array.from(document.querySelectorAll('input[name="color"]:checked')).map(el => el.value),
     };
-    
-    // Update the URL to remove query parameters after press of filter button
+
+    // Update the URL to remove query parameters after pressing the filter button
     history.replaceState({}, document.title, "result_page.html"); // Change to your default URL
 
     filterProducts(selectedFilters);
 });
 
-// Update pagination controls
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = ''; // Clear previous pagination buttons
