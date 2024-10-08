@@ -95,9 +95,9 @@ function displayProducts(page, productsToDisplay = products) {
 
 function searchProducts() {
     const query = document.getElementById('searching_box').value.toLowerCase();
-    const keywords = query.split(' '); // Split the query into individual keywords
+    const keywords = query.split(' ');
 
-    const filteredProducts = products.filter(product => {
+    filteredProducts = products.filter(product => {
         return keywords.every(keyword => {
             return (
                 product.brand.toLowerCase().includes(keyword) ||
@@ -108,8 +108,11 @@ function searchProducts() {
         });
     });
 
+    currentPage = 1; // Reset to first page after search
+    updatePaginationControls(); // Update pagination controls based on filtered products
     displayProducts(currentPage, filteredProducts); // Display the filtered products
 }
+
 
 function checkEnter(event) {
     if (event.key === 'Enter') {
@@ -155,6 +158,7 @@ function filterProducts(filters) {
     displayProducts(currentPage, filteredProducts); // Display the filtered products
 }
 
+
 // Event listener for the filter button
 document.querySelector('.btn.btn-dark').addEventListener('click', function() {
     const selectedFilters = {
@@ -173,12 +177,12 @@ function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = ''; // Clear previous pagination buttons
 
-    const totalPages = Math.ceil(totalProducts / itemsPerPage); // Calculate total pages based on filtered results
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // Use filteredProducts for total pages
 
     // Create previous button
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
-    prevButton.className = 'btn btn-outline-primary me-2'; // Bootstrap margin-right
+    prevButton.className = 'btn btn-outline-primary me-2';
     prevButton.disabled = currentPage === 1;
     prevButton.onclick = () => goToPage(currentPage - 1);
     paginationControls.appendChild(prevButton);
@@ -187,9 +191,8 @@ function updatePaginationControls() {
     for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
         button.textContent = i;
-        button.className = 'btn btn-outline-dark mx-1'; // Bootstrap margin-x (horizontal spacing)
+        button.className = 'btn btn-outline-dark mx-1';
 
-        // Highlight the active page
         if (i === currentPage) {
             button.classList.remove('btn-outline-dark');
             button.classList.add('btn-primary');
@@ -203,20 +206,21 @@ function updatePaginationControls() {
     // Create next button
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next';
-    nextButton.className = 'btn btn-outline-primary ms-2'; // Bootstrap margin-left
+    nextButton.className = 'btn btn-outline-primary ms-2';
     nextButton.disabled = currentPage === totalPages;
     nextButton.onclick = () => goToPage(currentPage + 1);
     paginationControls.appendChild(nextButton);
 }
 
-// Go to a specific page
+
 function goToPage(page) {
-    const totalPages = Math.ceil(totalProducts / itemsPerPage);
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
     currentPage = page;
-    displayProducts(currentPage, filteredProducts.length > 0 ? filteredProducts : products); // Check if any filtered products exist
-    updatePaginationControls(); // Update pagination controls after going to the new page
+    displayProducts(currentPage, filteredProducts); // Use filteredProducts for display
+    updatePaginationControls(); // Update pagination controls
 }
+
 
 // Add an item to the cart
 function addToCart(shoeId) {
