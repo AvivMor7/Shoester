@@ -7,21 +7,21 @@ window.onload = function () {
             return response.json();
         })
         .then(data => {
-            console.log('Fetched data:', data); // Log the data of the object
+            console.log('Fetched data:', data);
             const { user, orders } = data;
-            console.log('Orders:', orders); // Log the orders to check its structure
 
-            // Check if user defined and valid
+            // Check if user data is defined
             if (user) {
                 // Populate the profile section
                 document.getElementById("full_name").textContent = user.full_name || 'N/A';
-                document.getElementById("address").textContent = user.address || 'N/A';
+                document.getElementById("address").textContent = `${user.address.street} ${user.address.building_number || ''}, ${user.address.city || ''}, ${user.address.district || ''}, Israel` || 'N/A';
                 document.getElementById("phone_number").textContent = user.phone_number || 'N/A';
                 document.getElementById("email").textContent = user.email || 'N/A';
 
-                // reset the edit form
+                // Reset the edit form
                 document.getElementById("editName").value = user.full_name || '';
-                document.getElementById("editAddress").value = user.address || '';
+                document.getElementById("editAddress").value = user.address.street || ''; // Updated to match HTML
+                document.getElementById("editDistrict").value = user.address.district || 'Center'; // Default to 'Center'
                 document.getElementById("editPhoneNumber").value = user.phone_number || '';
                 document.getElementById("editEmail").value = user.email || '';
             } else {
@@ -37,7 +37,6 @@ window.onload = function () {
                     const listItem = document.createElement('li');
                     listItem.className = 'list-group-item';
 
-                    
                     if (Array.isArray(order.shoes_ids) && order.shoes_ids.length > 0) {
                         const shoeIds = order.shoes_ids.join(', '); // Creating a string with the shoe IDs
 
@@ -51,47 +50,42 @@ window.onload = function () {
                             })
                             .then(shoes => {
                                 if (Array.isArray(shoes) && shoes.length > 0) {
-                                    // Use order.shoes_ids.map() to render images including duplicates
                                     const shoeImagesHTML = order.shoes_ids.map(shoeId => {
                                         const shoe = shoes.find(shoe => shoe.id === shoeId); // Find the matching shoe object by ID
                                         return shoe ? `<img src="${shoe.url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">` : '';
                                     }).join(' ');
 
-                                    listItem.innerHTML = `
-                                        Order #${order.order_id}: <br>
+                                    listItem.innerHTML = 
+                                        `Order #${order.order_id}: <br>
                                         Products: ${shoeIds} <br>
                                         Images: <br> ${shoeImagesHTML} <br>
                                         Status: Shipped <br>
-                                        Total price: ${order.price}$
-                                    `;
+                                        Total price: ${order.price}$`;
                                 } else {
-                                    listItem.innerHTML = `
-                                        Order #${order.order_id}: <br>
+                                    listItem.innerHTML = 
+                                        `Order #${order.order_id}: <br>
                                         Products: ${shoeIds} <br>
                                         Status: Shipped, but no shoe details found <br>
-                                        Total price: ${order.price}$
-                                    `;
+                                        Total price: ${order.price}$`;
                                 }
                                 ordersList.appendChild(listItem);
                             })
                             .catch(error => {
                                 console.error('Error fetching shoe details:', error);
-                                listItem.innerHTML = `
-                                    Order #${order.order_id}: <br>
+                                listItem.innerHTML = 
+                                    `Order #${order.order_id}: <br>
                                     Products: ${shoeIds} <br>
                                     Status: Shipped, but failed to load shoe details <br>
-                                    Total price: ${order.price}$
-                                `;
+                                    Total price: ${order.price}$`;
                                 ordersList.appendChild(listItem);
                             });
                     } else {
                         // Handle cases where there are no shoes in the order 
-                        listItem.innerHTML = `
-                            Order #${order.order_id}: <br>
+                        listItem.innerHTML = 
+                            `Order #${order.order_id}: <br>
                             No products available <br>
                             Status: Shipped <br>
-                            Total price: ${order.price}$
-                        `;
+                            Total price: ${order.price}$`;
                         ordersList.appendChild(listItem);
                     }
                 });
@@ -108,7 +102,7 @@ window.onload = function () {
         });
 };
 
-// Edit profile button logic 
+// Edit profile button logic
 const editProfileBtn = document.getElementById("editProfileBtn");
 const editProfileSection = document.getElementById("editProfileSection");
 const profileSection = document.getElementById("profile");
@@ -123,8 +117,8 @@ editProfileBtn.addEventListener('click', function () {
 
 // Hide the edit form when the "Cancel" button is clicked
 cancelEditBtn.addEventListener('click', function () {
-    editProfileSection.style.display = 'none';  
-    profileSection.style.display = 'block';  
+    editProfileSection.style.display = 'none';
+    profileSection.style.display = 'block';
 });
 
 // Handle the form submission
@@ -133,7 +127,12 @@ editProfileForm.addEventListener('submit', function (event) {
 
     const updatedProfile = {
         full_name: document.getElementById("editName").value,
-        address: document.getElementById("editAddress").value,
+        address: {
+            street: document.getElementById("editAddress").value, // Updated to match HTML
+            building_number: '', // Assuming you may want to add a building number, you can adjust this
+            city: '', // This might be added later if needed
+            district: document.getElementById("editDistrict").value // Only allow district to change
+        },
         phone_number: document.getElementById("editPhoneNumber").value,
         email: document.getElementById("editEmail").value,
     };
@@ -154,9 +153,10 @@ editProfileForm.addEventListener('submit', function (event) {
         })
         .then(data => {
             console.log('Profile updated successfully:', data);
+
             // Update the UI with the new data
             document.getElementById("full_name").textContent = updatedProfile.full_name;
-            document.getElementById("address").textContent = updatedProfile.address;
+            document.getElementById("address").textContent = `${updatedProfile.address.street}, ${updatedProfile.address.district}, Israel`; // Update this line accordingly
             document.getElementById("phone_number").textContent = updatedProfile.phone_number;
             document.getElementById("email").textContent = updatedProfile.email;
 

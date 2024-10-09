@@ -74,38 +74,33 @@ async function deleteUser(username) {
 // Function to add a new user
 async function addUser(full_name, username, password, phone_number, email, address) {
     try {
-        // Check if the username or email already exists
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
 
         if (existingUser) {
             console.log("Username or email already taken.");
-            return false; // User already exists
+            return false;
         }
 
-        // Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Create a new user 
         const newUser = new User({
             full_name,
             username,
-            password: hashedPassword, // Store the hashed password
+            password: hashedPassword,
             phone_number,
             email,
-            address,
-            is_admin: false, // Set is_admin to false for new users
+            address, // Save the address object
+            is_admin: false,
             cart: []
         });
 
-        // Save the user to the database
         await newUser.save();
-        return true; // Indicate success
+        return true;
     } catch (error) {
         console.error("Error adding user:", error);
-        return false; // Indicate failure due to error
+        return false;
     }
 }
-
 
 async function getUsers() {
     try {

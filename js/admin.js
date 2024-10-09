@@ -4,9 +4,12 @@ let usersFetched = false;
 let shoes = []; 
 let shoesFetched = false; 
 let orders = []; 
-let ordersFetched = false; 
+let ordersFetched = false;
+let groupedOrders = [];
+let groupedOrdersFetched = false;
 
-//elements for users shoes and orders
+
+// Elements for users, shoes, and orders
 const userTableBody = document.getElementById('userTableBody');
 const showUsersBtn = document.getElementById('showUsersBtn');  
 const userList = document.getElementById('userList');  
@@ -19,11 +22,15 @@ const orderList = document.getElementById('orderList');
 const addShoeBtn = document.getElementById('addShoeBtn');
 const addShoeModal = new bootstrap.Modal(document.getElementById('addShoeModal'));
 const addShoeForm = document.getElementById('addShoeForm');
+const showGroupedOrdersBtn = document.getElementById('showGroupedOrdersBtn');
+const groupedOrderListBody = document.getElementById('groupedOrderListBody'); // Assuming this is the body of the table
+const groupedOrderList = document.getElementById('groupedOrderList'); // Assuming this is the element where grouped orders are displayed
 
 
+// Filtering elements
+const districtFilter = document.getElementById('districtFilter');
 
-
-// gaurding the admin page on client side
+// Guarding the admin page on the client side
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/session-check') // Create an endpoint to check session
     .then(response => {
@@ -44,6 +51,46 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/landing_page.html'; // Redirect on error
     });
 });
+
+// Event listeners for showing/hiding user, shoe, and order lists 
+showUsersBtn.addEventListener('click', async () => {
+    if (!usersFetched) {
+        await fetchUsers();
+    } else {
+        toggleListSection(userList, showUsersBtn, usersFetched, populateUserTable);
+    }
+});
+
+showShoesBtn.addEventListener('click', async () => {
+    if (!shoesFetched) {
+        await fetchShoes();
+    } else {
+        toggleListSection(shoeList, showShoesBtn, shoesFetched, populateShoeTable);
+    }
+});
+
+showOrdersBtn.addEventListener('click', async () => {
+    if (!ordersFetched) {
+        await fetchOrders();
+    } else {
+        toggleListSection(orderList, showOrdersBtn, ordersFetched, populateOrderTable);
+    }
+});
+
+// Event listener for showing/hiding grouped orders
+showGroupedOrdersBtn.addEventListener('click', async () => {
+    if (!groupedOrdersFetched) {
+        await fetchGroupedOrders();
+    } else {
+        toggleListSection(groupedOrderList, showGroupedOrdersBtn, groupedOrdersFetched, populateGroupedOrderTable);
+    }
+});
+
+// Initially hide the lists
+userList.style.display = 'none';
+shoeList.style.display = 'none';
+orderList.style.display = 'none';
+groupedOrderList.style.display = 'none';
 
 
 // Reusable function to toggle visibility of a section
@@ -80,10 +127,17 @@ async function fetchUsers() {
         users = await response.json(); // Get the array of users
         usersFetched = true; // Mark that users have been fetched
         toggleListSection(userList, showUsersBtn, usersFetched, populateUserTable);
+        populateDistrictFilter(); // Populate district filter on fetch
     } catch (error) {
         console.error('Error fetching users:', error);
         alert('An error occurred while fetching user data. Please check the console for details.');
     }
+}
+
+// Populate the district filter dropdown
+function populateDistrictFilter() {
+    const districts = ['All', 'North', 'Center', 'South'];
+    districtFilter.innerHTML = districts.map(district => `<option value="${district}">${district}</option>`).join('');
 }
 
 // Function to populate the user list table
@@ -102,7 +156,46 @@ function populateUserTable() {
                 <td>${user.full_name}</td>
                 <td>${user.email}</td>
                 <td>${user.phone_number}</td>
-                <td>${user.address}</td>
+                <td>${user.address.country}</td>
+                <td>${user.address.district}</td>
+                <td>${user.address.city}</td>
+                <td>${user.address.street}</td>
+                <td>${user.address.building_number}</td>
+                <td><button class="btn btn-danger" onclick="deleteUser('${user.username}')">Delete User</button></td>
+            `;
+            userTableBody.appendChild(row);
+        });
+    }
+}
+// Filter users by district
+districtFilter.addEventListener('change', () => {
+    const selectedDistrict = districtFilter.value;
+    if (selectedDistrict === 'All') {
+        populateUserTable(); // Show all users
+    } else {
+        const filteredUsers = users.filter(user => user.address.district === selectedDistrict);
+        displayFilteredUsers(filteredUsers);
+    }
+});
+
+// Display filtered users
+function displayFilteredUsers(filteredUsers) {
+    userTableBody.innerHTML = ''; // Clear the table
+    if (filteredUsers.length === 0) {
+        userTableBody.innerHTML = '<tr><td colspan="10" class="text-center">No users available for this district</td></tr>';
+    } else {
+        filteredUsers.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.username}</td>
+                <td>${user.full_name}</td>
+                <td>${user.email}</td>
+                <td>${user.phone_number}</td>
+                <td>${user.address.country}</td>
+                <td>${user.address.district}</td>
+                <td>${user.address.city}</td>
+                <td>${user.address.street}</td>
+                <td>${user.address.building_number}</td>
                 <td><button class="btn btn-danger" onclick="deleteUser('${user.username}')">Delete User</button></td>
             `;
             userTableBody.appendChild(row);
@@ -149,6 +242,7 @@ function populateShoeTable() {
         });
     }
 }
+
 // Fetch past orders from the server and store them
 async function fetchOrders() {
     try {
@@ -165,7 +259,6 @@ async function fetchOrders() {
     }
 }
 
-// Function to populate the past orders table
 function populateOrderTable() {
     orderTableBody.innerHTML = '';
 
@@ -180,12 +273,49 @@ function populateOrderTable() {
                 <td>${order.username}</td>
                 <td>${order.order_id}</td>
                 <td>${order.shoes_ids}</td>
+                <td>${order.price}</td>  <!-- Added price here -->
                 <td><button class="btn btn-danger" onclick="deleteOrder('${order.order_id}')">Delete Order</button></td>
             `;
             orderTableBody.appendChild(row);
         });
     }
 }
+
+// Fetch grouped orders from the server
+async function fetchGroupedOrders() {
+    try {
+        const response = await fetch('/fetch-orders-grouped');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        groupedOrders = await response.json(); // Save grouped orders globally
+        groupedOrdersFetched = true; // Mark that grouped orders have been fetched
+        toggleListSection(groupedOrderList, showGroupedOrdersBtn, groupedOrdersFetched, populateGroupedOrderTable);
+    } catch (error) {
+        console.error('Error fetching grouped orders:', error);
+        alert('An error occurred while fetching grouped order data. Please check the console for details.');
+    }
+}
+
+// Function to populate the grouped orders table
+function populateGroupedOrderTable() {
+    groupedOrderListBody.innerHTML = ''; // Clear previous data
+
+    if (groupedOrders.length === 0) {
+        groupedOrderListBody.innerHTML = '<tr><td colspan="3" class="text-center">No grouped orders available</td></tr>';
+    } else {
+        groupedOrders.forEach(order => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${order.username}</td>
+                <td>${order.totalOrders}</td>
+                <td>${order.totalSpent}</td>
+            `;
+            groupedOrderListBody.appendChild(row);
+        });
+    }
+}
+
 
 // Function to delete a user
 async function deleteUser(username) {
@@ -283,39 +413,8 @@ async function deleteOrder(order_id) {
     }
 }
 
-// Event listeners for showing/hiding user, shoe, and order lists
-showUsersBtn.addEventListener('click', async () => {
-    if (!usersFetched) {
-        await fetchUsers();
-    } else {
-        toggleListSection(userList, showUsersBtn, usersFetched, populateUserTable);
-    }
-});
-
-showShoesBtn.addEventListener('click', async () => {
-    if (!shoesFetched) {
-        await fetchShoes();
-    } else {
-        toggleListSection(shoeList, showShoesBtn, shoesFetched, populateShoeTable);
-    }
-});
-
-showOrdersBtn.addEventListener('click', async () => {
-    if (!ordersFetched) {
-        await fetchOrders();
-    } else {
-        toggleListSection(orderList, showOrdersBtn, ordersFetched, populateOrderTable);
-    }
-});
-
-// Initially hide the lists
-userList.style.display = 'none';
-shoeList.style.display = 'none';
-orderList.style.display = 'none';
 
 
-
-// Fetch and plot sales by brand chart
 async function fetchSalesByBrandData() {
     try {
         const ordersResponse = await fetch('/fetch-orders');
@@ -330,7 +429,7 @@ async function fetchSalesByBrandData() {
         
         // Create a map of shoe ids to brands
         const shoeMap = shoes.reduce((acc, shoe) => {
-            acc[shoe.id] = shoe.brand;  // Use `shoe.id` to map the shoe's id to its brand
+            acc[shoe.id] = shoe.brand;  // Use shoe.id to map the shoe's id to its brand
             return acc;
         }, {});
 
@@ -343,7 +442,7 @@ async function fetchSalesByBrandData() {
         orders.forEach(order => {
             let shoeIds;
 
-            // Check if order.shoes_ids is already an array or a comma-separated string
+            // Ensure shoeIds is handled correctly
             if (Array.isArray(order.shoes_ids)) {
                 shoeIds = order.shoes_ids;
             } else if (typeof order.shoes_ids === 'string') {
@@ -377,10 +476,6 @@ async function fetchSalesByBrandData() {
         console.log('Brand Names:', brandNames);  // Log brand names (X-axis labels)
         console.log('Sales Counts:', salesCounts);  // Log sales counts (Y-axis values)
 
-        if (brandNames.length === 0 || salesCounts.length === 0) {
-            console.log('No sales data to display in the chart.');
-        }
-
         // Create the chart
         const ctx = document.getElementById('brandSalesChart').getContext('2d');
         new Chart(ctx, {
@@ -408,12 +503,10 @@ async function fetchSalesByBrandData() {
     }
 }
 
-// Call fetchSalesByBrandData to populate the chart when page loads
+// Call fetchSalesByBrandData to populate the chart when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchSalesByBrandData();
 });
-
-
 
 
 async function fetchSalesByKindData() {

@@ -8,7 +8,7 @@ const session = require('express-session')
 const PORT = process.env.PORT || 3030;
 const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart} = require('./userFunctions'); // Import user functions
-const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder } = require('../js/orderFunctions'); // Import order functions
+const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder, getAllOrdersGrouped } = require('../js/orderFunctions'); // Import order functions
 const { strict } = require('assert');
 const { getDefaultResultOrder } = require('dns/promises');
 const Shoe = require('../models/shoe');
@@ -166,17 +166,27 @@ app.get('/user-data', async (req, res) => {
 // POST route for registration
 app.post('/register', async (req, res) => {
     const { fullName, username, password, email, phoneNumber, address } = req.body;
+    
+    // Ensure address is in the correct format
+    const formattedAddress = {
+        country: 'Israel',
+        district: address.district,
+        city: address.city,
+        street: address.street,
+        building_number: address.building_number
+    };
+
     try {
-        const isValid = await addUser(fullName, username, password, phoneNumber, email, address);
+        const isValid = await addUser(fullName, username, password, phoneNumber, email, formattedAddress);
         
         if (isValid) {
-            res.send('<script>alert("Sign up successful!"); window.location.href = "../login_page.html";</script>'); // Success alert and redirect
+            res.send('<script>alert("Sign up successful!"); window.location.href = "../login_page.html";</script>');
         } else {
-            res.send('<script>alert("Username already in use"); window.location.href = "../registration.html";</script>'); // Error alert and redirect
+            res.send('<script>alert("Username already in use"); window.location.href = "../registration.html";</script>');
         }
     } catch (error) {
         console.error('Error during registration:', error);
-        res.send('<script>alert("Internal server error."); window.location.href = "/register";</script>'); // Error alert and redirect
+        res.send('<script>alert("Internal server error."); window.location.href = "/register";</script>');
     }
 });
 
@@ -259,6 +269,17 @@ app.get("/fetch-orders",async(req,res)=>{
         res.status(500).json({ success: false, message: 'Internal server error.' });
     }
 });
+
+app.get("/fetch-orders-grouped", async (req, res) => {
+    try {
+        const groupedOrders = await getAllOrdersGrouped(); // Fetch grouped orders
+        res.json(groupedOrders); // Return the grouped orders as JSON
+    } catch (error) {
+        console.error('Error fetching grouped orders:', error);
+        res.status(500).json({ success: false, message: 'Internal server error.' });
+    }
+});
+
 
 // API Endpoint to get products
 app.get('/fetch-products/', async (req, res) => {
@@ -443,6 +464,7 @@ app.post('/getShoesFromCart', async (req, res) => {
     }
 });
 
+
 // POST route to update the user profile
 app.post('/update-profile', async (req, res) => {
     const { full_name, address, phone_number, email } = req.body;
@@ -453,7 +475,6 @@ app.post('/update-profile', async (req, res) => {
 
     try {
         const username = req.session.username;
-        // Find the user by their username
         const user = await User.findOne({ username: username });
 
         if (!user) {
@@ -462,17 +483,12 @@ app.post('/update-profile', async (req, res) => {
 
         // Update the user's profile information
         user.full_name = full_name || user.full_name;
-        user.address = address || user.address;
+        user.address = address || user.address; // Update address object
         user.phone_number = phone_number || user.phone_number;
         user.email = email || user.email;
 
-        // Save the updated user information to the database
         await user.save();
 
-        // Update the session data if necessary
-        req.session.username = username; // Ensure session has the username if it's altered
-
-        // Send a response back indicating success
         res.json({
             success: true,
             message: 'Profile updated successfully',

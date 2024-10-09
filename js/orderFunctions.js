@@ -12,8 +12,20 @@ async function getOrdersByUsername(username) {
 
 }
 
-// Function to get all orders (for admin dashboard), grouped by username as required one function using groupby
+// Function to get all orders (for admin)
 async function getAllOrders() {
+    try {
+        const orders = await Order.find({});
+        return orders;
+    } catch (error) {
+        console.error("Error retrieving all orders:", error);
+        throw error; // the error for handling in the calling function
+    }
+
+}
+
+// Function to get all orders (for admin dashboard), grouped by username as required one function using groupby
+async function getAllOrdersGrouped() {
     try {
         const orders = await Order.aggregate([
             {
@@ -22,22 +34,14 @@ async function getAllOrders() {
                     totalOrders: { $sum: 1 }, // Count the total orders for each user
                     totalSpent: { $sum: "$price" } // Calculate total spent by each user
                 }
-            },
-            {
-                $project: {
-                    username: "$_id",
-                    totalOrders: 1,
-                    totalSpent: 1
-                }
             }
         ]);
         return orders;
     } catch (error) {
         console.error("Error retrieving all orders:", error);
-        throw error; // the error for handling in the calling function
+        throw error; // Handle error in the calling function
     }
 }
-
 
 // Function to add a new order
 async function addOrder(orderData) {
@@ -76,6 +80,7 @@ async function deleteOrder(order_id) {
 
 module.exports = {
     getOrdersByUsername,
+    getAllOrdersGrouped,
     getAllOrders,
     addOrder,
     deleteOrder

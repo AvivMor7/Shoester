@@ -8,8 +8,14 @@ const userSchema = new Schema({
     password: String,
     email: String,
     phone_number: String,
-    address: String, // Add the address field
-    is_admin: Boolean,
+    address: {
+        country: { type: String, default: 'Israel' }, // Set default country
+        district: { type: String, enum: ['North', 'Center', 'South'], required: true },
+        city: { type: String, required: true },
+        street: { type: String, required: true },
+        building_number: { type: String, required: true }
+    },
+    is_admin: { type: Boolean, default: false },
     cart: [{
         shoeId: Number,
         amount: Number

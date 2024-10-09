@@ -5,7 +5,13 @@
         "password": "$2b$12$mfe596d8HhaGB0t/p463wOoDWYf3ZptpolA8xqvCRER14QzySYyHa",
         "email": "guy@example.com",
         "phone_number": "1234567890",
-        "address": "123 Main St, City, Country",
+        "address": {
+            "country": "Israel",
+            "district": "North",
+            "city": "Haifa",
+            "street": "Kibbutz St",
+            "building_number": "12"
+        },
         "is_admin": false,
         "cart": []
     },
@@ -15,7 +21,13 @@
         "password": "$2b$12$3kMsvR.ZYUlcdMS4cGbMjuM7QlvwL8shB/jhoZq5msYXyXj56IXIm",
         "email": "koren@example.com",
         "phone_number": "0987654321",
-        "address": "456 Park Ave, City, Country",
+        "address": {
+            "country": "Israel",
+            "district": "Center",
+            "city": "Tel Aviv",
+            "street": "Herzl Blvd",
+            "building_number": "89"
+        },
         "is_admin": false,
         "cart": []
     },
@@ -25,7 +37,13 @@
         "password": "$2b$12$prs6OWFaAKM0O75ZPWkQKul8Ca8tnshPzxs.WlHY/DTXstsoFErFi",
         "email": "gal@example.com",
         "phone_number": "1122334455",
-        "address": "789 Broadway, City, Country",
+        "address": {
+            "country": "Israel",
+            "district": "South",
+            "city": "Beersheba",
+            "street": "Negev St",
+            "building_number": "45"
+        },
         "is_admin": false,
         "cart": []
     },
@@ -35,7 +53,13 @@
         "password": "$2b$12$WyhuLhkzkrvMrP7jGONASuzdhcoEEDVNgQAKuk.DY5vGE9Qf3YPti",
         "email": "aviv@example.com",
         "phone_number": "6677889900",
-        "address": "321 Elm St, City, Country",
+        "address": {
+            "country": "Israel",
+            "district": "North",
+            "city": "Tiberias",
+            "street": "Sea of Galilee Rd",
+            "building_number": "32"
+        },
         "is_admin": false,
         "cart": []
     },
@@ -45,7 +69,13 @@
         "password": "$2b$12$p02zXov0/ByzaYtT/Gf7O.GKwvdUnOUSsDUyWo1qValNLw30Fo8KC",
         "email": "admin@example.com",
         "phone_number": "66677889900",
-        "address": "100 Admin Rd, City, Country",
+        "address": {
+            "country": "Israel",
+            "district": "Center",
+            "city": "Ramat Gan",
+            "street": "Admin Rd",
+            "building_number": "100"
+        },
         "is_admin": true,
         "cart": []
     }
