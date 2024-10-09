@@ -344,19 +344,27 @@ app.post('/checkout', async (req, res) => {
             }
 
             // Extract shoe IDs from the cart, respecting the quantity (amount) of each item
-            let shoes_ids = [];
-            user.cart.forEach(item => {
-                // Push the shoeId to the array as many times as its amount
+            let price = 0; 
+            const shoes_ids = []; 
+            
+            for (const item of user.cart) {
                 for (let i = 0; i < item.amount; i++) {
-                    shoes_ids.push(item.shoeId);
+                    shoes_ids.push(item.shoeId); 
+                    let shoe = await Shoe.findOne({ id: item.shoeId });
+                    if (shoe) {
+                        price += shoe.price; 
+                    } else {
+                        console.error(`Shoe with ID ${item.shoeId} not found.`);
+                    }
                 }
-            });
+            }
 
             // Create a new order
             const newOrder = {
                 order_id: orderId,
                 username: username,
-                shoes_ids: shoes_ids
+                shoes_ids: shoes_ids,
+                price: price
             };
 
             // Save the new order

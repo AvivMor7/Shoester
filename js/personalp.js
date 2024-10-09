@@ -51,21 +51,25 @@ window.onload = function () {
                             })
                             .then(shoes => {
                                 if (Array.isArray(shoes) && shoes.length > 0) {
-                                    const shoeImagesHTML = shoes.map(shoe => 
-                                        `<img src="${shoe.url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">`
-                                    ).join(' ');
+                                    // Use order.shoes_ids.map() to render images including duplicates
+                                    const shoeImagesHTML = order.shoes_ids.map(shoeId => {
+                                        const shoe = shoes.find(shoe => shoe.id === shoeId); // Find the matching shoe object by ID
+                                        return shoe ? `<img src="${shoe.url}" alt="shoe image" style="max-width: 100px; margin-right: 10px;">` : '';
+                                    }).join(' ');
 
                                     listItem.innerHTML = `
                                         Order #${order.order_id}: <br>
                                         Products: ${shoeIds} <br>
                                         Images: <br> ${shoeImagesHTML} <br>
-                                        Status: Shipped
+                                        Status: Shipped <br>
+                                        Total price: ${order.price}$
                                     `;
                                 } else {
                                     listItem.innerHTML = `
                                         Order #${order.order_id}: <br>
                                         Products: ${shoeIds} <br>
-                                        Status: Shipped, but no shoe details found
+                                        Status: Shipped, but no shoe details found <br>
+                                        Total price: ${order.price}$
                                     `;
                                 }
                                 ordersList.appendChild(listItem);
@@ -75,7 +79,8 @@ window.onload = function () {
                                 listItem.innerHTML = `
                                     Order #${order.order_id}: <br>
                                     Products: ${shoeIds} <br>
-                                    Status: Shipped, but failed to load shoe details
+                                    Status: Shipped, but failed to load shoe details <br>
+                                    Total price: ${order.price}$
                                 `;
                                 ordersList.appendChild(listItem);
                             });
@@ -84,7 +89,8 @@ window.onload = function () {
                         listItem.innerHTML = `
                             Order #${order.order_id}: <br>
                             No products available <br>
-                            Status: Shipped
+                            Status: Shipped <br>
+                            Total price: ${order.price}$
                         `;
                         ordersList.appendChild(listItem);
                     }

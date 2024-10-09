@@ -49,12 +49,13 @@ async function getShoesFromCart(cart) {
     }
 }
 
+let totalPrice = 0;
+
 // Populate cart items with shoe details
 async function populateCartItems(shoes, cart) {
     const cartItemsContainer = document.getElementById('cart-items');
     cartItemsContainer.innerHTML = ''; // Clear previous items
     let totalItems = 0;
-    let totalPrice = 0;
 
     // Iterate through the shoes array
     for (const shoe of shoes) {

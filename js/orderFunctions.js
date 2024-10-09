@@ -26,12 +26,13 @@ async function getAllOrders() {
 
 // Function to add a new order
 async function addOrder(orderData) {
-    const { order_id, username, shoes_ids } = orderData;
+    const { order_id, username, shoes_ids, price } = orderData; // Extract price from orderData
     try {
         const newOrder = new Order({
             order_id,
             username,
             shoes_ids,
+            price
         });
         await newOrder.save();
         return newOrder;
