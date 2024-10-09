@@ -14,6 +14,7 @@ const { getDefaultResultOrder } = require('dns/promises');
 const Shoe = require('../models/shoe');
 const User = require('../models/user');
 const Order = require('../models/user');
+const bcrypt = require('bcrypt');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -148,10 +149,6 @@ app.get('/user-data', async (req, res) => {
             const user = await getUser(req.session.username);
             const orders = await getOrdersByUsername(req.session.username);
             if (user) {
-                // Log user and orders before sending
-                console.log('User:', user);
-                console.log('Orders:', orders);
-                
                 return res.json({ user, orders });
             } else {
                 return res.status(404).send('User not found!');
@@ -176,7 +173,6 @@ app.post('/register', async (req, res) => {
             res.send('<script>alert("Sign up successful!"); window.location.href = "../login_page.html";</script>'); // Success alert and redirect
         } else {
             res.send('<script>alert("Username already in use"); window.location.href = "../registration.html";</script>'); // Error alert and redirect
-
         }
     } catch (error) {
         console.error('Error during registration:', error);

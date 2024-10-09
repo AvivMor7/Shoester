@@ -109,7 +109,6 @@ function checkEnter(event) {
         handleSearch(); // Call the search function
     }
 }
-
 function handleSearch() {
     const query = document.getElementById('searching_box').value;
     // Redirect to the result page with the search query as a parameter

@@ -1,33 +1,55 @@
+.container-fluid {
+    padding-left: 0;  /* Remove left padding */
+    padding-right: 0; /* Remove right padding */
+}
+
 #product_list {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between; 
+    flex-wrap: wrap;
+    margin-left: 6vh;
+    justify-content: flex-start; /* Align items to the start */
 }
 
 .product-item {
-    flex: 1 0 30%; 
-    margin: 15px; 
-}
-
-.product-image {
-    max-width: 100%; 
-    height: auto; 
+    flex: 1 0 15%; /* Adjust this value for more items in a row */
+    margin: 10px;  /* Adjust the margin as needed */
 }
 
 .card {
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    overflow: hidden; 
+    max-width: 750px; /* Set the maximum width of the card */
+    width: 100%; /* Ensure it takes full width of its container */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex; /* Use flex to ensure image scales properly */
+    flex-direction: column; /* Stack image and content vertically */
+}
+
+.product-image {
+    width: 100%; /* Image takes full width of card */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 650px; /* Limit max height of image */
+    object-fit: cover; /* Ensure image covers area without stretching */
 }
 
 #pagination_controls button {
-    padding: 8px 16px; 
-    font-size: 16px;  
-    min-width: 40px; 
+    padding: 8px 16px;
+    font-size: 16px;
+    min-width: 40px;
 }
 
 #pagination_controls {
     display: flex;
     justify-content: center;
-    margin-top: 20px; 
+    margin-top: 20px;
+}
+
+.no-gutters {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.sidebar {
+    margin-left: 6vh;
+    margin-right: 0;
 }

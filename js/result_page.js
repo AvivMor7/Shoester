@@ -1,21 +1,30 @@
 // Call the function when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(currentPage); 
-    // Check the url for parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('query')) {
-        searchProducts(); // Search using the parameters from the URL
-    }
+    fetchProducts(currentPage);
+    // Check the URL for parameters and apply filters
+    applyFiltersBasedOnUrl();
     document.getElementById('searching_box').addEventListener('input', searchProducts);
 
+    // Add listener for 'Enter' key on search box to trigger search and update URL
+    document.getElementById('searching_box').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const query = document.getElementById('searching_box').value;
+            if (query.trim()) {
+                // Update the URL with the new search query
+                const newUrl = `result_page.html?query=${encodeURIComponent(query)}`;
+                window.history.pushState({}, '', newUrl); // Change the URL without reloading the page
+                searchProducts(); // Trigger the search with the new query
+            }
+        }
+    });
 });
 
-
 let currentPage = 1;
-const itemsPerPage = 20;
-let products = []; // storing all fetched products
-let filteredProducts = []; // storing the filtered products
-let totalProducts = 0; 
+const itemsPerPage = 24;
+let products = []; // Storing all fetched products
+let filteredProducts = []; // Storing the filtered products
+let totalProducts = 0;
 
 const menFilters = {
     gender: ['men'],
@@ -45,12 +54,11 @@ async function fetchProducts(page) {
             throw new Error('Network response was not ok');
         }
         products = await response.json();
+        filteredProducts = [...products]; // Initialize filtered products to be a copy of products
         totalProducts = products.length; // Update total products
         console.log('Fetched Products:', products);
-        displayProducts(page); 
+        displayProducts(page);
         updatePaginationControls(); // Update the pagination parameters
-
-        
         applyFiltersBasedOnUrl();
 
     } catch (error) {
@@ -59,7 +67,7 @@ async function fetchProducts(page) {
 }
 
 // Display the products based on the current page
-function displayProducts(page, productsToDisplay = products) {
+function displayProducts(page, productsToDisplay = filteredProducts) {
     const productList = document.getElementById('product_list');
     productList.innerHTML = '';
 
@@ -70,7 +78,7 @@ function displayProducts(page, productsToDisplay = products) {
 
     if (productsSlice.length === 0) {
         productList.innerHTML = '<p>No products found.</p>';
-    } else {                                                      // creating the objects for the display
+    } else {
         productsSlice.forEach(product => {
             const productItem = document.createElement('div');
             productItem.className = 'product-item';
@@ -92,10 +100,12 @@ function displayProducts(page, productsToDisplay = products) {
     }
 }
 
-// the filter at the search box
+// Search function for filtering the products
 function searchProducts() {
-    const query = document.getElementById('searching_box').value.toLowerCase();
-    const keywords = query.split(' ');
+    const query = new URLSearchParams(window.location.search).get('query'); // Get query from URL
+    if (!query) return; // Exit if there's no search query
+
+    const keywords = decodeURIComponent(query).toLowerCase().split(' '); // Decode and split into keywords
 
     filteredProducts = products.filter(product => {
         return keywords.every(keyword => {
@@ -108,12 +118,13 @@ function searchProducts() {
         });
     });
 
+    console.log('Filtered Products:', filteredProducts);
     currentPage = 1; // Reset to first page after search
     updatePaginationControls(); // Update pagination controls based on filtered products
-    displayProducts(currentPage, filteredProducts); 
+    displayProducts(currentPage, filteredProducts);
 }
 
-// hundle with the enter pressing
+// Handle Enter key for triggering search
 function checkEnter(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the form from submitting
@@ -125,13 +136,19 @@ function checkEnter(event) {
 function applyFiltersBasedOnUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const genderParam = urlParams.get('gender'); // Get the gender parameter from the URL
+    const queryParam = urlParams.get('query'); // Check if there is a search query
+
+    if (queryParam) {
+        searchProducts(); // Call search function if a query exists
+        return; // Exit if there's a query parameter
+    }
 
     if (!genderParam) {
         console.log('No gender parameter in the URL. Not applying filters.');
         return; // Exit if there's no gender parameter
     }
 
-    // filter logic
+    // Filter logic based on gender
     if (genderParam === 'men') {
         filterProducts(menFilters);
     } else if (genderParam === 'women') {
@@ -158,7 +175,6 @@ function filterProducts(filters) {
     displayProducts(currentPage, filteredProducts); 
 }
 
-
 // Event listener for the filter button
 document.querySelector('.btn.btn-dark').addEventListener('click', function() {
     const selectedFilters = {
@@ -171,14 +187,15 @@ document.querySelector('.btn.btn-dark').addEventListener('click', function() {
 
     filterProducts(selectedFilters);
 });
-// controling the moving between the pages
+
+// Controlling the moving between the pages
 function updatePaginationControls() {
     const paginationControls = document.getElementById('pagination_controls');
     paginationControls.innerHTML = ''; // Clear previous pagination buttons
 
-    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // calculating how much pages needed
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // Calculating how many pages are needed
 
-    // previous button
+    // Previous button
     const prevButton = document.createElement('button');
     prevButton.textContent = 'Previous';
     prevButton.className = 'btn btn-outline-primary me-2';
@@ -202,7 +219,7 @@ function updatePaginationControls() {
         paginationControls.appendChild(button);
     }
 
-    //the next button
+    // Next button
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next';
     nextButton.className = 'btn btn-outline-primary ms-2';
@@ -211,15 +228,13 @@ function updatePaginationControls() {
     paginationControls.appendChild(nextButton);
 }
 
-
 function goToPage(page) {
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     if (page < 1 || page > totalPages) return; // Prevent going to invalid pages
     currentPage = page;
-    displayProducts(currentPage, filteredProducts); 
-    updatePaginationControls(); 
+    displayProducts(currentPage, filteredProducts);
+    updatePaginationControls();
 }
-
 
 // Add an item to the cart
 function addToCart(shoeId) {
@@ -237,11 +252,9 @@ function addToCart(shoeId) {
         }
         return response.json();
     })
-    .then(result => {
+    .then(data => {
+        console.log('Item added to cart:', data);
         alert('Item added to cart!');
     })
-    .catch(error => {
-        console.error('Error adding to cart:', error);
-        alert('Error adding item to cart. Please try again.');
-    });
+    .catch(error => console.error('Error adding item to cart:', error));
 }

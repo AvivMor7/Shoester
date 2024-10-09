@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 async function checkUser(username, password) {
     try {
@@ -8,7 +9,8 @@ async function checkUser(username, password) {
         if (!user) {
             return false; // User does not exist
         }
-        const isPasswordCorrect = (password === user.password); 
+        // Compare the provided password with the stored hashed password
+        const isPasswordCorrect = await bcrypt.compare(password, user.password); 
 
         return isPasswordCorrect; // Return true if password is correct, false otherwise
     } catch (error) {
@@ -16,6 +18,7 @@ async function checkUser(username, password) {
         throw error; // Rethrow the error for further handling
     }
 }
+
 
 async function updateCart(username, updatedCart) {
     try {
@@ -79,11 +82,14 @@ async function addUser(full_name, username, password, phone_number, email, addre
             return false; // User already exists
         }
 
+        // Hash the password before saving
+        const hashedPassword = await bcrypt.hash(password, 10);
+
         // Create a new user 
         const newUser = new User({
             full_name,
             username,
-            password, // Consider hashing the password before storing
+            password: hashedPassword, // Store the hashed password
             phone_number,
             email,
             address,
@@ -125,4 +131,4 @@ async function getUser(username) {
     }
 }
 
-module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart}; // Export
+module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart }; // Export
