@@ -163,6 +163,7 @@ editProfileForm.addEventListener('submit', function (event) {
             // Switch back to the profile view and hide the edit form
             editProfileSection.style.display = 'none';
             profileSection.style.display = 'block';
+            alert("Profile updated successfully!");
         })
         .catch(error => {
             console.error('Error updating profile:', error);

@@ -304,18 +304,20 @@ function populateGroupedOrderTable() {
     if (groupedOrders.length === 0) {
         groupedOrderListBody.innerHTML = '<tr><td colspan="3" class="text-center">No grouped orders available</td></tr>';
     } else {
+        // Sort groupedOrders by totalSpent in descending order
+        groupedOrders.sort((a, b) => b.totalSpent - a.totalSpent);
+
         groupedOrders.forEach(order => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${order.username}</td>
                 <td>${order.totalOrders}</td>
-                <td>${order.totalSpent}</td>
+                <td>${Math.floor(order.totalSpent)}</td> <!-- Convert totalSpent to an integer -->
             `;
             groupedOrderListBody.appendChild(row);
         });
     }
 }
-
 
 // Function to delete a user
 async function deleteUser(username) {

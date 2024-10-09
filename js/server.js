@@ -6,15 +6,12 @@ const path = require('path');
 const { default: mongoose } = require('mongoose');
 const session = require('express-session')
 const PORT = process.env.PORT || 3030;
-const { addShoe, deleteShoe, findShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
+const { addShoe, deleteShoe, findShoeById, getShoes} = require('./shoeFunctions'); // Import shoe functions
 const {  addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart} = require('./userFunctions'); // Import user functions
 const { getOrdersByUsername, getAllOrders, addOrder,deleteOrder, getAllOrdersGrouped } = require('../js/orderFunctions'); // Import order functions
-const { strict } = require('assert');
-const { getDefaultResultOrder } = require('dns/promises');
 const Shoe = require('../models/shoe');
 const User = require('../models/user');
 const Order = require('../models/user');
-const bcrypt = require('bcrypt');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
@@ -483,9 +480,16 @@ app.post('/update-profile', async (req, res) => {
 
         // Update the user's profile information
         user.full_name = full_name || user.full_name;
-        user.address = address || user.address; // Update address object
         user.phone_number = phone_number || user.phone_number;
         user.email = email || user.email;
+
+        // Update address object, ensuring each field is checked
+        if (address) {
+            if (address.district) user.address.district = address.district;
+            if (address.city) user.address.city = address.city;
+            if (address.street) user.address.street = address.street;
+            if (address.building_number) user.address.building_number = address.building_number;
+        }
 
         await user.save();
 
@@ -504,6 +508,7 @@ app.post('/update-profile', async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 });
+
 
 // New route to fetch specific shoes by IDs
 app.get('/fetch-shoes-by-ids', async (req, res) => {

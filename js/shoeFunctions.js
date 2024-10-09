@@ -39,36 +39,6 @@ async function deleteShoe(id) {
         throw error; // Rethrow the error 
     }
 }
-async function findShoe(searchTerm) {
- 
-    try {
-        
-        const query = {};
-
-        
-        query['$or'] = [
-            { kind: { $regex: new RegExp(searchTerm, 'i') } },
-            { brand: { $regex: new RegExp(searchTerm, 'i') } },
-            { color: { $regex: new RegExp(searchTerm, 'i') } }
-        ];
-
-        console.log('MongoDB query:', query); // For debugging: see what the query looks like
-
-        // Perform the search 
-        const shoes = await Shoe.find(query);
-
-        if (shoes.length === 0) {
-            console.log('No shoes found matching the search term:', searchTerm);
-            return []; 
-        }
-
-        console.log('Shoes found:', shoes); // Log the results
-        return shoes; 
-    } catch (error) {
-        console.error('Error finding shoes:', error.message);
-        throw new Error('Failed to find shoes'); 
-    }
-}
 
 async function getShoes() {
     try {
@@ -99,4 +69,4 @@ async function findShoeById(id) {
 
 
 
-module.exports = { addShoe, deleteShoe, findShoe, findShoeById, getShoes }; // Export the functions outside
+module.exports = { addShoe, deleteShoe, findShoeById, getShoes }; // Export the functions outside

@@ -24,7 +24,7 @@ async function getAllOrders() {
 
 }
 
-// Function to get all orders (for admin dashboard), grouped by username as required one function using groupby
+// Function to get all orders (for admin dashboard), grouped by username and sorted by totalSpent descending
 async function getAllOrdersGrouped() {
     try {
         const orders = await Order.aggregate([
@@ -34,6 +34,14 @@ async function getAllOrdersGrouped() {
                     totalOrders: { $sum: 1 }, // Count the total orders for each user
                     totalSpent: { $sum: "$price" } // Calculate total spent by each user
                 }
+            },
+            {
+                $project: {
+                    username: "$_id", // Include the username in the output
+                    totalOrders: 1, // Include totalOrders
+                    totalSpent: 1, // Include totalSpent
+                    _id: 0 // Exclude the default _id field from the output
+                }
             }
         ]);
         return orders;
@@ -42,6 +50,8 @@ async function getAllOrdersGrouped() {
         throw error; // Handle error in the calling function
     }
 }
+
+
 
 // Function to add a new order
 async function addOrder(orderData) {
