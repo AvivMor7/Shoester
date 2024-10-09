@@ -195,14 +195,6 @@ function updatePaginationControls() {
 
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage); // Calculating how many pages are needed
 
-    // Previous button
-    const prevButton = document.createElement('button');
-    prevButton.textContent = 'Previous';
-    prevButton.className = 'btn btn-outline-primary me-2';
-    prevButton.disabled = currentPage === 1;
-    prevButton.onclick = () => goToPage(currentPage - 1);
-    paginationControls.appendChild(prevButton);
-
     // Create page number buttons
     for (let i = 1; i <= totalPages; i++) {
         const button = document.createElement('button');
@@ -210,23 +202,18 @@ function updatePaginationControls() {
         button.className = 'btn btn-outline-dark mx-1';
 
         if (i === currentPage) {
-            button.classList.remove('btn-outline-dark');
-            button.classList.add('btn-primary');
+            // Maintain size and shape while applying a different style
+            button.classList.add('active-page'); // Add a custom class for the current page
             button.disabled = true; // Disable pressing a pressed button
+        } else {
+            button.onclick = () => goToPage(i); // Function to navigate to the selected page
         }
 
-        button.onclick = () => goToPage(i);
-        paginationControls.appendChild(button);
+        paginationControls.appendChild(button); // Append the button to pagination controls
     }
-
-    // Next button
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next';
-    nextButton.className = 'btn btn-outline-primary ms-2';
-    nextButton.disabled = currentPage === totalPages;
-    nextButton.onclick = () => goToPage(currentPage + 1);
-    paginationControls.appendChild(nextButton);
 }
+
+
 
 function goToPage(page) {
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);

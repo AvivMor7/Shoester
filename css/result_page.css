@@ -7,41 +7,60 @@
     display: flex;
     flex-wrap: wrap;
     margin-left: 6vh;
-    justify-content: flex-start; /* Align items to the start */
+    justify-content: flex-start; 
+    gap: 20px; 
 }
 
 .product-item {
-    flex: 1 0 15%; /* Adjust this value for more items in a row */
-    margin: 10px;  /* Adjust the margin as needed */
+    flex: 1 0 15%; /* Allow items to maintain their width without stretching */
+    box-sizing: border-box; /* Include padding and borders in the width */
 }
 
 .card {
-    max-width: 750px; /* Set the maximum width of the card */
+    max-width: 220px; /* Set maximum width of the card */
     width: 100%; /* Ensure it takes full width of its container */
     border: 1px solid #ddd;
     border-radius: 5px;
     overflow: hidden;
-    display: flex; /* Use flex to ensure image scales properly */
+    display: flex; /* Ensure image scales properly */
     flex-direction: column; /* Stack image and content vertically */
 }
 
 .product-image {
     width: 100%; /* Image takes full width of card */
     height: auto; /* Maintain aspect ratio */
-    max-height: 650px; /* Limit max height of image */
+    max-height: 200px; /* Limit max height of image */
     object-fit: cover; /* Ensure image covers area without stretching */
-}
-
-#pagination_controls button {
-    padding: 8px 16px;
-    font-size: 16px;
-    min-width: 40px;
 }
 
 #pagination_controls {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+#pagination_controls button {
+    font-size: 20px;
+    font-weight: 600;
+    width: 60px; /* Adjust width as needed */
+    padding: 10px 12px; /* Add padding for a better button size */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+    display: flex; /* Enable flexbox for centering */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+}
+
+#pagination_controls button:hover {
+    background-color: #0056b3; /* Darker shade on hover for outline buttons */
+    color: white; /* Change text color on hover */
+}
+
+.active-page {
+    background-color: #007bff; /* Active page background color */
+    color: white; /* Text color for active page */
+    border-color: #007bff; /* Match border color with background */
+    pointer-events: none; /* Prevent clicking on the active button */
 }
 
 .no-gutters {
