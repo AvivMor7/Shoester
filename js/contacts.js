@@ -1,4 +1,5 @@
-const RAPIDAPI_KEY = '6a2a422068msh9a52666f613826bp1281cejsn0f9ccb9c5db1'; // Your RapidAPI key
+require('dotenv').config({ path: '.env.local' });
+const RAPIDAPI_KEY =  process.env.RAPIDAPI_KEY;
 
 // Initialize the map
 function initMap() {

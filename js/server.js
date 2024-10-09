@@ -17,7 +17,7 @@ const Order = require('../models/user');
 require('dotenv').config({ path: '.env.local' }); // Load environment variables
 
 // Connect to MongoDB
-const mongoURI = 'mongodb+srv://lohemaham:ahamloa310522@shoester.rwg7h.mongodb.net/store?retryWrites=true&w=majority&appName=shoester';
+const mongoURI =  process.env.MONGODB_URI;
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
