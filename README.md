@@ -14,7 +14,7 @@ Shoester is a shoe-selling website designed and developed by four Computer Scien
 
 ## Technologies Used
 
-- **Frontend**: JavaScript
+- **Frontend**: JavaScript, Html, Css
 - **Data Handling**: JSON
 - **Backend**: MongoDB
 
