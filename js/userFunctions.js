@@ -1,5 +1,4 @@
 const User = require('../models/user');
-const bcrypt = require('bcrypt');
 
 async function checkUser(username, password) {
     try {
@@ -31,7 +30,7 @@ async function updateCart(username, updatedCart) {
 
         // If user is not found, throw an error
         if (!result) {
-            throw new Error(`User with username ${username} not found.`);
+            throw new Error('User with username ${username} not found.');
         }
 
         return result; // Return the updated user document
@@ -126,4 +125,4 @@ async function getUser(username) {
     }
 }
 
-module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart }; // Export
+module.exports = { addUser, checkUser, getUsers, getUser, deleteUser , isAdmin, updateCart}; // Export
