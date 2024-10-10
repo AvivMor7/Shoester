@@ -1,3 +1,4 @@
+![Shoester Banner](https://github.com/AvivMor7/Shoester/blob/main/assets/banner.jpg)
 
 # Shoester
 
