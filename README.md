@@ -30,23 +30,21 @@ Shoester is a shoe-selling website designed and developed by four Computer Scien
    cd shoester
    ```
 
-3. Install dependencies (if applicable):
+3. Start the development server:
    
    ```bash
-   npm install
-   ```
-
-4. Start the development server:
-   
-   ```bash
-   npm start
+   node js/server.js
    ```
 
 ## Usage
 
+1. Run the server:
+      ```
+   node js/server.js
+   ```
 1. Open the website in your browser:
    ```
-   http://localhost:3000
+   http://localhost:3030
    ```
 
 2. Register as a new user or log in to browse products.
