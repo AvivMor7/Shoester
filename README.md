@@ -21,7 +21,7 @@ Shoester is a shoe-selling website designed and developed by four Computer Scien
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/shoester.git
+   git clone https://github.com/AvivMor7/Shoester.git
    ```
 
 2. Navigate to the project directory:
