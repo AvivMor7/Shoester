@@ -54,7 +54,7 @@ Shoester is a shoe-selling website designed and developed by four Computer Scien
 
 ## Contributions
 
-This project was built by **Guy**, **Koren**, **Aviv**, and **Gal** as part of a Computer Science course project. Contributions are welcome! Feel free to open a pull request or issue if you'd like to enhance the site.
+This project was built by **Aviv**, **Koren**, **Guy**, and **Gal** as part of a Computer Science course project. Contributions are welcome! Feel free to open a pull request or issue if you'd like to enhance the site.
 
 ## License
 
